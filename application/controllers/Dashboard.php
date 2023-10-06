@@ -5,6 +5,7 @@ class Dashboard extends CI_Controller
 {
 	public function index()
 	{
-		$this->load->view('dashboard');
+		check_not_login();
+		$this->template->load('template', 'dashboard');
 	}
 }
