@@ -13,7 +13,7 @@ class Fuct
     {
         $this->ci->load->model('m_user');
         $id_user = $this->ci->session->userdata('id_user');
-        $data_user = $this->ci->m_user->get('');
-        return $user_data;
+        $data_user = $this->ci->m_user->get($id_user)->row();
+        return $data_user;
     }
 }
