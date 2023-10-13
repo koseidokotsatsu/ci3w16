@@ -22,6 +22,7 @@
                     <form action="" method="post">
                         <div class="form-group">
                             <label>Name</label>
+                            <input type="hidden" name="id_user" value="<?= $this->input->post('id_user') ?? $row->id_user; ?>">
                             <input type="text" name="name" class="form-control" value="<?= $this->input->post('name') ?? $row->name; ?>">
                         </div>
                         <div class="form-group <?= form_error('username') ? 'has-error' : null ?>">

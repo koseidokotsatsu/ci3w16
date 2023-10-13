@@ -6,8 +6,10 @@ class User extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        check_level();
         check_not_login();
 
+        $this->load->library('form_validation');
         $this->load->model('m_user');
     }
     public function index()
@@ -45,8 +47,6 @@ class User extends CI_Controller
     }
     public function edit($id)
     {
-        $this->load->library('form_validation');
-
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|callback_username_check');
         if ($this->input->post('password')) {
             $this->form_validation->set_rules('password', 'Password', 'min_length[5]');
@@ -92,6 +92,7 @@ class User extends CI_Controller
             return true;
         }
     }
+
     public function del()
     {
         $id = $this->input->post('id_user');

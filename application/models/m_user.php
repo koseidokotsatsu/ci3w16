@@ -26,9 +26,20 @@ class m_user extends CI_Model
     {
         $data['name'] = $post['name'] != "" ? $post['name'] : null;
         $data['username'] = $post['username'];
-        $data['password'] = $post['password'];
+        $data['password'] = sha1($post['password']);
         $data['level'] = $post['level'];
         $this->db->insert('user', $data);
+    }
+    public function edit($post)
+    {
+        $data['name'] = $post['name'] != "" ? $post['name'] : null;
+        $data['username'] = $post['username'];
+        if (!empty($post['password'])) {
+            $data['password'] = sha1($post['password']);
+        }
+        $data['level'] = $post['level'];
+        $this->db->where('id_user', $post['id_user']);
+        $this->db->update('user', $data);
     }
     public function del($id)
     {

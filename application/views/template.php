@@ -126,7 +126,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="<?= site_url('supplier'); ?>">
                             <i class="fa fa-truck"></i>
                             <span>Suppliers</span>
                         </a>
@@ -182,13 +182,15 @@
                             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
                         </ul>
                     </li>
-                    <li class="header">SETTINGS</li>
-                    <li>
-                        <a href="<?= site_url('user'); ?>">
-                            <i class="fa fa-user"></i>
-                            <span>Users</span>
-                        </a>
-                    </li>
+                    <?php if ($this->fuct->user_login()->level == 1) { ?>
+                        <li class="header">SETTINGS</li>
+                        <li>
+                            <a href="<?= site_url('user'); ?>">
+                                <i class="fa fa-user"></i>
+                                <span>Users</span>
+                            </a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </section>
             <!-- /.sidebar -->

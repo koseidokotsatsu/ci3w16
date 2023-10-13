@@ -17,7 +17,7 @@ class Auth extends CI_Controller
             if ($query->num_rows() > 0) {
                 $row = $query->row();
                 $params =  array(
-                    'iduser' => $row->id_user,
+                    'id_user' => $row->id_user,
                     'level' => $row->level
                 );
                 $this->session->set_userdata($params);
@@ -35,7 +35,7 @@ class Auth extends CI_Controller
     }
     public function logout()
     {
-        $params = array('iduser', 'level');
+        $params = array('id_user', 'level');
         $this->session->unset_userdata($params);
         redirect('auth/login');
     }
