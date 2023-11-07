@@ -12,6 +12,16 @@ class m_supplier extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+    public function add($post)
+    {
+        $params = [
+            'name' => $post['supplier_name'],
+            'phone' => $post['phone'],
+            'address' => $post['address'],
+            'description' => empty($post['description']) ? null : $post['description']
+        ];
+        $this->db->insert('supplier', $params);
+    }
     public function del($id)
     {
         $this->db->where('id_supplier', $id);

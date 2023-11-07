@@ -12,7 +12,7 @@
             <h3 class="box-title">Data Users</h3>
             <div class="pull-right">
                 <a href="<?= site_url('user/add'); ?>" class="btn btn-primary btn-flat">
-                    <i class="fa fa-user-plus"></i>&nbsp;Create
+                    <i class="fa fa-user-plus"></i>
                 </a>
             </div>
         </div>

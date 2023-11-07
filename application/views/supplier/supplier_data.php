@@ -12,7 +12,7 @@
             <h3 class="box-title">Data Supplier</h3>
             <div class="pull-right">
                 <a href="<?= site_url('supplier/add'); ?>" class="btn btn-primary btn-flat">
-                    <i class="fa fa-user-plus"></i>&nbsp;Create
+                    <i class="fa fa-plus"></i>
                 </a>
             </div>
         </div>
@@ -38,8 +38,11 @@
                             <td><?= $data->address ?></td>
                             <td><?= $data->description ?></td>
                             <td class="text-center" width="160px">
+                                <a href="<?= site_url('supplier/edit/' . $data->id_supplier) ?>" class="btn btn-primary btn-xs">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
                                 <a href="<?= site_url('supplier/del/' . $data->id_supplier) ?>" class="btn btn-danger btn-xs">
-                                    <i class="fa fa-trash"></i>&nbsp;Delete
+                                    <i class="fa fa-trash"></i>
                                 </a>
                             </td>
                         </tr>
