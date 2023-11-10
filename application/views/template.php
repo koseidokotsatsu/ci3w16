@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">
 
         <header class="main-header">
@@ -132,7 +132,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="<?= site_url('customer'); ?>">
                             <i class="fa fa-users"></i>
                             <span>Customers</span>
                         </a>
@@ -146,12 +146,9 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                            <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                            <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                            <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                            <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                            <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
+                            <li><a href="<?= site_url('category'); ?>"><i class="fa fa-circle-o"></i> Categories</a></li>
+                            <li><a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Units</a></li>
+                            <li><a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a></li>
                         </ul>
                     </li>
                     <li class="treeview">

@@ -40,7 +40,7 @@ class Supplier extends CI_Controller
             $this->template->load('template', 'supplier/supplier_form', $data);
         } else {
             echo "<script>alert('Data not found!');";
-            echo "window.location='" . site_url('user') . "';</script>";
+            echo "window.location='" . site_url('supplier') . "';</script>";
         }
     }
     public function process()
