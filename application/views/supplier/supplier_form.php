@@ -9,7 +9,7 @@
 <section class="content">
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Add Supplier</h3>
+            <h3 class="box-title"><?= ucfirst($page); ?> Supplier</h3>
             <div class="pull-right">
                 <a href="<?= site_url('supplier'); ?>" class="btn btn-warning btn-flat">
                     <i class="fa fa-undo"></i>&nbsp;&nbsp;Return
@@ -22,6 +22,7 @@
                     <form action="<?= base_url('supplier/process') ?>" method="post">
                         <div class="form-group">
                             <label>Supplier Name<span style="color: #BA3131;">*</span></label>
+                            <input type="hidden" name="id" value="<?= $row->id_supplier; ?>">
                             <input type="text" name="supplier_name" class="form-control" value="<?= $row->name; ?>" required>
                         </div>
                         <div class="form-group">

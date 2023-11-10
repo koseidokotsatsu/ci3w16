@@ -34,13 +34,13 @@ class Supplier extends CI_Controller
         if ($query->num_rows() > 0) {
             $supplier = $query->row();
             $data = array(
-                'page' => 'add',
+                'page' => 'edit',
                 'row' => $supplier
             );
             $this->template->load('template', 'supplier/supplier_form', $data);
         } else {
-            echo "<script>alert('Data not found!');</script>";
-            echo "<script>window.location='" . site_url('supplier') . "';</script>";
+            echo "<script>alert('Data not found!');";
+            echo "window.location='" . site_url('user') . "';</script>";
         }
     }
     public function process()
@@ -48,9 +48,11 @@ class Supplier extends CI_Controller
         $post = $this->input->post(null, true);
         if (isset($_POST['add'])) {
             $this->m_supplier->add($post);
+        } elseif (isset($_POST['edit'])) {
+            $this->m_supplier->edit($post);
         }
         if ($this->db->affected_rows() > 0) {
-            echo "<script>alert('Data Added!');</script>";
+            echo "<script>alert('Data Saved!');</script>";
         }
         echo "<script>window.location='" . site_url('supplier') . "';</script>";
     }
