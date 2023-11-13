@@ -5,7 +5,10 @@ class m_item extends CI_Model
 {
     public function get($id = null)
     {
+        $this->db->select('p_item.*, p_category.name as name_category, p_unit.name as name_unit ');
         $this->db->from('p_item');
+        $this->db->join('p_category', 'p_category.id_category = p_item.id_category');
+        $this->db->join('p_unit', 'p_unit.id_unit = p_item.id_unit');
         if ($id != null) {
             $this->db->where('id_item', $id);
         }
