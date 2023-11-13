@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<?= base_url(''); ?>assets/bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url(''); ?>assets/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="<?= base_url(''); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="<?= base_url(''); ?>assets/dist/css/skins/_all-skins.min.css">
@@ -427,6 +428,9 @@
     <script src="<?= base_url(''); ?>assets/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- datepicker -->
     <script src="<?= base_url(''); ?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- DataTables -->
+    <script src="<?= base_url(''); ?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url(''); ?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <!-- Bootstrap WYSIHTML5 -->
     <script src="<?= base_url(''); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     <!-- Slimscroll -->
@@ -439,6 +443,12 @@
     <script src="<?= base_url(''); ?>assets/dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_url(''); ?>assets/dist/js/demo.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#table1').DataTable()
+        })
+    </script>
 </body>
 
 </html>
