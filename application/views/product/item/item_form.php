@@ -1,0 +1,62 @@
+<section class="content-header">
+    <h1>
+        Items
+        <small>Data Barang</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title"><?= ucfirst($page); ?> Item</h3>
+            <div class="pull-right">
+                <a href="<?= site_url('item'); ?>" class="btn btn-warning btn-flat">
+                    <i class="fa fa-undo"></i>&nbsp;&nbsp;Return
+                </a>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <form action="<?= base_url('item/process') ?>" method="post">
+                        <div class="form-group">
+                            <label>Barcode<span style="color: #BA3131;">*</span></label>
+                            <input type="hidden" name="id" value="<?= $row->id_item; ?>">
+                            <input type="text" name="barcode" class="form-control" value="<?= $row->barcode; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Product Name<span style="color: #BA3131;">*</span></label>
+                            <input type="text" name="product_name" class="form-control" value="<?= $row->name; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Category<span style="color: #BA3131;">*</span></label>
+                            <select name="category" class="form-control">
+                                <option value="">-- Pilih --</option>
+                                <?php foreach($category->result() as $key => $data) {?>
+                                 <option value="<?= $data->id_category?>" <?= $data->id_category == $row->id_category ? "selected" : null ?>><?= $data->name?></option>   
+                                <?php } ?>    
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Unit<span style="color: #BA3131;">*</span></label>
+                            <?php echo form_dropdown('unit', $unit, $selectedunit,['class' => 'form-control', 'required' => 'required']) ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Price<span style="color: #BA3131;">*</span></label>
+                            <input type="number" name="price" class="form-control" value="<?= $row->price; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="<?= $page ?>" class="btn btn-success btn-flat">
+                                <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;Save
+                            </button>
+                            <button type="Reset" class="btn btn-flat">
+                                Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

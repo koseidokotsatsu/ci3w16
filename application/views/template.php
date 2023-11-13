@@ -138,8 +138,9 @@
                             <span>Customers</span>
                         </a>
                     </li>
-                    <li class="treeview <?= $this->uri->segment(1) == 'category' ||
-                      $this->uri->segment(1) == 'unit' ? 'active' : '' ?>">
+                    <li class="treeview <?= $this->uri->segment(1) == 'category' || 
+                      $this->uri->segment(1) == 'unit' || 
+                      $this->uri->segment(1) == 'item' ? 'active' : '' ?>">
                         <a href="#">
                             <i class="fa fa-archive"></i>
                             <span>Product</span>
@@ -150,7 +151,7 @@
                         <ul class="treeview-menu">
                             <li <?= $this->uri->segment(1) == 'category'  ? 'class="active"' : '' ?>><a href="<?= site_url('category'); ?>"><i class="fa fa-circle-o"></i> Categories</a></li>
                             <li <?= $this->uri->segment(1) == 'unit'  ? 'class="active"' : '' ?>><a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Units</a></li>
-                            <li><a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a></li>
+                            <li <?= $this->uri->segment(1) == 'item'  ? 'class="active"' : '' ?>><a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
