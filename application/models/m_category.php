@@ -23,7 +23,7 @@ class m_category extends CI_Model
     {
         $params = [
             'name' => $post['category_name'],
-            'updated_at' => date('Y-m-d H:i:s')
+            'update_at' => date('Y-m-d H:i:s')
         ];
         $this->db->where('id_category', $post['id']);
         $this->db->update('p_category', $params);
