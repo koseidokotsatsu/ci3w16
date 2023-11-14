@@ -37,7 +37,12 @@
                     foreach ($row->result() as $key => $data) { ?>
                         <tr>
                             <td style="width:5%;"><?= $no++ ?></td>
-                            <td><?= $data->barcode ?></td>
+                            <td>
+                                <?= $data->barcode ?> <br>
+                                <a href="<?= site_url('item/barcode_qrcode/' . $data->id_item) ?>" class="btn btn-warning btn-xs">
+                                    View Barcode <i class="fa fa-barcode"></i>
+                                </a>
+                            </td>
                             <td><?= $data->name ?></td>
                             <td><?= $data->name_category ?></td>
                             <td><?= $data->name_unit ?></td>

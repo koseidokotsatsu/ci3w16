@@ -136,11 +136,21 @@ class item extends CI_Controller
     }
     public function del($id)
     {
-        $this->m_item->del($id);
+        $item = $this->m_item->get($id)->row();
+        if($item->image != null) {
+            $target_file = './uploads/product/'.$item->image;
+            unlink($target_file);
+        }
 
+        $this->m_item->del($id);
         if ($this->db->affected_rows() > 0) {
             $this->session->set_flashdata('flashdata', 'Data Deleted!');
         }
         redirect('item');
+    }
+
+    function barcode_qrcode($id) {
+        $data['row'] = $this->m_item->get($id)->row();
+        $this->template->load('template', 'product/item/barcode_qrcode', $data);
     }
 }
