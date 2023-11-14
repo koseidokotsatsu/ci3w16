@@ -21,6 +21,7 @@ class item extends CI_Controller
         $item->barcode = null;
         $item->name = null;
         $item->price = null;
+        $item->id_category = null;
 
         $query_category = $this->m_category->get();
         $query_unit = $this->m_unit->get();
@@ -65,14 +66,47 @@ class item extends CI_Controller
     {
         $post = $this->input->post(null, true);
         if (isset($_POST['add'])) {
-            $this->m_item->add($post);
+            if($this->m_item->check_barcode($post['barcode'])->num_rows() > 0) {
+                $this->session->set_flashdata('error', "Barcode $post[barcode] sudah dipakai barang lain");
+                redirect('item/add');
+            }else {            
+                $config['upload_path']          = './uploads/product/';
+                $config['allowed_types']        = 'gif|jpg|jpeg|png';
+                $config['max_size']             = 2048;
+                $config['file_name']            = 'item-'.date('ymd').'-'.substr(md5(rand()),0,10);
+                $this->load->library('upload', $config);
+
+                if(@$_FILES['image']['name'] != null) {
+                    if($this->upload->do_upload('image')) {
+                        $post['image'] = $this->upload->data('file_name');
+                        $this->m_item->add($post);
+                        if ($this->db->affected_rows() > 0) {
+                            $this->session->set_flashdata('flashdata', 'Data Saved!');
+                        }
+                        redirect('item');
+                    }else {
+                        $error = $this->upload->display_errors();
+                        $this->session->set_flashdata('error', $error);
+                        redirect('item/add');
+                    }
+                } else {
+                    $post['image'] = null;
+                        $this->m_item->add($post);
+                        if ($this->db->affected_rows() > 0) {
+                            $this->session->set_flashdata('flashdata', 'Data Saved!');
+                        }
+                        redirect('item');
+                }
+            }
         } elseif (isset($_POST['edit'])) {
+            if($this->m_item->check_barcode($post['barcode'], $post['id'])->num_rows() > 0) {
+                $this->session->set_flashdata('error', "Barcode $post[barcode] sudah dipakai barang lain");
+                redirect('item/edit/'. $post['id']);
+            }else {
             $this->m_item->edit($post);
+            }
         }
-        if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('flashdata', 'Data Saved!');
-        }
-        redirect('item');
+        
     }
     public function del($id)
     {

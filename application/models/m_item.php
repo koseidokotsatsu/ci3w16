@@ -12,6 +12,7 @@ class m_item extends CI_Model
         if ($id != null) {
             $this->db->where('id_item', $id);
         }
+        $this->db->order_by('barcode', 'asc');
         $query = $this->db->get();
         return $query;
     }
@@ -23,6 +24,7 @@ class m_item extends CI_Model
             'id_category' => $post['category'],
             'id_unit' => $post['unit'],
             'price' => $post['price'],
+            'image' => $post['image'],
         ];
         $this->db->insert('p_item', $params);
     }
@@ -39,6 +41,17 @@ class m_item extends CI_Model
         $this->db->where('id_item', $post['id']);
         $this->db->update('p_item', $params);
     }
+
+    function check_barcode($code, $id = null) {
+        $this->db->from('p_item');
+        $this->db->where('barcode', $code);
+        if($id != null) {
+            $this->db->where('id_item !=', $id);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+
     public function del($id)
     {
         $this->db->where('id_item', $id);

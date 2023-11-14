@@ -21,13 +21,14 @@
             <table class="table table-bordered table-striped" id="table1">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>No</th>
                         <th>Barcode</th>
                         <th>Name</th>
                         <th>Category</th>
                         <th>Unit</th>
                         <th>Price</th>
                         <th>Stock</th>
+                        <th>Image</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -42,6 +43,12 @@
                             <td><?= $data->name_unit ?></td>
                             <td><?= $data->price ?></td>
                             <td><?= $data->stock ?></td>
+                            <td>
+                                <?php if($data->image != null) { ?>
+                                    
+                                    <img src="<?= base_url('uploads/product/'.$data->image) ?>" style="width: 100px;">
+                                <?php } ?>
+                            </td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('item/edit/' . $data->id_item) ?>" class="btn btn-primary btn-xs">
                                     <i class="fa fa-pencil"></i>
