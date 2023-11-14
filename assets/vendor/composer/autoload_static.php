@@ -7,9 +7,22 @@ namespace Composer\Autoload;
 class ComposerStaticInit19cd951a7f34dd7ab8b184d1e798f04c
 {
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Svg\\' => 4,
+            'Sabberworm\\CSS\\' => 15,
+        ),
         'P' => 
         array (
             'Picqer\\Barcode\\' => 15,
+        ),
+        'M' => 
+        array (
+            'Masterminds\\' => 12,
+        ),
+        'F' => 
+        array (
+            'FontLib\\' => 8,
         ),
         'E' => 
         array (
@@ -17,6 +30,7 @@ class ComposerStaticInit19cd951a7f34dd7ab8b184d1e798f04c
         ),
         'D' => 
         array (
+            'Dompdf\\' => 7,
             'DASPRiD\\Enum\\' => 13,
         ),
         'C' => 
@@ -30,13 +44,33 @@ class ComposerStaticInit19cd951a7f34dd7ab8b184d1e798f04c
     );
 
     public static $prefixDirsPsr4 = array (
+        'Svg\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
+        'Sabberworm\\CSS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
+        ),
         'Picqer\\Barcode\\' => 
         array (
             0 => __DIR__ . '/..' . '/picqer/php-barcode-generator/src',
         ),
+        'Masterminds\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/masterminds/html5/src',
+        ),
+        'FontLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
+        ),
         'Endroid\\QrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/endroid/qr-code/src',
+        ),
+        'Dompdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
         'DASPRiD\\Enum\\' => 
         array (
@@ -54,6 +88,7 @@ class ComposerStaticInit19cd951a7f34dd7ab8b184d1e798f04c
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

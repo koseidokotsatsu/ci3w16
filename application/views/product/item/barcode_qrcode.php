@@ -22,6 +22,10 @@
             echo $generator->getBarcode($row->barcode, $generator::TYPE_CODE_128_B);
             ?>
             <?= $row->barcode?>
+            <br><br>
+            <a href="<?=site_url('item/barcode_print/'.$row->id_item)?>" target="_blank" class="btn btn-default btn-sm">
+                <i class="fa fa-print"></i> Print
+            </a>
         </div>
     </div>
 
@@ -36,7 +40,8 @@
             use Endroid\QrCode\Encoding\Encoding;
             use Endroid\QrCode\ErrorCorrectionLevel;
             use Endroid\QrCode\QrCode;
-            use Endroid\QrCode\Label\Label;
+            // use Endroid\QrCode\Label\Label;
+            // use Endroid\QrCode\Label\Font\NotoSans;
             use Endroid\QrCode\Logo\Logo;
             use Endroid\QrCode\RoundBlockSizeMode;
             use Endroid\QrCode\Writer\PngWriter;
