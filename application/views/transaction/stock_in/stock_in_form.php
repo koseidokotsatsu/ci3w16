@@ -38,13 +38,13 @@
                         </div>
                         <div class="form-group">
                             <label for="item_name">Item Name<span style="color: #BA3131;">*</span></label>
-                            <input type="text" name="item_name" class="form-control" readonly>
+                            <input type="text" name="item_name" id="item_name" class="form-control" readonly>
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <label for="unit_name">Item Unit</label>
-                                    <input type="text" name="unit_name" id="unit_name" value="-" class="form-control" readonly>
+                                    <label for="name_unit">Item Unit</label>
+                                    <input type="text" name="name_unit" id="name_unit" value="-" class="form-control" readonly>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="stock">Initial Stock</label>
@@ -60,6 +60,9 @@
                             <label>Supplier</label>
                             <select name="supplier" class="form-control">
                                 <option value="">-- Pilih --</option>
+                                <?php foreach($supplier as $i => $data) {
+                                    echo'<option value="'.$data->id_supplier.'">'.$data->name.'</option>';
+                                } ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -80,3 +83,76 @@
         </div>
     </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-item">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Select Product Item</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body table-responsive">
+        <table class="table table-bordered table-striped" id="table1">
+            <thead>
+                <tr>
+                    <th>Barcode</th>
+                    <th>Name</th>
+                    <th>Unit</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($item as $i => $data) { ?>
+                <tr>
+                    <td><?= $data->barcode ?></td>
+                    <td><?= $data->name ?></td>
+                    <td><?= $data->name_unit ?></td>
+                    <td class="text-right"><?= indo_currency($data->price)?></td>
+                    <td class="text-right"><?= $data->stock ?></td>
+                    <td>
+                        <button class="btn btn-sm btn-info" style="margin-left: 20px;" id="select"
+                        data-id="<?= $data->id_item ?>"
+                        data-barcode="<?= $data->barcode ?>"
+                        data-name="<?= $data->name ?>"
+                        data-unit="<?= $data->name_unit ?>"
+                        data-stock="<?= $data->stock ?>">
+                            <i class="fa fa-check">Select</i>
+                        </button>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '#select', function(){
+            var id_item = $(this).data('id');
+            var barcode = $(this).data('barcode');
+            var name = $(this).data('name');
+            var name_unit = $(this).data('unit');
+            var stock = $(this).data('stock');
+
+            $('#id_item').val(id_item);
+            $('#barcode').val(barcode);
+            $('#item_name').val(name);
+            $('#name_unit').val(name_unit);
+            $('#stock').val(stock);
+            $('#modal-item').modal('hide');
+
+        })
+    })
+</script>

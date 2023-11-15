@@ -7,7 +7,8 @@ class Stock extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        // $this->load->model('m_stock');
+        $this->load->model(['m_item', 'm_supplier']);
+        $this->load->helper('currency');
     }
 
 
@@ -16,6 +17,9 @@ class Stock extends CI_Controller
     }
 
     public function stock_in_add() {
-        $this->template->load('template', 'transaction/stock_in/stock_in_form');
+        $item = $this->m_item->get()->result();
+        $supplier = $this->m_supplier->get()->result();
+        $data = ['item' => $item, 'supplier' => $supplier];
+        $this->template->load('template', 'transaction/stock_in/stock_in_form', $data);
     }
 }
