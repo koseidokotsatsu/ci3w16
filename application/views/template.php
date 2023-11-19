@@ -41,7 +41,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="hold-transition skin-green sidebar-mini">
+<body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">
 
         <header class="main-header">
@@ -138,9 +138,9 @@
                             <span>Customers</span>
                         </a>
                     </li>
-                    <li class="treeview <?= $this->uri->segment(1) == 'category' || 
-                      $this->uri->segment(1) == 'unit' || 
-                      $this->uri->segment(1) == 'item' ? 'active' : '' ?>">
+                    <li class="treeview <?= $this->uri->segment(1) == 'category' ||
+                                            $this->uri->segment(1) == 'unit' ||
+                                            $this->uri->segment(1) == 'item' ? 'active' : '' ?>">
                         <a href="#">
                             <i class="fa fa-archive"></i>
                             <span>Product</span>
@@ -154,9 +154,9 @@
                             <li <?= $this->uri->segment(1) == 'item'  ? 'class="active"' : '' ?>><a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a></li>
                         </ul>
                     </li>
-                    <li class="treeview <?= $this->uri->segment(1) == 'sales' || 
-                      $this->uri->segment(1) == 'stock_in' || 
-                      $this->uri->segment(1) == 'stock_out' ? 'active' : '' ?>">
+                    <li class="treeview <?= $this->uri->segment(1) == 'sales' ||
+                                            $this->uri->segment(1) == 'stock_in' ||
+                                            $this->uri->segment(1) == 'stock_out' ? 'active' : '' ?>">
                         <a href="#">
                             <i class="fa fa-archive"></i>
                             <span>Transaction</span>
@@ -198,8 +198,8 @@
             </section>
             <!-- /.sidebar -->
         </aside>
-         <!-- jQuery 3 -->
-    <script src="<?= base_url(''); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+        <!-- jQuery 3 -->
+        <script src="<?= base_url(''); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <?= $contents; ?>
