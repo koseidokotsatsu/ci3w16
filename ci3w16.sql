@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Nov 2023 pada 09.32
+-- Waktu pembuatan: 21 Nov 2023 pada 09.04
 -- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.1.17
+-- Versi PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `customer` (
   `name` varchar(100) DEFAULT NULL,
   `gender` enum('L','P') DEFAULT NULL,
   `phone` varchar(15) DEFAULT NULL,
-  `address` text NOT NULL,
+  `address` text DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -90,8 +90,8 @@ CREATE TABLE `p_item` (
 --
 
 INSERT INTO `p_item` (`id_item`, `barcode`, `name`, `id_category`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
-(14, 'A001', 'Paramex', 11, 2, 5000, 0, 'item-231114-e8cd559731.jpg', 2147483647, NULL),
-(16, 'A002', 'Bodrex', 11, 2, 4500, 0, 'item-231115-13f54d7b77.png', 2147483647, NULL),
+(14, 'A001', 'Paramex', 11, 2, 5000, 22, 'item-231114-e8cd559731.jpg', 2147483647, NULL),
+(16, 'A002', 'Bodrex', 11, 2, 4500, 39, 'item-231115-13f54d7b77.png', 2147483647, NULL),
 (17, 'A003', 'Ultraflu', 11, 2, 5000, 0, 'item-231115-5a22429cb0.png', 2147483647, NULL),
 (18, 'A004', 'Paracetamol', 11, 2, 3000, 0, 'item-231115-00ba39322c.png', 2147483647, NULL),
 (19, 'A005', 'Mylanta', 11, 2, 5000, 0, 'item-231115-f3a9d67f61.png', 2147483647, NULL),
@@ -160,12 +160,22 @@ CREATE TABLE `t_stock` (
   `id_item` int(11) NOT NULL,
   `type` enum('in','out') NOT NULL,
   `detail` varchar(500) NOT NULL,
-  `id_supplier` int(11) NOT NULL,
+  `id_supplier` int(11) DEFAULT NULL,
   `qty` int(10) NOT NULL,
   `date` date NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `t_stock`
+--
+
+INSERT INTO `t_stock` (`id_stock`, `id_item`, `type`, `detail`, `id_supplier`, `qty`, `date`, `created_at`, `id_user`) VALUES
+(1, 14, 'in', 'no', 1, 20, '2023-11-21', '2023-11-21 14:06:46', 1),
+(2, 14, 'in', 'no', 1, 20, '2023-11-21', '2023-11-21 14:10:07', 1),
+(3, 14, 'in', 'add', 1, 2, '2023-11-21', '2023-11-21 14:11:10', 1),
+(4, 16, 'in', 'add', 6, 39, '2023-11-21', '2023-11-21 15:01:58', 1);
 
 -- --------------------------------------------------------
 
@@ -282,7 +292,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `t_stock`
 --
 ALTER TABLE `t_stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
