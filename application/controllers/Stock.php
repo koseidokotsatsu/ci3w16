@@ -13,7 +13,8 @@ class Stock extends CI_Controller
 
     public function stock_in_data()
     {
-        $this->template->load('template', 'transaction/stock_in/stock_in_data');
+        $data['row'] = $this->m_stock->get_stock_in()->result();
+        $this->template->load('template', 'transaction/stock_in/stock_in_data', $data);
     }
 
     public function stock_in_add()
@@ -29,6 +30,7 @@ class Stock extends CI_Controller
         if (isset($_POST['in_add'])) {
             $post = $this->input->post(null, TRUE);
             $this->m_stock->add_stock_in($post);
+            $this->m_item->update_stock_in($post);
 
             if ($this->db->affected_rows() > 0) {
                 $this->session->set_flashdata('success', 'Data Saved!');

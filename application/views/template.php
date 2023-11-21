@@ -154,9 +154,7 @@
                             <li <?= $this->uri->segment(1) == 'item'  ? 'class="active"' : '' ?>><a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a></li>
                         </ul>
                     </li>
-                    <li class="treeview <?= $this->uri->segment(1) == 'sales' ||
-                                            $this->uri->segment(1) == 'stock_in' ||
-                                            $this->uri->segment(1) == 'stock_out' ? 'active' : '' ?>">
+                    <li class="treeview <?= $this->uri->segment(1) == 'stock' ? 'active' : '' ?>">
                         <a href="#">
                             <i class="fa fa-archive"></i>
                             <span>Transaction</span>
@@ -165,9 +163,11 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li <?= $this->uri->segment(1) == 'sales'  ? 'class="active"' : '' ?>><a href="<?= site_url('sales'); ?>"><i class="fa fa-circle-o"></i> Sales</a></li>
-                            <li <?= $this->uri->segment(1) == 'stock_in'  ? 'class="active"' : '' ?>><a href="<?= site_url('stock/in'); ?>"><i class="fa fa-circle-o"></i> Stock In</a></li>
-                            <li <?= $this->uri->segment(1) == 'stock_out'  ? 'class="active"' : '' ?>><a href="<?= site_url('stock_out'); ?>"><i class="fa fa-circle-o"></i> Stock Out</a></li>
+                            <li><a href="<?= site_url('sales'); ?>"><i class="fa fa-circle-o"></i> Sales</a></li>
+                            <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('stock/in'); ?>"><i class="fa fa-circle-o"></i> Stock in</a>
+                            </li>
+                            <li><a href="<?= site_url('stock_out'); ?>"><i class="fa fa-circle-o"></i> Stock Out</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
