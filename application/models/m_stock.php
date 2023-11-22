@@ -3,6 +3,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class m_stock extends CI_Model
 {
+
+    public function get($id = null) {
+        $this->db->from('t_stock');
+        if($id != null) {
+            $this->db->where('id_stock', $id);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function del($id) {
+        $this->db->where('id_stock', $id);
+        $this->db->delete('t_stock');
+    }
+
     public function get_stock_in()
     {
         $this->db->select('t_stock.id_stock, p_item.barcode, p_item.name as item_name, qty, date, detail, supplier.name as supplier_name, p_item.id_item');

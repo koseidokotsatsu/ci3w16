@@ -40,10 +40,10 @@
                             <td class="text-center"><?= indo_date($data->date) ?></td>
                             <td class="text-center" width="160px">
                                 <a class="btn btn-primary btn-xs">
-                                    <i class="fa fa-eye"></i>
+                                    <i class="fa fa-eye"> Detail</i>
                                 </a>
-                                <a href="<?= site_url('stock/in/del/' . $data->id_stock) ?>" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-danger btn-xs">
-                                    <i class="fa fa-trash"></i>
+                                <a href="<?= site_url('stock/in/del/' . $data->id_stock.'/'. $data->id_item) ?>" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-danger btn-xs">
+                                    <i class="fa fa-trash"> Delete</i>
                                 </a>
                             </td>
                         </tr>

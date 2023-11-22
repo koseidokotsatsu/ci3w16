@@ -25,6 +25,20 @@ class Stock extends CI_Controller
         $this->template->load('template', 'transaction/stock_in/stock_in_form', $data);
     }
 
+    public function stock_in_del()
+    {
+        $id_stock = $this->uri->segment(4);
+        $id_item = $this->uri->segment(5);
+        $qty = $this->m_stock->get($id_stock)->row()->qty;
+        $data = ['qty' => $qty,'id_item' => $id_item];
+        $this->m_item->update_stock_out($data);
+        $this->m_stock->del($id_stock);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Data Deleted!');
+        }
+        redirect('stock/in');
+    }
+
     public function process()
     {
         if (isset($_POST['in_add'])) {
