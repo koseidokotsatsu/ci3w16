@@ -30,4 +30,24 @@ class Fuct
         $dompdf->stream($filename, array('Attachment' => 0));
     }
 
+    public function count_item() {
+        $this->ci->load->model('m_item');
+        return $this->ci->m_item->get()->num_rows();
+    }
+
+    public function count_supplier() {
+        $this->ci->load->model('m_supplier');
+        return $this->ci->m_supplier->get()->num_rows();
+    }
+
+    public function count_customer() {
+        $this->ci->load->model('m_customer');
+        return $this->ci->m_customer->get()->num_rows();
+    }
+
+    public function count_user() {
+        $this->ci->load->model('m_user');
+        return $this->ci->m_user->get()->num_rows();
+    }
+
 }
