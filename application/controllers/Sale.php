@@ -15,6 +15,7 @@ class Sale extends CI_Controller
         $customer = $this->m_customer->get()->result();
         $data = array(
             'customer' => $customer,
+            'invoice' => $this->m_sale->invoice_no(),
         );
         $this->template->load('template', 'transaction/sale/sale_form', $data);
     }
