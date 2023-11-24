@@ -124,13 +124,12 @@
                                 <th>Product Item</th>
                                 <th>Price</th>
                                 <th>Qty</th>
-                                <th width="10%">Discount Item</th>
                             </tr>
                         </thead>
                         <tbody id="cart-table">
-                            <tr>
+                            <!-- <tr>
                                 <td colspan="9" class="text-center">No Items</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -261,9 +260,16 @@
                                 <td class="text-right"><?= indo_currency($data->price) ?></td>
                                 <td class="text-right"><?= $data->stock ?></td>
                                 <td>
-                                    <button class="btn btn-sm btn-info" style="margin-left: 20px;" id="select" data-id="<?= $data->id_item ?>" data-barcode="<?= $data->barcode ?>" data-name="<?= $data->name ?>" data-unit="<?= $data->name_unit ?>" data-stock="<?= $data->stock ?>">
-                                        <i class="fa fa-check">Select</i>
-                                    </button>
+                                <button class="btn btn-sm btn-info select-item" style="margin-left: 20px;" 
+                                    id="select" 
+                                    data-id="<?= $data->id_item ?>" 
+                                    data-barcode="<?= $data->barcode ?>" 
+                                    data-name="<?= $data->name ?>" 
+                                    data-unit="<?= $data->name_unit ?>" 
+                                    data-stock="<?= $data->stock ?>"
+                                    data-price="<?= $data->price ?>">
+                                <i class="fa fa-check">Select</i>
+                            </button>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -278,22 +284,258 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $(document).on('click', '#select', function() {
-            var id_item = $(this).data('id');
-            var barcode = $(this).data('barcode');
-            var name = $(this).data('name');
-            var name_unit = $(this).data('unit');
-            var stock = $(this).data('stock');
+$(document).ready(function () {
+     // Fungsi resetForm untuk mereset semua nilai input dan data
+     function resetForm() {
+        // Reset nilai input
+        $("#date").val('<?= date('Y-m-d') ?>');
+        $("#user").val('<?= $this->fuct->user_login()->name ?>');
+        $("#customer").val('');
 
-            $('#id_item').val(id_item);
-            $('#barcode').val(barcode);
-            $('#item_name').val(name);
-            $('#name_unit').val(name_unit);
-            $('#stock').val(stock);
-            $('#modal-item').modal('hide');
+        $("#id_item").val('');
+        $("#price").val('');
+        $("#stock").val('');
+        $("#barcode").val('');
+        $("#qty").val(1);
 
-        })
-    })
+        // Reset nilai subtotal dan total
+        $("#sub_total").val('');
+        $("#id_discount").val(0);
+        $("#total").val('');
+
+        // Reset nilai uang tunai dan kembalian
+        $("#cash").val(0);
+        $("#change").val('');
+
+        // Reset catatan
+        $("#note").val('');
+
+        // Reset keranjang belanja
+        $("#cart-table").empty();
+
+        // Reset informasi invoice
+        $("#invoice").text('<?= $invoice ?>');
+        $("#grand_total2").text('0');
+    }
+    // Inisialisasi penghitung untuk nomor baris
+    var counter = 1;
+    var subtotal = 0; // Menyimpan nilai subtotal
+
+    function formatRupiah(amount) {
+        var currency = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+        });
+        return currency.format(amount);
+    }
+
+    // Simpan data terkait item yang dipilih
+    var selectedItem = {};
+
+    // Event handler untuk tombol "Tambah"
+    $("#add_cart").click(function () {
+        // Dapatkan nilai dari kolom input
+        var qty = $("#qty").val();
+
+        // Pastikan item telah dipilih sebelum menambahkannya ke dalam tabel
+        if ($.isEmptyObject(selectedItem)) {
+            alert('Silakan pilih item terlebih dahulu.');
+            return;
+        }
+
+        // Hitung subtotal berdasarkan harga item dan qty
+        var itemSubtotal = selectedItem.price * qty;
+        subtotal += itemSubtotal;
+
+        // Hitung total setelah mengambil diskon jika ada
+        var discount = $("#id_discount").val();
+        var total = subtotal - discount;
+
+        // Perbarui nilai input subtotal dan total dengan format rupiah
+        $("#sub_total").val(subtotal);
+
+        // Perbarui nilai pada elemen dengan ID tertentu untuk menampilkan total
+        $("#total").val(total);
+
+        // Perbarui nilai pada elemen dengan ID tertentu untuk menampilkan total product item
+        $("#grand_total2").text(formatRupiah(total));
+
+        // Tambahkan baris baru ke tabel keranjang
+        var newRow = "<tr>" +
+            "<td>" + counter + "</td>" +
+            "<td>" + selectedItem.barcode + "</td>" +
+            "<td>" + selectedItem.name + "</td>" +
+            "<td>" + selectedItem.formattedPrice + "</td>" +
+            "<td>" + qty + "</td>" +
+            "</tr>";
+
+        $("#cart-table").append(newRow);
+
+        // Tambahkan penghitung baris
+        counter++;
+
+        // Reset nilai input barcode, item yang dipilih, dan qty
+        $("#barcode").val("");
+        $("#qty").val(1);
+        selectedItem = {};
+    });
+
+    // Event handler untuk tombol "Pilih" di modal
+    $("#modal-item").on("click", ".select-item", function () {
+        // Dapatkan nilai dari baris yang dipilih di modal
+        selectedItem = {
+            barcode: $(this).data("barcode"),
+            qty: $("#qty").val(),
+            price: $(this).data("price"),
+            formattedPrice: formatRupiah($(this).data("price")),
+            name: $(this).data("name")
+        };
+
+        // Anda mungkin perlu memperbarui nilai dalam kolom input
+        $("#barcode").val(selectedItem.barcode);
+        $("#price").val(selectedItem.price);
+        $("#formatted-price").text(selectedItem.formattedPrice);
+
+        // Tutup modal
+        $("#modal-item").modal("hide");
+    });
+
+    // Event handler untuk memperbarui total saat nilai diskon berubah
+    $("#id_discount").on("input", function () {
+        var discount = $(this).val();
+        var total = subtotal - discount;
+
+        // Perbarui nilai pada elemen dengan ID tertentu untuk menampilkan total
+        $("#total").val(total);
+
+        // Perbarui nilai pada elemen dengan ID tertentu untuk menampilkan total product item
+        $("#grand_total2").text(formatRupiah(total));
+    });
+
+    // Event handler untuk memperbarui kembalian saat nilai uang tunai berubah
+$("#cash").on("input", function () {
+    updateChange(); // Panggil fungsi untuk memperbarui kembalian
+});
+
+// Fungsi untuk memperbarui kembalian
+function updateChange() {
+    var cash = parseFloat($("#cash").val());
+    var total = parseFloat($("#total").val());
+
+    // Pastikan kedua nilai adalah angka valid
+    if (isNaN(cash) || isNaN(total)) {
+        alert('Mohon masukkan angka yang valid.');
+        return;
+    }
+
+    // Hitung kembalian
+    var change = cash - total;
+
+    // Perbarui nilai pada elemen dengan ID tertentu untuk menampilkan kembalian
+    $("#change").val(change);
+}
+
+// Event handler untuk tombol "Process Payment"
+$("#process_payment").click(function () {
+    // Cek apakah pembayaran sudah dilakukan
+    var cash = parseFloat($("#cash").val());
+    var total = parseFloat($("#total").val());
+
+    // Pastikan kedua nilai adalah angka valid
+    if (isNaN(cash) || isNaN(total)) {
+        alert('Mohon masukkan angka yang valid.');
+        return;
+    }
+
+    if (cash < total) {
+        alert('Jumlah uang tunai kurang dari total pembelian. Silakan periksa kembali.');
+        return;
+    }
+
+    // Selain itu, proses pembayaran dan print struk
+    printReceipt();
+    });
+
+    // Fungsi untuk mencetak struk
+    function printReceipt() {
+        // Dapatkan informasi yang diperlukan untuk dicetak
+        var invoiceNumber = $("#invoice").text();
+        var date = $("#date").val();
+        var cashier = $("#user").val();
+        var customer = $("#customer option:selected").text();
+        var subTotal = $("#sub_total").val();
+        var discount = $("#id_discount").val();
+        var grandTotal = $("#total").val();
+        var cash = $("#cash").val();
+        var change = $("#change").val();
+        var note = $("#note").val();
+
+        // Buat struk dalam format HTML
+        var receiptContent = `
+            <h2>MEDICALPOS INVOICE</h2>
+            <p>Invoice Number: ${invoiceNumber}</p>
+            <p>Date: ${date}</p>
+            <p>Cashier: ${cashier}</p>
+            <p>Customer: ${customer}</p>
+            <hr>
+            <table>
+                <!-- Tambahkan baris untuk setiap item yang dibeli -->
+            </table>
+            <hr>
+            <p>Sub Total: ${subTotal}</p>
+            <p>Discount: ${discount}</p>
+            <p>Total: ${grandTotal}</p>
+            <p>Cash: ${cash}</p>
+            <p>Change: ${change}</p>
+            <p>Note: ${note}</p>
+        `;
+
+        // Buka jendela baru untuk mencetak struk
+        var printWindow = window.open('', '_blank');
+        printWindow.document.open();
+        printWindow.document.write(`
+            <html>
+                <head>
+                    <title>Receipt</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                        }
+                        h2 {
+                            text-align: center;
+                        }
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        table, th, td {
+                            border: 1px solid #ddd;
+                        }
+                        th, td {
+                            padding: 8px;
+                            text-align: left;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${receiptContent}
+                </body>
+            </html>
+        `);
+        printWindow.document.close();
+
+        // Cetak struk
+        printWindow.print();
+        printWindow.onafterprint = function () {
+            printWindow.close();
+        };
+    }
+     // Event handler untuk tombol "Cancel"
+     $("#cancel_payment").click(function () {
+        resetForm(); // Panggil fungsi resetForm saat tombol "Cancel" ditekan
+    });
+});
+
 </script>
