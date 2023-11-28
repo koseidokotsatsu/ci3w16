@@ -35,23 +35,34 @@ class Sale extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             //
         } else {
+
+            $invoice            = $this->input->post('invoice');
+            $id_customer        = $this->input->post('customer');
+            $total_price        = $this->input->post('total');
+            $discount           = $this->input->post('discount');
+            $cash               = $this->input->post('cash');
+            $remaining          = $this->input->post('change');
+            $note               = $this->input->post('note');
+            $date               = $this->input->post('date');
+            $id_user            = $this->input->post('id_user');
+
+            $invoice = $this->m_sale->invoice_no();
+
             $data = array(
-                'invoice' => $this->input->post('invoice'),
+                'invoice' => $invoice,
                 'id_customer' => $this->input->post('customer'),
                 'total_price' => $this->input->post('total'),
-                'discount' => $this->input->post('id_discount'),
-                'final_price' => $this->input->post('total'),
+                'discount' => $this->input->post('discount'),
                 'cash' => $this->input->post('cash'),
                 'remaining' => $this->input->post('change'),
                 'note' => $this->input->post('note'),
                 'date' => $this->input->post('date'),
                 'id_user' => $this->session->userdata('id_user'),
-                'created_at' => date('Y-m-d H:i:s'),
             );
 
-            $this->m_sale->save_sale($data);
+            $this->m_sale->save_sale($data, 't_sale');
 
-            redirect('sale/success');
+            redirect('sale/index');
         }
     }
 }

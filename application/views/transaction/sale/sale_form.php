@@ -105,7 +105,7 @@
                 <div class="box box-widget">
                     <div class="box-body">
                         <div align="right">
-                            <h4>Invoice <b><span id="invoice"><?= $invoice ?></span></b></h4>
+                            <h4>Invoice <b><span name="invoice" id="invoice"><?= $invoice ?></span></b></h4>
                             <h1><b><span id="grand_total2" style="font-size:50pt">0</span></b></h1>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                                     <label for="discount">Discount</label>
                                 </td>
                                 <td class="form-group">
-                                    <input type="number" id="id_discount" value="0" min="0" class="form-control">
+                                    <input type="number" name="discount"  id="id_discount" value="0" min="0" class="form-control">
                                 </td>
                             </tr>
                             <tr>
@@ -164,7 +164,7 @@
                                     <label for="grand_total">Total</label>
                                 </td>
                                 <td class="form-group">
-                                    <input type="number" id="total" class="form-control" readonly>
+                                    <input type="number" name="total" id="total" class="form-control" readonly>
                                 </td>
                             </tr>
                         </table>
@@ -181,7 +181,7 @@
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        <input type="number" id="cash" value="0" min="0" class="form-control">
+                                        <input type="number" name="cash" id="cash" value="0" min="0" class="form-control">
                                     </div>
                                 </td>
                             </tr>
@@ -191,7 +191,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <input type="number" id="change" class="form-control" readonly>
+                                        <input type="number" name="change" id="change" class="form-control" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -209,7 +209,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <textarea id="note" rows="3" class="form-control"></textarea>
+                                        <textarea name="note" id="note" rows="3" class="form-control"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -433,104 +433,104 @@
             $("#change").val(change);
         }
 
-        // // Event handler untuk tombol "Process Payment"
-        // $("#process_payment").click(function() {
-        //     // Cek apakah pembayaran sudah dilakukan
-        //     var cash = parseFloat($("#cash").val());
-        //     var total = parseFloat($("#total").val());
+        // Event handler untuk tombol "Process Payment"
+        $("#process_payment").click(function() {
+            // Cek apakah pembayaran sudah dilakukan
+            var cash = parseFloat($("#cash").val());
+            var total = parseFloat($("#total").val());
 
-        //     // Pastikan kedua nilai adalah angka valid
-        //     if (isNaN(cash) || isNaN(total)) {
-        //         alert('Mohon masukkan angka yang valid.');
-        //         return;
-        //     }
+            // Pastikan kedua nilai adalah angka valid
+            if (isNaN(cash) || isNaN(total)) {
+                alert('Mohon masukkan angka yang valid.');
+                return;
+            }
 
-        //     if (cash < total) {
-        //         alert('Jumlah uang tunai kurang dari total pembelian. Silakan periksa kembali.');
-        //         return;
-        //     }
+            if (cash < total) {
+                alert('Jumlah uang tunai kurang dari total pembelian. Silakan periksa kembali.');
+                return;
+            }
 
-        //     // Selain itu, proses pembayaran dan print struk
-        //     printReceipt();
-        // });
+            // Selain itu, proses pembayaran dan print struk
+            printReceipt();
+        });
 
-        // // Fungsi untuk mencetak struk
-        // function printReceipt() {
-        //     // Dapatkan informasi yang diperlukan untuk dicetak
-        //     var invoiceNumber = $("#invoice").text();
-        //     var date = $("#date").val();
-        //     var cashier = $("#user").val();
-        //     var customer = $("#customer option:selected").text();
-        //     var subTotal = $("#sub_total").val();
-        //     var discount = $("#id_discount").val();
-        //     var grandTotal = $("#total").val();
-        //     var cash = $("#cash").val();
-        //     var change = $("#change").val();
-        //     var note = $("#note").val();
+        // Fungsi untuk mencetak struk
+        function printReceipt() {
+            // Dapatkan informasi yang diperlukan untuk dicetak
+            var invoiceNumber = $("#invoice").text();
+            var date = $("#date").val();
+            var cashier = $("#user").val();
+            var customer = $("#customer option:selected").text();
+            var subTotal = $("#sub_total").val();
+            var discount = $("#id_discount").val();
+            var grandTotal = $("#total").val();
+            var cash = $("#cash").val();
+            var change = $("#change").val();
+            var note = $("#note").val();
 
-        //     // Buat struk dalam format HTML
-        //     var receiptContent = `
-        //     <h2>MEDICALPOS INVOICE</h2>
-        //     <p>Invoice Number: ${invoiceNumber}</p>
-        //     <p>Date: ${date}</p>
-        //     <p>Cashier: ${cashier}</p>
-        //     <p>Customer: ${customer}</p>
-        //     <hr>
-        //     <table>
-        //         <!-- Tambahkan baris untuk setiap item yang dibeli -->
-        //     </table>
-        //     <hr>
-        //     <p>Sub Total: ${subTotal}</p>
-        //     <p>Discount: ${discount}</p>
-        //     <p>Total: ${grandTotal}</p>
-        //     <p>Cash: ${cash}</p>
-        //     <p>Change: ${change}</p>
-        //     <p>Note: ${note}</p>
-        // `;
+            // Buat struk dalam format HTML
+            var receiptContent = `
+            <h2>MEDICALPOS INVOICE</h2>
+            <p>Invoice Number: ${invoiceNumber}</p>
+            <p>Date: ${date}</p>
+            <p>Cashier: ${cashier}</p>
+            <p>Customer: ${customer}</p>
+            <hr>
+            <table>
+                <!-- Tambahkan baris untuk setiap item yang dibeli -->
+            </table>
+            <hr>
+            <p>Sub Total: ${subTotal}</p>
+            <p>Discount: ${discount}</p>
+            <p>Total: ${grandTotal}</p>
+            <p>Cash: ${cash}</p>
+            <p>Change: ${change}</p>
+            <p>Note: ${note}</p>
+        `;
 
-        //     // Buka jendela baru untuk mencetak struk
-        //     var printWindow = window.open('', '_blank');
-        //     printWindow.document.open();
-        //     printWindow.document.write(`
-        //     <html>
-        //         <head>
-        //             <title>Receipt</title>
-        //             <style>
-        //                 body {
-        //                     font-family: Arial, sans-serif;
-        //                 }
-        //                 h2 {
-        //                     text-align: center;
-        //                 }
-        //                 table {
-        //                     width: 100%;
-        //                     border-collapse: collapse;
-        //                 }
-        //                 table, th, td {
-        //                     border: 1px solid #ddd;
-        //                 }
-        //                 th, td {
-        //                     padding: 8px;
-        //                     text-align: left;
-        //                 }
-        //             </style>
-        //         </head>
-        //         <body>
-        //             ${receiptContent}
-        //         </body>
-        //     </html>
-        // `);
-        //     printWindow.document.close();
+            // Buka jendela baru untuk mencetak struk
+            var printWindow = window.open('', '_blank');
+            printWindow.document.open();
+            printWindow.document.write(`
+            <html>
+                <head>
+                    <title>Receipt</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                        }
+                        h2 {
+                            text-align: center;
+                        }
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        table, th, td {
+                            border: 1px solid #ddd;
+                        }
+                        th, td {
+                            padding: 8px;
+                            text-align: left;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${receiptContent}
+                </body>
+            </html>
+        `);
+            printWindow.document.close();
 
-        //     // Cetak struk
-        //     printWindow.print();
-        //     printWindow.onafterprint = function() {
-        //         printWindow.close();
-        //     };
-        // }
-        // // Event handler untuk tombol "Cancel"
-        // $("#cancel_payment").click(function() {
-        //     resetForm(); // Panggil fungsi resetForm saat tombol "Cancel" ditekan
-        // });
+            // Cetak struk
+            printWindow.print();
+            printWindow.onafterprint = function() {
+                printWindow.close();
+            };
+        }
+        // Event handler untuk tombol "Cancel"
+        $("#cancel_payment").click(function() {
+            resetForm(); // Panggil fungsi resetForm saat tombol "Cancel" ditekan
+        });
     });
 </script>

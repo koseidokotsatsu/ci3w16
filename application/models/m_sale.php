@@ -19,14 +19,7 @@ class m_sale extends CI_Model
         $invoice = "MP" . date('ymd') . $no;
         return $invoice;
     }
-    public function save_sale($data)
-    {
-        $this->db->insert('t_sale', $data);
-
-        if ($this->db->affected_rows() > 0) {
-            return true; // Return true to indicate success
-        } else {
-            return false; // Return false to indicate failure
-        }
+    public function save_sale($data,$table) {
+        $this->db->insert($table,$data);
     }
 }
