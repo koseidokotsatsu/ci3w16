@@ -9,6 +9,7 @@ class Sale extends CI_Controller
         check_not_login();
         $this->load->model('m_sale');
         $this->load->model(['m_item']);
+        $this->load->library('form_validation');
     }
     public function index()
     {
@@ -23,5 +24,34 @@ class Sale extends CI_Controller
         $this->template->load('template', 'transaction/sale/sale_form', $data);
     }
 
-    
+    public function process_payment()
+    {
+        $this->load->model('m_sale');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('date', 'Date', 'trim|required');
+        $this->form_validation->set_rules('customer', 'Customer', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            //
+        } else {
+            $data = array(
+                'invoice' => $this->input->post('invoice'),
+                'id_customer' => $this->input->post('customer'),
+                'total_price' => $this->input->post('total'),
+                'discount' => $this->input->post('id_discount'),
+                'final_price' => $this->input->post('total'),
+                'cash' => $this->input->post('cash'),
+                'remaining' => $this->input->post('change'),
+                'note' => $this->input->post('note'),
+                'date' => $this->input->post('date'),
+                'id_user' => $this->session->userdata('id_user'),
+                'created_at' => date('Y-m-d H:i:s'),
+            );
+
+            $this->m_sale->save_sale($data);
+
+            redirect('sale/success');
+        }
+    }
 }

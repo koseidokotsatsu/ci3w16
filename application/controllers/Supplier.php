@@ -66,5 +66,4 @@ class Supplier extends CI_Controller
         }
         echo "<script>window.location='" . site_url('supplier') . "';</script>";
     }
-    
 }

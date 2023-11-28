@@ -23,6 +23,7 @@
                         <th>No</th>
                         <th>Username</th>
                         <th>Name</th>
+                        <th>Image</th>
                         <th>Level</th>
                         <th>Actions</th>
                     </tr>
@@ -34,9 +35,10 @@
                             <td style="width:5%;"><?= $no++ ?></td>
                             <td><?= $data->username ?></td>
                             <td><?= $data->name ?></td>
+                            <td><?= $data->img ?></td>
                             <td><?= $data->level == 1 ? "Admin" : "Cashier" ?></td>
                             <td class="text-center" width="160px">
-                                <a href="<?= site_url('user/edit/' . $data->id_user) ?>" class="btn btn-primary btn-xs">
+                                <a href="<?= site_url('user/edit/' . $data->id_user) ?>" class="btn btn-primary btn-xs" style="margin-bottom: 3px;">
                                     <i class="fa fa-pencil"></i>&nbsp;Edit
                                 </a>
                                 <form action="<?= site_url('user/del') ?>" method="post">
