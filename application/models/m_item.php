@@ -131,4 +131,14 @@ class m_item extends CI_Model
         $sql = "UPDATE p_item SET stock = stock - '$qty' WHERE id_item = '$id'";
         $this->db->query($sql);
     }
+
+    public function update_stock($item_id, $quantity)
+    {
+        $this->db
+            ->where('id_item', $item_id)
+            ->set('stock', 'stock - ' . $quantity, false)
+            ->update('p_item');
+
+        return $this->db->affected_rows() > 0;
+    }
 }

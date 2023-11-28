@@ -65,7 +65,7 @@
                                 </td>
                                 <td>
                                     <div class="form-group input-group">
-                                        <input type="hidden" id="id_item">
+                                        <input type="text" id="id_item" name="id_item" readonly>
                                         <input type="hidden" id="price">
                                         <input type="hidden" id="stock">
                                         <input type="text" id="barcode" class="form-control" autofocus>
@@ -83,7 +83,7 @@
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        <input type="number" id="qty" value="1" min="1" class="form-control">
+                                        <input type="number" id="qty" name="qty" value="1" min="1" class="form-control">
                                     </div>
                                 </td>
                             </tr>
@@ -156,7 +156,7 @@
                                     <label for="discount">Discount</label>
                                 </td>
                                 <td class="form-group">
-                                    <input type="number" name="discount"  id="id_discount" value="0" min="0" class="form-control">
+                                    <input type="number" name="discount" id="id_discount" value="0" min="0" class="form-control">
                                 </td>
                             </tr>
                             <tr>
@@ -330,6 +330,29 @@
         // Simpan data terkait item yang dipilih
         var selectedItem = {};
 
+        // Event handler untuk tombol "Pilih" di modal
+        $("#modal-item").on("click", ".select-item", function() {
+            // Dapatkan nilai dari baris yang dipilih di modal
+            selectedItem = {
+                id_item: $(this).data("id"),
+                barcode: $(this).data("barcode"),
+                qty: parseInt($("#qty").val()) || 1,
+                price: $(this).data("price"),
+                formattedPrice: formatRupiah($(this).data("price")),
+                name: $(this).data("name")
+
+            };
+
+            // Anda mungkin perlu memperbarui nilai dalam kolom input
+            $("#qty").val(selectedItem.qty);
+            $("#barcode").val(selectedItem.barcode);
+            $("#price").val(selectedItem.price);
+            $("#formatted-price").text(selectedItem.formattedPrice);
+
+            // Tutup modal
+            $("#modal-item").modal("hide");
+        });
+
         // Event handler untuk tombol "Tambah"
         $("#add_cart").click(function() {
             // Dapatkan nilai dari kolom input
@@ -361,10 +384,13 @@
             // Tambahkan baris baru ke tabel keranjang
             var newRow = "<tr>" +
                 "<td>" + counter + "</td>" +
+                "<td>" + selectedItem.id_item + "</td>" +
                 "<td>" + selectedItem.barcode + "</td>" +
                 "<td>" + selectedItem.name + "</td>" +
                 "<td>" + selectedItem.formattedPrice + "</td>" +
-                "<td>" + qty + "</td>" +
+                "<td>" + selectedItem.qty + "</td>" +
+                "<input type='hidden' name='id_item[]' value='" + selectedItem.id_item + "'>" +
+                "<input type='hidden' name='barcode[]' value='" + selectedItem.barcode + "'>" +
                 "</tr>";
 
             $("#cart-table").append(newRow);
@@ -376,26 +402,6 @@
             $("#barcode").val("");
             $("#qty").val(1);
             selectedItem = {};
-        });
-
-        // Event handler untuk tombol "Pilih" di modal
-        $("#modal-item").on("click", ".select-item", function() {
-            // Dapatkan nilai dari baris yang dipilih di modal
-            selectedItem = {
-                barcode: $(this).data("barcode"),
-                qty: $("#qty").val(),
-                price: $(this).data("price"),
-                formattedPrice: formatRupiah($(this).data("price")),
-                name: $(this).data("name")
-            };
-
-            // Anda mungkin perlu memperbarui nilai dalam kolom input
-            $("#barcode").val(selectedItem.barcode);
-            $("#price").val(selectedItem.price);
-            $("#formatted-price").text(selectedItem.formattedPrice);
-
-            // Tutup modal
-            $("#modal-item").modal("hide");
         });
 
         // Event handler untuk memperbarui total saat nilai diskon berubah
@@ -470,56 +476,54 @@
 
             // Buat struk dalam format HTML
             var receiptContent = `
-            <h2>MEDICALPOS INVOICE</h2>
-            <p>Invoice Number: ${invoiceNumber}</p>
-            <p>Date: ${date}</p>
-            <p>Cashier: ${cashier}</p>
-            <p>Customer: ${customer}</p>
-            <hr>
-            <table>
-                <!-- Tambahkan baris untuk setiap item yang dibeli -->
-            </table>
-            <hr>
-            <p>Sub Total: ${subTotal}</p>
-            <p>Discount: ${discount}</p>
-            <p>Total: ${grandTotal}</p>
-            <p>Cash: ${cash}</p>
-            <p>Change: ${change}</p>
-            <p>Note: ${note}</p>
-        `;
-
+                <div style="text-align: center; font-family: 'Arial', sans-serif;">
+                    <h2 style="color: #333; margin-bottom: 10px;">MEDICALPOS INVOICE</h2>
+                    <p style="margin: 5px 0;">Invoice Number: ${invoiceNumber}</p>
+                    <p style="margin: 5px 0;">Date: ${date}</p>
+                    <p style="margin: 5px 0;">Cashier: ${cashier}</p>
+                    <p style="margin: 5px 0;">Customer: ${customer}</p>
+                    <hr style="border: 1px dashed #ccc; margin: 15px 0;">
+                    <table style="width: 100%; margin-bottom: 15px;">
+                        <!-- Tambahkan baris untuk setiap item yang dibeli -->
+                    </table>
+                    <hr style="border: 1px dashed #ccc; margin: 15px 0;">
+                    <p style="margin: 5px 0;">Sub Total: ${subTotal}</p>
+                    <p style="margin: 5px 0;">Discount: ${discount}</p>
+                    <p style="margin: 5px 0; font-weight: bold; font-size: 18px;">Total: ${grandTotal}</p>
+                    <p style="margin: 5px 0;">Cash: ${cash}</p>
+                    <p style="margin: 5px 0;">Change: ${change}</p>
+                    <p style="margin: 5px 0;">Note: ${note}</p>
+                </div>
+            `;
             // Buka jendela baru untuk mencetak struk
             var printWindow = window.open('', '_blank');
             printWindow.document.open();
             printWindow.document.write(`
-            <html>
+                <html>
                 <head>
                     <title>Receipt</title>
                     <style>
                         body {
-                            font-family: Arial, sans-serif;
-                        }
-                        h2 {
-                            text-align: center;
+                            margin: 0;
+                            padding: 20px;
+                            background-color: #f5f5f5;
+                            font-size: 8pt; /* Set the font size as needed */
                         }
                         table {
                             width: 100%;
                             border-collapse: collapse;
-                        }
-                        table, th, td {
-                            border: 1px solid #ddd;
+                            margin-top: 10px;
                         }
                         th, td {
+                            border: 1px solid #ddd;
                             padding: 8px;
                             text-align: left;
                         }
                     </style>
                 </head>
-                <body>
-                    ${receiptContent}
-                </body>
-            </html>
-        `);
+                <body>${receiptContent}</body>
+                </html>
+            `);
             printWindow.document.close();
 
             // Cetak struk
