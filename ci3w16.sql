@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Nov 2023 pada 07.21
+-- Waktu pembuatan: 30 Nov 2023 pada 18.08
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.1.17
 
@@ -91,7 +91,7 @@ CREATE TABLE `p_item` (
 
 INSERT INTO `p_item` (`id_item`, `barcode`, `name`, `id_category`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
 (16, 'A002', 'Bodrex', 11, 2, 4500, 9, 'item-231115-13f54d7b77.png', 2147483647, NULL),
-(17, 'A003', 'Ultraflu', 11, 2, 5000, 10, 'item-231115-5a22429cb0.png', 2147483647, NULL),
+(17, 'A003', 'Ultraflu', 11, 2, 5000, 4, 'item-231115-5a22429cb0.png', 2147483647, NULL),
 (18, 'A004', 'Paracetamol', 11, 2, 3000, 0, 'item-231115-00ba39322c.png', 2147483647, NULL),
 (19, 'A005', 'Mylanta', 11, 2, 5000, 0, 'item-231115-f3a9d67f61.png', 2147483647, NULL),
 (20, 'A006', 'Amoxilin', 11, 2, 5500, 0, 'item-231115-8ae92307e7.png', 2147483647, NULL),
@@ -160,7 +160,6 @@ CREATE TABLE `t_sale` (
   `id_customer` int(11) DEFAULT NULL,
   `total_price` int(11) NOT NULL,
   `discount` int(11) NOT NULL,
-  `final_price` int(11) NOT NULL,
   `cash` int(11) NOT NULL,
   `remaining` int(11) NOT NULL,
   `note` text NOT NULL,
@@ -173,8 +172,12 @@ CREATE TABLE `t_sale` (
 -- Dumping data untuk tabel `t_sale`
 --
 
-INSERT INTO `t_sale` (`id_sale`, `invoice`, `id_customer`, `total_price`, `discount`, `final_price`, `cash`, `remaining`, `note`, `date`, `id_user`, `created_at`) VALUES
-(3, 'MP2311240001', 3, 15000, 1000, 14000, 20000, 6000, 'fucek', '2023-11-24', 4, '2023-11-24 14:03:37');
+INSERT INTO `t_sale` (`id_sale`, `invoice`, `id_customer`, `total_price`, `discount`, `cash`, `remaining`, `note`, `date`, `id_user`, `created_at`) VALUES
+(10, 'MP2311300001', 0, 45000, 5000, 50000, 5000, 'coba 1', '2023-11-30', 1, '2023-11-30 22:56:31'),
+(11, 'MP2311300002', 3, 5000, 0, 5000, 0, 'coba 2', '2023-11-30', 1, '2023-11-30 22:57:48'),
+(12, 'MP2311300003', 3, 25000, 0, 30000, 5000, 'coba 3', '2023-11-30', 1, '2023-11-30 22:58:58'),
+(13, 'MP2311300004', 0, 10000, 0, 10000, 0, 'aaa', '2023-11-30', 1, '2023-11-30 23:01:56'),
+(14, 'MP2311300005', 3, 9000, 1000, 10000, 1000, 'fucek', '2023-11-30', 1, '2023-11-30 23:50:48');
 
 -- --------------------------------------------------------
 
@@ -324,7 +327,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `t_sale`
 --
 ALTER TABLE `t_sale`
-  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_stock`
