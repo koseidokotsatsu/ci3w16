@@ -77,11 +77,16 @@ class Sale extends CI_Controller
 
             $this->m_sale->save_sale($data, 't_sale');
 
-            foreach ($this->input->post('items') as $item) {
+            foreach ($this->input->post('id_item') as $key => $id_item) {
+                $item = array(
+                    'id' => $id_item,
+                    'qty' => $this->input->post('qty')[$key]
+                );
+            
                 $this->m_item->update_stock($item['id'], $item['qty']);
             }
+            
 
-            die();
             redirect('sale/index');
         }
     }

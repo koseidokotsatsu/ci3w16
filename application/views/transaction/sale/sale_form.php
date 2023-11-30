@@ -65,7 +65,7 @@
                                 </td>
                                 <td>
                                     <div class="form-group input-group">
-                                        <input type="text" id="id_item" name="id_item" readonly>
+                                        <input type="hidden" id="id_item" name="id_item" readonly>
                                         <input type="hidden" id="price">
                                         <input type="hidden" id="stock">
                                         <input type="text" id="barcode" class="form-control" autofocus>
@@ -83,7 +83,7 @@
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        <input type="number" id="qty" name="qty" value="1" min="1" class="form-control">
+                                        <input type="number" id="qty" name="qty"  min="1" class="form-control">
                                     </div>
                                 </td>
                             </tr>
@@ -353,56 +353,56 @@
             $("#modal-item").modal("hide");
         });
 
-        // Event handler untuk tombol "Tambah"
         $("#add_cart").click(function() {
-            // Dapatkan nilai dari kolom input
-            var qty = $("#qty").val();
+    // Dapatkan nilai dari kolom input
+    var qty = $("#qty").val();
 
-            // Pastikan item telah dipilih sebelum menambahkannya ke dalam tabel
-            if ($.isEmptyObject(selectedItem)) {
-                alert('Silakan pilih item terlebih dahulu.');
-                return;
-            }
+    // Pastikan item telah dipilih sebelum menambahkannya ke dalam tabel
+    if ($.isEmptyObject(selectedItem)) {
+        alert('Silakan pilih item terlebih dahulu.');
+        return;
+    }
 
-            // Hitung subtotal berdasarkan harga item dan qty
-            var itemSubtotal = selectedItem.price * qty;
-            subtotal += itemSubtotal;
+    // Hitung subtotal berdasarkan harga item dan qty
+    var itemSubtotal = selectedItem.price * qty;
+    subtotal += itemSubtotal;
 
-            // Hitung total setelah mengambil diskon jika ada
-            var discount = $("#id_discount").val();
-            var total = subtotal - discount;
+    // Hitung total setelah mengambil diskon jika ada
+    var discount = $("#id_discount").val();
+    var total = subtotal - discount;
 
-            // Perbarui nilai input subtotal dan total dengan format rupiah
-            $("#sub_total").val(subtotal);
+    // Perbarui nilai input subtotal dan total dengan format rupiah
+    $("#sub_total").val(subtotal);
 
-            // Perbarui nilai pada elemen dengan ID tertentu untuk menampilkan total
-            $("#total").val(total);
+    // Perbarui nilai pada elemen dengan ID tertentu untuk menampilkan total
+    $("#total").val(total);
 
-            // Perbarui nilai pada elemen dengan ID tertentu untuk menampilkan total product item
-            $("#grand_total2").text(formatRupiah(total));
+    // Perbarui nilai pada elemen dengan ID tertentu untuk menampilkan total product item
+    $("#grand_total2").text(formatRupiah(total));
 
-            // Tambahkan baris baru ke tabel keranjang
-            var newRow = "<tr>" +
-                "<td>" + counter + "</td>" +
-                "<td>" + selectedItem.id_item + "</td>" +
-                "<td>" + selectedItem.barcode + "</td>" +
-                "<td>" + selectedItem.name + "</td>" +
-                "<td>" + selectedItem.formattedPrice + "</td>" +
-                "<td>" + selectedItem.qty + "</td>" +
-                "<input type='hidden' name='id_item[]' value='" + selectedItem.id_item + "'>" +
-                "<input type='hidden' name='barcode[]' value='" + selectedItem.barcode + "'>" +
-                "</tr>";
+    // Tambahkan baris baru ke tabel keranjang
+    var newRow = "<tr>" +
+        "<td>" + counter + "</td>" +
+        "<td>" + selectedItem.barcode + "</td>" +
+        "<td>" + selectedItem.name + "</td>" +
+        "<td>" + selectedItem.formattedPrice + "</td>" +
+        "<td>" + qty + "</td>" +
+        "<input type='hidden' name='id_item[]' value='" + selectedItem.id_item + "'>" +
+        "<input type='hidden' name='qty[]' value='" + qty + "'>" +  // Tambahkan ini untuk menyimpan nilai qty
+        "<input type='hidden' name='barcode[]' value='" + selectedItem.barcode + "'>" +
+        "</tr>";
 
-            $("#cart-table").append(newRow);
+    $("#cart-table").append(newRow);
 
-            // Tambahkan penghitung baris
-            counter++;
+    // Tambahkan penghitung baris
+    counter++;
 
-            // Reset nilai input barcode, item yang dipilih, dan qty
-            $("#barcode").val("");
-            $("#qty").val(1);
-            selectedItem = {};
-        });
+    // Reset nilai input barcode, item yang dipilih, dan qty
+    $("#barcode").val("");
+    $("#qty").val(1);
+
+    selectedItem = {};
+});
 
         // Event handler untuk memperbarui total saat nilai diskon berubah
         $("#id_discount").on("input", function() {
