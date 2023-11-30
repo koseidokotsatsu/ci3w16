@@ -65,7 +65,7 @@
                                 </td>
                                 <td>
                                     <div class="form-group input-group">
-                                        <input type="text" id="id_item" name="id_item" readonly>
+                                        <input type="hidden" id="id_item" name="id_item" readonly>
                                         <input type="hidden" id="price">
                                         <input type="hidden" id="stock">
                                         <input type="text" id="barcode" class="form-control" autofocus>
@@ -384,7 +384,7 @@
             // Tambahkan baris baru ke tabel keranjang
             var newRow = "<tr>" +
                 "<td>" + counter + "</td>" +
-                "<td>" + selectedItem.id_item + "</td>" +
+                //"<td>" + selectedItem.id_item + "</td>" +
                 "<td>" + selectedItem.barcode + "</td>" +
                 "<td>" + selectedItem.name + "</td>" +
                 "<td>" + selectedItem.formattedPrice + "</td>" +
