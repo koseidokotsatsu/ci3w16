@@ -392,6 +392,7 @@
         "<input type='hidden' name='barcode[]' value='" + selectedItem.barcode + "'>" +
         "</tr>";
 
+
     $("#cart-table").append(newRow);
 
     // Tambahkan penghitung baris
