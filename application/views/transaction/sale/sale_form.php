@@ -380,18 +380,18 @@
     // Perbarui nilai pada elemen dengan ID tertentu untuk menampilkan total product item
     $("#grand_total2").text(formatRupiah(total));
 
-    // Tambahkan baris baru ke tabel keranjang
-    var newRow = "<tr>" +
-        "<td>" + counter + "</td>" +
-        "<td>" + selectedItem.barcode + "</td>" +
-        "<td>" + selectedItem.name + "</td>" +
-        "<td>" + selectedItem.formattedPrice + "</td>" +
-        "<td>" + qty + "</td>" +
-        "<input type='hidden' name='id_item[]' value='" + selectedItem.id_item + "'>" +
-        "<input type='hidden' name='qty[]' value='" + qty + "'>" +  // Tambahkan ini untuk menyimpan nilai qty
-        "<input type='hidden' name='barcode[]' value='" + selectedItem.barcode + "'>" +
-        "</tr>";
 
+            // Tambahkan baris baru ke tabel keranjang
+            var newRow = "<tr>" +
+                "<td>" + counter + "</td>" +
+                //"<td>" + selectedItem.id_item + "</td>" +
+                "<td>" + selectedItem.barcode + "</td>" +
+                "<td>" + selectedItem.name + "</td>" +
+                "<td>" + selectedItem.formattedPrice + "</td>" +
+                "<td>" + selectedItem.qty + "</td>" +
+                "<input type='hidden' name='id_item[]' value='" + selectedItem.id_item + "'>" +
+                "<input type='hidden' name='barcode[]' value='" + selectedItem.barcode + "'>" +
+                "</tr>";
 
     $("#cart-table").append(newRow);
 
