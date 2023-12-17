@@ -39,6 +39,11 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <script>
+        var baseUrl = '<?= base_url() ?>';
+    </script>
+
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini <?= $this->uri->segment(1) == 'sale' ? 'sidebar-collapse' : null ?>">

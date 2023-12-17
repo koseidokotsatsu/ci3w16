@@ -19,7 +19,42 @@ class m_sale extends CI_Model
         $invoice = "MP" . date('ymd') . $no;
         return $invoice;
     }
-    public function save_sale($data,$table) {
-        $this->db->insert($table,$data);
+    function lihat_barang($id)
+    {
+        return $this->db->select('SUM(p_item) as total')
+            ->where('id_item', $id)
+            ->get('p_item')
+            ->row();
+    }
+    function cart($id)
+    {
+        return $this->db->where('p_item.id_item', $id)
+            ->where('id_item', $id)
+            ->get('p_item')
+            ->row();
+    }
+    function tambah_trf($payment)
+    {
+        $this->db->insert('t_sale', $payment);
+    }
+    function get_id($id)
+    {
+        return $this->db->select('id_sale')->where('invoice', $id)->get('t_sale')->row_array();
+    }
+
+    function tambah_pjl($penjualan)
+    {
+        $this->db->insert_batch('payment', $penjualan);
+    }
+
+    function pengurangan_stok($pjl)
+    {
+        $this->db->update_batch('stock', $pjl, 'id_item');
+    }
+    function total_barang($id)
+    {
+        return $this->db->select('sum(stock) as total')
+            ->where('id_item', $id)
+            ->get('p_item');
     }
 }

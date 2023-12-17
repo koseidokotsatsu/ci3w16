@@ -8,8 +8,10 @@ class Sale extends CI_Controller
         parent::__construct();
         check_not_login();
         $this->load->model('m_sale');
-        $this->load->model(['m_item']);
+        $this->load->model('m_item');
         $this->load->library('form_validation');
+        $this->load->library('cart');
+        // $this->cart->destroy();
     }
     public function index()
     {
@@ -21,73 +23,110 @@ class Sale extends CI_Controller
             'item' => $item,
             'invoice' => $this->m_sale->invoice_no(),
         );
+        // echo "<pre>";
+        // print_r($data);
+        // die;
         $this->template->load('template', 'transaction/sale/sale_form', $data);
     }
-
-    public function process_payment()
+    function tambah_barang($id, $qty)
     {
-        $this->load->model('m_sale');
-        $this->load->library('form_validation');
+        $item = $this->m_sale->lihat_barang($this->input->post('iditem'));
 
-        $this->form_validation->set_rules('discount', 'Discount', 'trim|required');
-        $this->form_validation->set_rules('cash', 'Cash', 'trim|required');
-        $this->form_validation->set_rules('note', 'note', 'trim|required');
-
-        if ($this->form_validation->run() == FALSE) {
-
-            $invoice = $this->m_sale->invoice_no();
-
-            $data = array(
-                'invoice' => $invoice,
-                'id_customer' => $this->input->post('customer'),
-                'total_price' => $this->input->post('total'),
-                'discount' => $this->input->post('discount'),
-                'cash' => $this->input->post('cash'),
-                'remaining' => $this->input->post('change'),
-                'note' => $this->input->post('note'),
-                'date' => $this->input->post('date'),
-                'id_user' => $this->session->userdata('id_user'),
-            );
-
-            $items = array(
-                'id_item' => $this->input->post('id_item'),
-                'qty' => $this->input->post('qty')
-            );
-
-            echo validation_errors();
-            echo '<pre>';
-            print_r($items);
-            echo '</pre>';
+        if ($item->total > 100) {
+            $this->session->set_flashdata('message', 'Stok Barang melebihi kapasitas');
+            redirect(base_url('sale'));
+            return;
         } else {
-
-            $invoice = $this->m_sale->invoice_no();
-
-
+            $result = $this->m_sale->cart($id);
             $data = array(
-                'invoice' => $invoice,
-                'id_customer' => $this->input->post('customer'),
-                'total_price' => $this->input->post('total'),
-                'discount' => $this->input->post('discount'),
-                'cash' => $this->input->post('cash'),
-                'remaining' => $this->input->post('change'),
-                'note' => $this->input->post('note'),
-                'date' => $this->input->post('date'),
-                'id_user' => $this->session->userdata('id_user'),
+                'id'      => $result->id_item,
+                'qty'     => $qty,
+                'price'   => $result->price,
+                'name'    => $result->name,
+                'barcode'   => $result->barcode,
+                'stock' => $result->stock,
             );
+            echo "Data to be inserted into cart:";
+            echo "<pre>";
+            print_r($data);
 
-            $this->m_sale->save_sale($data, 't_sale');
+            $this->cart->insert($data);
 
-            foreach ($this->input->post('id_item') as $key => $id_item) {
-                $item = array(
-                    'id' => $id_item,
-                    'qty' => $this->input->post('qty')[$key]
-                );
-            
-                $this->m_item->update_stock($item['id'], $item['qty']);
-            }
-            
+            $this->session->set_userdata('cart_contents', $this->cart->contents());
 
-            redirect('sale/index');
+            $sessionCartContents = $this->session->userdata('cart_contents');
+            echo "Cart contents from session after setting:";
+            echo "<pre>";
+            print_r($sessionCartContents);
+
+            $_SESSION['direct_cart_contents'] = $this->cart->contents();
+            $directSessionCartContents = $_SESSION['direct_cart_contents'];
+            echo "Direct cart contents from session:";
+            echo "<pre>";
+            print_r($directSessionCartContents);
+
+            $totalcartcontent = $this->cart->total();
+            echo "Total:";
+            echo "<pre>";
+            print_r($totalcartcontent);
+
+            // die();
+            redirect(base_url('sale'));
+        }
+    }
+
+    function transaction()
+    {
+        $invoice = $this->m_sale->invoice_no();
+
+        $payment = array(
+            'invoice' => $invoice,
+            'customer_name' => $this->input->post('customer'),
+            'total_early' => $this->input->post('sub_total'),
+            'total_final' => $this->input->post('total'),
+            'discount' => $this->input->post('discount'),
+            'cash' => $this->input->post('cash'),
+            'remain' => $this->input->post('change'),
+            'note' => $this->input->post('note'),
+            'date_tf' => date('Y-m-d'),
+            'hour_tf' => date('H:i:s')
+        );
+        $detail_penjualan =  $this->m_sale->tambah_trf($payment); //tambah data ke tabel detail
+        $id_dtlpenjualan = $this->m_sale->get_id($invoice); //ambil id
+
+        $pjl = array();
+        foreach ($this->cart->contents() as $q) {
+            $pjl[] = array(
+                'id_item' => $q['id'],
+                'stok_barang' => intval($this->m_sale->total_barang($q['id'])->row()->total) - intval($q['qty'])
+            );
+        }
+
+        foreach ($this->cart->contents() as $items) {
+            $penjualan[] = array(
+                'id_sale'           => $id_dtlpenjualan['id'],
+                'id_item'           => $items['id_item'],
+                'stock'             => $items['qty'],
+                'price'             => $items['price'],
+                'sub_total'         => $items['subtotal']
+            );
+        }
+
+        echo '<pre>';
+        print_r($penjualan);
+        echo '</pre>';
+
+        die();
+
+        $png = $this->m_sale->pengurangan_stok($pjl); //update batch di tabel stok
+        $pjl = $this->m_sale->tambah_pjl($penjualan); //tambah data ke tabel penjualan
+        if (!$detail_penjualan && !$pjl && !$png) {
+            $this->cart->destroy();
+            $this->session->set_flashdata('message', 'Penjualan Sukses');
+            redirect('sale/receipt/' . $id_dtlpenjualan['id']);
+        } else {
+            $this->session->set_flashdata('message', 'Ooopss! Penjualan Gagal, Namun Stok Data Berubah!');
+            redirect('sale');
         }
     }
 }

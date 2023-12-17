@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Nov 2023 pada 18.08
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.1.17
+-- Waktu pembuatan: 17 Des 2023 pada 23.40
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -151,33 +151,37 @@ INSERT INTO `supplier` (`id_supplier`, `name`, `phone`, `address`, `description`
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `t_payment`
+--
+
+CREATE TABLE `t_payment` (
+  `id_transaction` int(11) NOT NULL,
+  `id_sale` int(5) NOT NULL,
+  `id_item` int(11) NOT NULL,
+  `stock` int(11) NOT NULL,
+  `price` bigint(20) NOT NULL,
+  `sub_total` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `t_sale`
 --
 
 CREATE TABLE `t_sale` (
   `id_sale` int(11) NOT NULL,
   `invoice` varchar(50) NOT NULL,
-  `id_customer` int(11) DEFAULT NULL,
-  `total_price` int(11) NOT NULL,
-  `discount` int(11) NOT NULL,
-  `cash` int(11) NOT NULL,
-  `remaining` int(11) NOT NULL,
-  `note` text NOT NULL,
-  `date` date NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+  `customer_name` varchar(35) NOT NULL,
+  `total_early` bigint(20) NOT NULL,
+  `total_final` bigint(20) NOT NULL,
+  `discount` bigint(20) NOT NULL,
+  `cash` bigint(20) NOT NULL,
+  `remain` bigint(20) NOT NULL,
+  `note` varchar(100) DEFAULT NULL,
+  `date_tf` date NOT NULL,
+  `hour_tf` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `t_sale`
---
-
-INSERT INTO `t_sale` (`id_sale`, `invoice`, `id_customer`, `total_price`, `discount`, `cash`, `remaining`, `note`, `date`, `id_user`, `created_at`) VALUES
-(10, 'MP2311300001', 0, 45000, 5000, 50000, 5000, 'coba 1', '2023-11-30', 1, '2023-11-30 22:56:31'),
-(11, 'MP2311300002', 3, 5000, 0, 5000, 0, 'coba 2', '2023-11-30', 1, '2023-11-30 22:57:48'),
-(12, 'MP2311300003', 3, 25000, 0, 30000, 5000, 'coba 3', '2023-11-30', 1, '2023-11-30 22:58:58'),
-(13, 'MP2311300004', 0, 10000, 0, 10000, 0, 'aaa', '2023-11-30', 1, '2023-11-30 23:01:56'),
-(14, 'MP2311300005', 3, 9000, 1000, 10000, 1000, 'fucek', '2023-11-30', 1, '2023-11-30 23:50:48');
 
 -- --------------------------------------------------------
 
@@ -228,8 +232,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id_user`, `username`, `password`, `name`, `level`, `created_at`) VALUES
 (1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin', 1, '2023-10-09 09:30:25'),
 (2, 'kasir', '8691e4fc53b99da544ce86e22acba62d13352eff', NULL, 2, '2023-10-09 09:30:25'),
-(3, 'raesoxee', '8cb2237d0679ca88db6464eac60da96345513964', 'Ranggita Alya', 1, '2023-10-10 10:54:32'),
-(4, 'radit', '12345', NULL, 1, '2023-10-10 10:55:25');
+(3, 'raesoxee', '8cb2237d0679ca88db6464eac60da96345513964', 'Ranggita Alya', 1, '2023-10-10 10:54:32');
 
 --
 -- Indexes for dumped tables
@@ -267,6 +270,12 @@ ALTER TABLE `p_unit`
 --
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id_supplier`);
+
+--
+-- Indeks untuk tabel `t_payment`
+--
+ALTER TABLE `t_payment`
+  ADD PRIMARY KEY (`id_transaction`);
 
 --
 -- Indeks untuk tabel `t_sale`
@@ -324,10 +333,16 @@ ALTER TABLE `supplier`
   MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT untuk tabel `t_payment`
+--
+ALTER TABLE `t_payment`
+  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `t_sale`
 --
 ALTER TABLE `t_sale`
-  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_stock`
