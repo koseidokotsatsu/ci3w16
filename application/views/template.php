@@ -69,14 +69,13 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="<?= base_url(); ?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <img src="<?= base_url('assets/img/' . $this->fuct->user_login()->img); ?>" class="user-image" alt="User Image">
                                 <span class="hidden-xs"><?= $this->fuct->user_login()->username ?></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="<?= base_url(); ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                                    <img src="<?= base_url('assets/img/' . $this->fuct->user_login()->img); ?>" class="img-circle" alt="User Image">
                                     <p>
                                         <?= $this->fuct->user_login()->name ?>
                                         <small></small>
@@ -84,9 +83,6 @@
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
                                     <div class="pull-right">
                                         <a href="<?= base_url('auth/logout'); ?>" class="btn btn-danger btn-flat">Sign out</a>
                                     </div>
@@ -104,7 +100,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="<?= base_url(); ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="<?= base_url('assets/img/' . $this->fuct->user_login()->img); ?>" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p><?= $this->fuct->user_login()->username ?></p>
@@ -144,6 +140,8 @@
                         </a>
                     </li>
                     <li class="treeview <?= $this->uri->segment(1) == 'category' ||
+                                            $this->uri->segment(1) == 'type' ||
+                                            $this->uri->segment(1) == 'general_name' ||
                                             $this->uri->segment(1) == 'unit' ||
                                             $this->uri->segment(1) == 'item' ? 'active' : '' ?>">
                         <a href="#">
@@ -154,9 +152,20 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li <?= $this->uri->segment(1) == 'category'  ? 'class="active"' : '' ?>><a href="<?= site_url('category'); ?>"><i class="fa fa-circle-o"></i> Categories</a></li>
-                            <li <?= $this->uri->segment(1) == 'unit'  ? 'class="active"' : '' ?>><a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Units</a></li>
-                            <li <?= $this->uri->segment(1) == 'item'  ? 'class="active"' : '' ?>><a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a></li>
+                            <li <?= $this->uri->segment(1) == 'category'  ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('category'); ?>"><i class="fa fa-circle-o"></i> Categories</a>
+                            </li>
+                            <li <?= $this->uri->segment(1) == 'type'  ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('type'); ?>"><i class="fa fa-circle-o"></i> Type</a></li>
+                            <li <?= $this->uri->segment(1) == 'general_name'  ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('general_name'); ?>"><i class="fa fa-circle-o"></i> General Name</a>
+                            </li>
+                            <li <?= $this->uri->segment(1) == 'unit'  ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Units</a>
+                            </li>
+                            <li <?= $this->uri->segment(1) == 'item'  ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="treeview <?= $this->uri->segment(1) == 'stock' || $this->uri->segment(1) == 'sale' ? 'active' : '' ?>">
@@ -169,7 +178,11 @@
                         </a>
                         <ul class="treeview-menu">
                             <li <?= $this->uri->segment(1) == 'sale' ? 'class="active"' : '' ?>>
-                                <a href="<?= site_url('sale'); ?>"><i class="fa fa-circle-o"></i> Sales</a></li>
+                                <a href="<?= site_url('sale'); ?>"><i class="fa fa-circle-o"></i> Sales</a>
+                            </li>
+                            <li <?= $this->uri->segment(1) == 'receipt'  ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('receipt'); ?>"><i class="fa fa-circle-o"></i> Receipt</a>
+                            </li>
                             <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ? 'class="active"' : '' ?>>
                                 <a href="<?= site_url('stock/in'); ?>"><i class="fa fa-circle-o"></i> Stock in</a>
                             </li>

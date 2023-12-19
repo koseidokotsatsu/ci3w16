@@ -17,7 +17,7 @@
             <h3 class="box-title">Data Stock</h3>
             <div class="pull-right">
                 <a href="<?= site_url('stock/in/add'); ?>" class="btn btn-primary btn-flat">
-                    <i class="fa fa-plus">Add Stock In</i>
+                    <i class="fa fa-plus"></i>&nbsp;&nbsp;Add Stock In
                 </a>
             </div>
         </div>
@@ -43,16 +43,10 @@
                             <td class="text-right"><?= $data->qty ?></td>
                             <td class="text-center"><?= indo_date($data->date) ?></td>
                             <td class="text-center" width="160px">
-                                <a id="set_detail" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-detail"
-                                data-barcode="<?= $data->barcode ?>"
-                                data-itemname="<?= $data->item_name?>"
-                                data-detail="<?= $data->detail?>"
-                                data-suppliername="<?= $data->supplier_name ?>"
-                                data-qty="<?= $data->qty ?>"
-                                data-date="<?= indo_date($data->date) ?>">
+                                <a id="set_detail" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-detail" data-barcode="<?= $data->barcode ?>" data-itemname="<?= $data->item_name ?>" data-detail="<?= $data->detail ?>" data-suppliername="<?= $data->supplier_name ?>" data-qty="<?= $data->qty ?>" data-date="<?= indo_date($data->date) ?>">
                                     <i class="fa fa-eye"> Detail</i>
                                 </a>
-                                <a href="<?= site_url('stock/in/del/' . $data->id_stock.'/'. $data->id_item) ?>" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-danger btn-xs">
+                                <a href="<?= site_url('stock/in/del/' . $data->id_stock . '/' . $data->id_item) ?>" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-danger btn-xs">
                                     <i class="fa fa-trash"> Delete</i>
                                 </a>
                             </td>
@@ -75,34 +69,34 @@
                 </button>
             </div>
             <div class="modal-body table-responsive">
-               <table class="table table-bordered no-margin">
-                <tbody>
-                    <tr>
-                        <th>Barcode</th>
-                        <td><span id="barcode"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Item Name</th>
-                        <td><span id="item_name"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Detail</th>
-                        <td><span id="detail"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Supplier Name</th>
-                        <td><span id="supplier_name"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Qty</th>
-                        <td><span id="qty"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Date</th>
-                        <td><span id="date"></span></td>
-                    </tr>
-                </tbody>
-               </table>
+                <table class="table table-bordered no-margin">
+                    <tbody>
+                        <tr>
+                            <th>Barcode</th>
+                            <td><span id="barcode"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Item Name</th>
+                            <td><span id="item_name"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Detail</th>
+                            <td><span id="detail"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Supplier Name</th>
+                            <td><span id="supplier_name"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Qty</th>
+                            <td><span id="qty"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Date</th>
+                            <td><span id="date"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

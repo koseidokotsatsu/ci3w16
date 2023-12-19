@@ -35,7 +35,9 @@
                             <td style="width:5%;"><?= $no++ ?></td>
                             <td><?= $data->username ?></td>
                             <td><?= $data->name ?></td>
-                            <td><?= $data->img ?></td>
+                            <td>
+                                <img src="<?= base_url('assets/img/' . $data->img); ?>" style="max-width: 50px; max-height: 50px; border-radius: 50px">
+                            </td>
                             <td><?= $data->level == 1 ? "Admin" : "Cashier" ?></td>
                             <td class="text-center" width="160px">
                                 <a href="<?= site_url('user/edit/' . $data->id_user) ?>" class="btn btn-primary btn-xs" style="margin-bottom: 3px;">

@@ -12,6 +12,7 @@ class Sale extends CI_Controller
         $this->load->library('form_validation');
         $this->load->library('cart');
         // $this->cart->destroy();
+        // $this->db->cache_delete_all();
     }
     public function index()
     {
@@ -74,7 +75,18 @@ class Sale extends CI_Controller
             redirect(base_url('sale'));
         }
     }
+    function hapus_cart($row)
+    {
+        $data = array(
+            'rowid' => $row,
+            'qty'   => 0,
+        );
 
+        // print_r($data);
+        // die();
+        $this->cart->update($data);
+        redirect(base_url('sale'));
+    }
     function transaction()
     {
         $invoice = $this->m_sale->invoice_no();
@@ -91,42 +103,66 @@ class Sale extends CI_Controller
             'date_tf' => date('Y-m-d'),
             'hour_tf' => date('H:i:s')
         );
+
+        if ($payment['cash'] < $payment['total_final']) {
+            $this->session->set_flashdata('message', 'Cash provided cannot be less than the total amount.');
+            redirect(base_url('sale'));
+        }
+
         $detail_penjualan =  $this->m_sale->tambah_trf($payment); //tambah data ke tabel detail
-        $id_dtlpenjualan = $this->m_sale->get_id($invoice); //ambil id
+        $id_sale = $this->m_sale->get_id($invoice); //ambil id
+
+        // echo '<pre>';
+        // print_r($id_sale);
+        // echo '</pre>';
+
+        // die();
 
         $pjl = array();
         foreach ($this->cart->contents() as $q) {
             $pjl[] = array(
                 'id_item' => $q['id'],
-                'stok_barang' => intval($this->m_sale->total_barang($q['id'])->row()->total) - intval($q['qty'])
+                'stock' => intval($this->m_sale->total_barang($q['id'])->row()->total) - intval($q['qty'])
             );
         }
 
+        // echo '<pre>';
+        // print_r($pjl);
+        // echo '</pre>';
+
+        // die();
+
         foreach ($this->cart->contents() as $items) {
             $penjualan[] = array(
-                'id_sale'           => $id_dtlpenjualan['id'],
-                'id_item'           => $items['id_item'],
+                'id_sale'           => $id_sale['id_sale'],
+                'id_item'           => $items['id'],
                 'stock'             => $items['qty'],
                 'price'             => $items['price'],
                 'sub_total'         => $items['subtotal']
             );
         }
 
-        echo '<pre>';
-        print_r($penjualan);
-        echo '</pre>';
+        // echo '<pre>';
+        // print_r($penjualan);
+        // echo '</pre>';
 
-        die();
+        // die();
 
         $png = $this->m_sale->pengurangan_stok($pjl); //update batch di tabel stok
         $pjl = $this->m_sale->tambah_pjl($penjualan); //tambah data ke tabel penjualan
         if (!$detail_penjualan && !$pjl && !$png) {
             $this->cart->destroy();
             $this->session->set_flashdata('message', 'Penjualan Sukses');
-            redirect('sale/receipt/' . $id_dtlpenjualan['id']);
+            redirect('sale/');
+            // redirect('sale/receipt/' . $id_sale['id']);
         } else {
             $this->session->set_flashdata('message', 'Ooopss! Penjualan Gagal, Namun Stok Data Berubah!');
-            redirect('sale');
+            redirect(base_url('sale'));
         }
+    }
+    function cancel()
+    {
+        $this->cart->destroy();
+        redirect('sale/');
     }
 }

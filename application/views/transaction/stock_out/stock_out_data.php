@@ -17,7 +17,7 @@
             <h3 class="box-title">Data Stock</h3>
             <div class="pull-right">
                 <a href="<?= site_url('stock/out/add'); ?>" class="btn btn-primary btn-flat">
-                    <i class="fa fa-plus"> Add Stock Out</i>
+                    <i class="fa fa-plus"> </i>&nbsp;&nbsp;Add Stock Out
                 </a>
             </div>
         </div>

@@ -19,7 +19,16 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Profile Image</label>
+                            <?php if ($row->img != null) : ?>
+                                <div class="existing-profile-image">
+                                    <img src="<?= base_url('assets/img/' . $row->img); ?>" alt="Profile Image" class="img-thumbnail">
+                                </div>
+                            <?php endif; ?>
+                            <input type="file" name="img" class="form-control" accept="image/*">
+                        </div>
                         <div class="form-group">
                             <label>Name</label>
                             <input type="hidden" name="id_user" value="<?= $this->input->post('id_user') ?? $row->id_user; ?>">

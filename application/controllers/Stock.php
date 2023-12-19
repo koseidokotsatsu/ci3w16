@@ -41,7 +41,7 @@ class Stock extends CI_Controller
         $id_stock = $this->uri->segment(4);
         $id_item = $this->uri->segment(5);
         $qty = $this->m_stock->get($id_stock)->row()->qty;
-        $data = ['qty' => $qty,'id_item' => $id_item];
+        $data = ['qty' => $qty, 'id_item' => $id_item];
         $this->m_item->update_stock_out($data);
         $this->m_stock->del($id_stock);
         if ($this->db->affected_rows() > 0) {
@@ -54,7 +54,7 @@ class Stock extends CI_Controller
         $id_stock = $this->uri->segment(4);
         $id_item = $this->uri->segment(5);
         $qty = $this->m_stock->get($id_stock)->row()->qty;
-        $data = ['qty' => $qty,'id_item' => $id_item];
+        $data = ['qty' => $qty, 'id_item' => $id_item];
         $this->m_item->update_stock_in($data);
         $this->m_stock->del($id_stock);
         if ($this->db->affected_rows() > 0) {
@@ -74,21 +74,20 @@ class Stock extends CI_Controller
                 $this->session->set_flashdata('success', 'Data Saved!');
             }
             redirect('stock/in');
-        } 
+        }
     }
 
     public function process_out()
-{
-    if (isset($_POST['out_add'])) {
-        $post = $this->input->post(null, TRUE);
-        $this->m_stock->add_stock_out($post);
-        $this->m_item->update_stock_out($post);
+    {
+        if (isset($_POST['out_add'])) {
+            $post = $this->input->post(null, TRUE);
+            $this->m_stock->add_stock_out($post);
+            $this->m_item->update_stock_out($post);
 
-        if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'Data Stock Out Tersimpan!');
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Data Stock Out Tersimpan!');
+            }
+            redirect('stock/out');
         }
-        redirect('stock/out');
     }
-}
-    
 }

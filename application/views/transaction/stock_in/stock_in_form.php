@@ -43,8 +43,8 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <label for="name_unit">Item Unit</label>
-                                    <input type="text" name="name_unit" id="name_unit" value="-" class="form-control" readonly>
+                                    <label for="unit_name">Item Unit</label>
+                                    <input type="text" name="unit_name" id="unit_name" value="-" class="form-control" readonly>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="stock">Initial Stock</label>
@@ -101,21 +101,21 @@
                             <th>Barcode</th>
                             <th>Name</th>
                             <th>Unit</th>
-                            <th>Price</th>
+                            <th style="width: 70px;">Price</th>
                             <th>Stock</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($item as $i => $data) { ?>
+                        <?php foreach ($item as $i => $query) { ?>
                             <tr>
-                                <td><?= $data->barcode ?></td>
-                                <td><?= $data->name ?></td>
-                                <td><?= $data->name_unit ?></td>
-                                <td class="text-right"><?= indo_currency($data->price) ?></td>
-                                <td class="text-right"><?= $data->stock ?></td>
+                                <td><?= $query->barcode ?></td>
+                                <td><?= $query->name ?></td>
+                                <td><?= $query->unit_name ?></td>
+                                <td class="text-right"><?= indo_currency($query->price) ?></td>
+                                <td class="text-right"><?= $query->stock ?></td>
                                 <td>
-                                    <button class="btn btn-sm btn-info" style="margin-left: 20px;" id="select" data-id="<?= $data->id_item ?>" data-barcode="<?= $data->barcode ?>" data-name="<?= $data->name ?>" data-unit="<?= $data->name_unit ?>" data-stock="<?= $data->stock ?>">
+                                    <button class="btn btn-sm btn-info" style="margin-left: 20px;" id="select" data-id="<?= $query->id_item ?>" data-barcode="<?= $query->barcode ?>" data-name="<?= $query->name ?>" data-unit="<?= $query->unit_name ?>" data-stock="<?= $query->stock ?>">
                                         <i class="fa fa-check">Select</i>
                                     </button>
                                 </td>
@@ -138,13 +138,13 @@
             var id_item = $(this).data('id');
             var barcode = $(this).data('barcode');
             var name = $(this).data('name');
-            var name_unit = $(this).data('unit');
+            var unit_name = $(this).data('unit');
             var stock = $(this).data('stock');
 
             $('#id_item').val(id_item);
             $('#barcode').val(barcode);
             $('#item_name').val(name);
-            $('#name_unit').val(name_unit);
+            $('#unit_name').val(unit_name);
             $('#stock').val(stock);
             $('#modal-item').modal('hide');
 

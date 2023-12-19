@@ -19,7 +19,7 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" name="name" class="form-control" value="<?= set_value('name'); ?>">

@@ -5,15 +5,17 @@ class m_item extends CI_Model
 {
 
     // start datatables
-    var $column_order = array(null, 'barcode', 'p_item.name', 'category_name', 'unit_name', 'price', 'stock'); //set column field database for datatable orderable
+    var $column_order = array(null, 'barcode', 'p_item.name', 'general_name', 'type_name', 'category_name', 'unit_name', 'price', 'stock'); //set column field database for datatable orderable
     var $column_search = array('barcode', 'p_item.name', 'price'); //set column field database for datatable searchable
     var $order = array('id_item' => 'asc'); // default order 
 
     private function _get_datatables_query()
     {
-        $this->db->select('p_item.*, p_category.name as category_name, p_unit.name as unit_name');
+        $this->db->select('p_item.*, p_category.name as category_name, p_unit.name as unit_name, p_type.name as type_name, p_general_name.name as general_name');
         $this->db->from('p_item');
         $this->db->join('p_category', 'p_item.id_category = p_category.id_category');
+        $this->db->join('p_general_name', 'p_item.id_general_name = p_general_name.id_general_name');
+        $this->db->join('p_type', 'p_item.id_type = p_type.id_type');
         $this->db->join('p_unit', 'p_item.id_unit = p_unit.id_unit');
         $i = 0;
         foreach ($this->column_search as $item) { // loop column 
@@ -60,10 +62,12 @@ class m_item extends CI_Model
 
     public function get($id = null)
     {
-        $this->db->select('p_item.*, p_category.name as name_category, p_unit.name as name_unit ');
+        $this->db->select('p_item.*, p_category.name as category_name, p_unit.name as unit_name, p_type.name as type_name, p_general_name.name as general_name');
         $this->db->from('p_item');
-        $this->db->join('p_category', 'p_category.id_category = p_item.id_category');
-        $this->db->join('p_unit', 'p_unit.id_unit = p_item.id_unit');
+        $this->db->join('p_category', 'p_item.id_category = p_category.id_category');
+        $this->db->join('p_general_name', 'p_item.id_general_name = p_general_name.id_general_name');
+        $this->db->join('p_type', 'p_item.id_type = p_type.id_type');
+        $this->db->join('p_unit', 'p_item.id_unit = p_unit.id_unit');
         if ($id != null) {
             $this->db->where('id_item', $id);
         }
@@ -76,8 +80,10 @@ class m_item extends CI_Model
         $params = [
             'barcode' => $post['barcode'],
             'name' => $post['product_name'],
+            'id_general_name' => $post['general_name'],
             'id_category' => $post['category'],
             'id_unit' => $post['unit'],
+            'id_type' => $post['type'],
             'price' => $post['price'],
             'image' => $post['image'],
         ];
@@ -89,7 +95,9 @@ class m_item extends CI_Model
             'barcode' => $post['barcode'],
             'name' => $post['product_name'],
             'id_category' => $post['category'],
+            'id_general_name' => $post['general_name'],
             'id_unit' => $post['unit'],
+            'id_type' => $post['type'],
             'price' => $post['price'],
             'updated_at' => date('Y-m-d H:i:s')
         ];

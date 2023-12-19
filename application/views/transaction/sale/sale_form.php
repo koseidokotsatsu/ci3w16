@@ -1,3 +1,8 @@
+<?php
+// Check if there's a flash message in the session
+$flashMessage = $this->session->flashdata('message');
+?>
+
 <section class="content-header">
     <h1>Sales
         <small>Sales</small>
@@ -10,6 +15,12 @@
 </section>
 
 <section class="content">
+    <?php if (!empty($flashMessage)) : ?>
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <?= $flashMessage ?>
+        </div>
+    <?php endif; ?>
     <form action="<?= base_url('sale/transaction'); ?>" method="post">
         <div class="row">
             <div class="col-lg-4">
@@ -84,7 +95,7 @@
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        <input type="number" id="qty" name="qty" min="1" class="form-control">
+                                        <input type="number" id="qty" name="qty" min="1" value="1" class="form-control" required>
                                     </div>
                                 </td>
                             </tr>
@@ -135,6 +146,7 @@
                                     <th>Qty</th>
                                     <th>Price</th>
                                     <th>Sub Total</th>
+                                    <th style="width: 30px;"></th>
                                 </tr>
                             </thead>
                             <tbody id="cart-table">
@@ -156,6 +168,11 @@
                                             </td>
                                             <td>
                                                 <span><?= $items['subtotal']; ?></span>
+                                            </td>
+                                            <td align="center">
+                                                <a onclick="location.href = '<?= base_url(); ?>sale/hapus_cart/<?= $items['rowid']; ?>';" title="Batalkan">
+                                                    <i class="fa fa-trash-o tip pointer posdel"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php }
@@ -194,7 +211,7 @@
                                     <label for="grand_total">Total</label>
                                 </td>
                                 <td class="form-group">
-                                    <input type="number" name="total" id="total" class="form-control" readonly>
+                                    <input type="number" name="total" id="total" value="0" class="form-control" readonly>
                                 </td>
                             </tr>
                         </table>
@@ -221,7 +238,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <input type="number" name="change" id="change" class="form-control" readonly>
+                                        <input type="number" name="change" id="change" class="form-control" value="0" readonly>
                                     </div>
                                 </td>
                             </tr>
@@ -249,9 +266,9 @@
             </div>
             <div class="col-lg-3">
                 <div>
-                    <button id="cancel_payment" class="btn btn-flat btn-warning" type="reset">
+                    <a href="sale/cancel" class="btn btn-flat btn-warning" type="reset">
                         <i class="fa fa-refresh"></i> Cancel
-                    </button><br><br>
+                    </a><br><br>
                     <button id="transaction" name="transaction" class="btn btn-flat btn-lg btn-success" type="submit">
                         <i class="fa fa-paper-plane-o"></i> Process Payment
                     </button>
@@ -290,14 +307,14 @@
                                 <td hidden><?= $row->id_item ?></td>
                                 <td><?= $row->barcode ?></td>
                                 <td><?= $row->name ?></td>
-                                <td><?= $row->name_unit ?></td>
+                                <td><?= $row->unit_name ?></td>
                                 <td class="text-right"><?= indo_currency($row->price) ?></td>
                                 <td class="text-right"><?= $row->stock ?></td>
                                 <td>
                                     <!-- <a href="<?= base_url() . 'sale/tambah_barang/' . $row->id_item . '/1' ?>" class="btn btn-sm btn-info select-item" style="margin-left: 20px;">
                                         <i class="fa fa-check"></i>&nbsp;Select
                                     </a> -->
-                                    <button class="btn btn-sm btn-info select-item" style="margin-left: 20px;" id="select" data-id="<?= $row->id_item ?>" data-barcode="<?= $row->barcode ?>" data-name="<?= $row->name ?>" data-unit="<?= $row->name_unit ?>" data-stock="<?= $row->stock ?>" data-price="<?= $row->price ?>">
+                                    <button class="btn btn-sm btn-info select-item" style="margin-left: 20px;" id="select" data-id="<?= $row->id_item ?>" data-barcode="<?= $row->barcode ?>" data-name="<?= $row->name ?>" data-unit="<?= $row->unit_name ?>" data-stock="<?= $row->stock ?>" data-price="<?= $row->price ?>">
                                         <i class="fa fa-check"></i>&nbsp;Select
                                     </button>
                                 </td>

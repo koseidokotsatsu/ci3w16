@@ -21,7 +21,7 @@ class m_sale extends CI_Model
     }
     function lihat_barang($id)
     {
-        return $this->db->select('SUM(p_item) as total')
+        return $this->db->select('SUM(stock) as total')
             ->where('id_item', $id)
             ->get('p_item')
             ->row();
@@ -37,6 +37,7 @@ class m_sale extends CI_Model
     {
         $this->db->insert('t_sale', $payment);
     }
+
     function get_id($id)
     {
         return $this->db->select('id_sale')->where('invoice', $id)->get('t_sale')->row_array();
@@ -44,13 +45,14 @@ class m_sale extends CI_Model
 
     function tambah_pjl($penjualan)
     {
-        $this->db->insert_batch('payment', $penjualan);
+        $this->db->insert_batch('t_payment', $penjualan);
     }
 
     function pengurangan_stok($pjl)
     {
-        $this->db->update_batch('stock', $pjl, 'id_item');
+        $this->db->update_batch('p_item', $pjl, 'id_item');
     }
+
     function total_barang($id)
     {
         return $this->db->select('sum(stock) as total')

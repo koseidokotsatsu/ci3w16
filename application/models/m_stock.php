@@ -4,16 +4,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class m_stock extends CI_Model
 {
 
-    public function get($id = null) {
+    public function get($id = null)
+    {
         $this->db->from('t_stock');
-        if($id != null) {
+        if ($id != null) {
             $this->db->where('id_stock', $id);
         }
         $query = $this->db->get();
         return $query;
     }
 
-    public function del($id) {
+    public function del($id)
+    {
         $this->db->where('id_stock', $id);
         $this->db->delete('t_stock');
     }
