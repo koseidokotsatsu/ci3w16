@@ -478,6 +478,71 @@ $flashMessage = $this->session->flashdata('message');
             $("#change").val(parseFloat(change.toFixed(2)));
         }
 
+        // Event handler for the "Print Receipt" button
+$("#transaction").on("click", function() {
+    printReceipt();
+});
+
+// Function to print the receipt
+function printReceipt() {
+    // Open a new window for printing
+    var printWindow = window.open('', '_blank');
+
+    // Build the content of the receipt
+    var receiptContent = buildReceiptContent();
+
+    // Write the content to the new window
+    printWindow.document.write(receiptContent);
+
+    // Close the document for writing
+    printWindow.document.close();
+
+    // Print the receipt
+    printWindow.print();
+}
+
+// Function to build the content of the receipt
+function buildReceiptContent() {
+    var receiptContent = '<html>';
+    receiptContent += '<head><title>Receipt</title></head>';
+    receiptContent += '<body>';
+    receiptContent += '<h1>Receipt</h1>';
+
+    // Add details such as date, cashier, customer, etc.
+    receiptContent += '<p>Date: ' + $("#date").val() + '</p>';
+    receiptContent += '<p>Cashier: ' + $("#user").val() + '</p>';
+    receiptContent += '<p>Customer: ' + $("#customer").val() + '</p>';
+
+    // Add the items in the cart
+    receiptContent += '<table border="1">';
+    receiptContent += '<tr><th>Item</th><th>Qty</th><th>Price</th><th>Subtotal</th></tr>';
+
+    $("#cart-table tr").each(function() {
+        var itemName = $(this).find("td:eq(1)").text();
+        var itemQty = $(this).find("td:eq(2)").text();
+        var itemPrice = $(this).find("td:eq(3)").text();
+        var itemSubtotal = $(this).find("td:eq(4)").text();
+
+        receiptContent += '<tr><td>' + itemName + '</td><td>' + itemQty + '</td><td>' + itemPrice + '</td><td>' + itemSubtotal + '</td></tr>';
+    });
+
+    receiptContent += '</table>';
+
+    // Add total, discount, cash, change, and note
+    receiptContent += '<p>Total: ' + $("#total").val() + '</p>';
+    receiptContent += '<p>Discount: ' + $("#id_discount").val() + '</p>';
+    receiptContent += '<p>Cash: ' + $("#cash").val() + '</p>';
+    receiptContent += '<p>Change: ' + $("#change").val() + '</p>';
+    receiptContent += '<p>Note: ' + $("#note").val() + '</p>';
+
+    receiptContent += '</body>';
+    receiptContent += '</html>';
+
+    return receiptContent;
+}
+
+
+
         //     $("#add_cart").click(function() {
         //         // Get the quantity value from the input field
         //         var qty = parseInt($("#qty").val()) || 1;
