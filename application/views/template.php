@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Medical POS</title>
+    <title>Our Pharmacy</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -55,7 +55,7 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>M</b>DC</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>MEDICAL</b>POS</span>
+                <span class="logo-lg">Our<b>Pharmacy</b></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -83,6 +83,11 @@
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
+                                    <?php if ($this->fuct->user_login()->level == 1) { ?>
+                                        <div class="pull-left">
+                                            <a href="<?= base_url('user/edit/' . $this->fuct->user_login()->id_user); ?>" class="btn btn-primary btn-flat">Edit Profile</a>
+                                        </div>
+                                    <?php } ?>
                                     <div class="pull-right">
                                         <a href="<?= base_url('auth/logout'); ?>" class="btn btn-danger btn-flat">Sign out</a>
                                     </div>
@@ -107,17 +112,6 @@
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
-                <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
@@ -181,7 +175,7 @@
                                 <a href="<?= site_url('sale'); ?>"><i class="fa fa-circle-o"></i> Sales</a>
                             </li>
                             <li <?= $this->uri->segment(1) == 'receipt'  ? 'class="active"' : '' ?>>
-                                <a href="<?= site_url('receipt'); ?>"><i class="fa fa-circle-o"></i> Receipt</a>
+                                <a href="<?= site_url('receipt'); ?>"><i class="fa fa-circle-o"></i> Data Sale</a>
                             </li>
                             <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ? 'class="active"' : '' ?>>
                                 <a href="<?= site_url('stock/in'); ?>"><i class="fa fa-circle-o"></i> Stock in</a>

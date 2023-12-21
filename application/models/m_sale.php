@@ -59,4 +59,10 @@ class m_sale extends CI_Model
             ->where('id_item', $id)
             ->get('p_item');
     }
+    function cek_transaksi($id)
+    {
+        return $this->db->join('t_payment', 't_payment.id_sale = t_sale.id_sale', 'left')
+            ->join('p_item', 'p_item.id_item = t_payment.id_item', 'left')
+            ->where('t_sale.id_sale', $id)->get('t_sale')->result();
+    }
 }

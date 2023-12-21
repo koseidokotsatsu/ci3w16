@@ -152,11 +152,10 @@ class Sale extends CI_Controller
         $pjl = $this->m_sale->tambah_pjl($penjualan); //tambah data ke tabel penjualan
         if (!$detail_penjualan && !$pjl && !$png) {
             $this->cart->destroy();
-            $this->session->set_flashdata('message', 'Penjualan Sukses');
-            redirect('sale/');
-            // redirect('sale/receipt/' . $id_sale['id']);
+            $this->session->set_flashdata('message', 'Transaction Succeed');
+            redirect('sale/receipt_detail/' . $id_sale['id_sale']);
         } else {
-            $this->session->set_flashdata('message', 'Ooopss! Penjualan Gagal, Namun Stok Data Berubah!');
+            $this->session->set_flashdata('message', 'Ooopss! Transaction Error, But Stock is Changed');
             redirect(base_url('sale'));
         }
     }
@@ -164,5 +163,22 @@ class Sale extends CI_Controller
     {
         $this->cart->destroy();
         redirect('sale/');
+    }
+    function receipt_detail($id)
+    {
+        $cek = $this->m_sale->cek_transaksi($this->uri->segment(3));
+        $data = array(
+            'date' => $cek[0]->date_tf,
+            'hour' => $cek[0]->hour_tf,
+            'invoice' => $cek[0]->invoice,
+            'customer' => $cek[0]->customer_name,
+            'total_early' => $cek[0]->total_early,
+            'discount' => $cek[0]->discount,
+            'total_final' => $cek[0]->total_final,
+            'result' => $cek,
+            'cash' => $cek[0]->cash,
+            'remain' => $cek[0]->remain,
+        );
+        $this->template->load('template', 'transaction/receipt/receipt_detail', $data);
     }
 }

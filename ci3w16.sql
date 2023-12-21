@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Des 2023 pada 16.39
+-- Waktu pembuatan: 21 Des 2023 pada 05.32
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -119,8 +119,8 @@ CREATE TABLE `p_item` (
 --
 
 INSERT INTO `p_item` (`id_item`, `barcode`, `id_general_name`, `name`, `id_category`, `id_type`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
-(27, 'P00001', 1, 'Pandol 500mg', 13, 1, 11, 12500, 96, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2023-12-19 15:48:11'),
-(29, 'P00002', 2, 'Ponstan 500 mg 10 Tablet', 14, 2, 13, 38000, 200, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2023-12-19 15:54:56');
+(27, 'P00001', 1, 'Pandol 500mg', 13, 1, 11, 12500, 89, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2023-12-19 15:48:11'),
+(29, 'P00002', 2, 'Ponstan 500 mg 10 Tablet', 14, 2, 13, 38000, 176, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2023-12-19 15:54:56');
 
 -- --------------------------------------------------------
 
@@ -251,7 +251,9 @@ INSERT INTO `t_payment` (`id_transaction`, `id_sale`, `id_item`, `stock`, `price
 (10, 60, 27, 96, 12240, 12240),
 (11, 61, 27, 96, 12240, 36720),
 (12, 62, 27, 4, 12240, 48960),
-(13, 64, 27, 4, 12240, 48960);
+(13, 64, 27, 4, 12240, 48960),
+(14, 65, 27, 3, 12500, 37500),
+(15, 66, 29, 12, 38000, 456000);
 
 -- --------------------------------------------------------
 
@@ -272,26 +274,6 @@ CREATE TABLE `t_sale` (
   `date_tf` date NOT NULL,
   `hour_tf` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `t_sale`
---
-
-INSERT INTO `t_sale` (`id_sale`, `invoice`, `customer_name`, `total_early`, `total_final`, `discount`, `cash`, `remain`, `note`, `date_tf`, `hour_tf`) VALUES
-(50, 'MP2312190001', 'Umum', 13500, 13000, 500, 13000, 0, '', '2023-12-19', '06:27:35'),
-(52, 'MP2312190002', 'Umum', 12240, 12240, 0, 0, -12240, '', '2023-12-19', '14:25:42'),
-(53, 'MP2312190003', 'Umum', 12240, 0, 0, 0, 0, '', '2023-12-19', '15:20:46'),
-(54, 'MP2312190004', 'Umum', 12240, 10240, 2000, 10240, 0, '3x sehari', '2023-12-19', '15:22:30'),
-(55, 'MP2312190005', 'Umum', 12240, 0, 0, 0, 0, '', '2023-12-19', '15:35:10'),
-(56, 'MP2312190006', 'Umum', 24480, 0, 0, 0, 0, '', '2023-12-19', '15:35:19'),
-(57, 'MP2312190007', 'Umum', 24480, 0, 0, 0, 0, '', '2023-12-19', '15:36:12'),
-(58, 'MP2312190008', 'Umum', 12240, 0, 0, 0, 0, '', '2023-12-19', '15:37:17'),
-(59, 'MP2312190009', 'Umum', 12240, 0, 0, 0, 0, '', '2023-12-19', '15:42:32'),
-(60, 'MP2312190010', 'Umum', 12240, 0, 0, 0, 0, '', '2023-12-19', '15:43:17'),
-(61, 'MP2312190011', 'Umum', 36720, 0, 0, 0, 0, '', '2023-12-19', '15:43:46'),
-(62, 'MP2312190012', 'Umum', 48960, 48960, 0, 50000, 1040, '', '2023-12-19', '15:44:19'),
-(63, 'MP2312190013', 'Umum', 48960, 48000, 960, 50000, 2000, '', '2023-12-19', '15:47:19'),
-(64, 'MP2312190014', 'Umum', 48960, 48000, 960, 50000, 2000, '', '2023-12-19', '15:47:28');
 
 -- --------------------------------------------------------
 
@@ -340,9 +322,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `name`, `img`, `level`, `created_at`) VALUES
-(1, 'admin', '006c39a25220ab4129c6039913bb16e3596b7fef', 'admin', 'default.jpg', 1, '2023-10-09 09:30:25'),
-(6, 'Raesoxee', '9be77c90e4d9789dc5f481651ad7b449d8d1308c', 'Ranggita Putri Alya', 'ishimi.jpeg', 1, '2023-12-18 09:58:05'),
-(7, 'radityaabib', '9be77c90e4d9789dc5f481651ad7b449d8d1308c', 'Raditya Abib Shanau', 'download.jpeg', 1, '2023-12-19 13:08:42'),
+(1, 'admin', '8cb2237d0679ca88db6464eac60da96345513964', 'admin', 'default.jpg', 1, '2023-10-09 09:30:25'),
+(6, 'Raesoxee', '8cb2237d0679ca88db6464eac60da96345513964', 'Ranggita Putri Alya', 'ishimiyoko_(2).jpeg', 1, '2023-12-18 09:58:05'),
+(7, 'radityaabib', '8cb2237d0679ca88db6464eac60da96345513964', 'Raditya Abib Shanau', 'ishimiyoko_(3).jpeg', 1, '2023-12-19 13:08:42'),
 (8, 'qoqon', '8cb2237d0679ca88db6464eac60da96345513964', 'Muhammad Furqon Maulana', 'belike.png', 2, '2023-12-19 13:10:43'),
 (9, 'donald', '8cb2237d0679ca88db6464eac60da96345513964', 'Donald Hugh Henley', 'da8743a4912631a20d71c2733a4199ae.jpg', 2, '2023-12-19 18:39:42');
 
@@ -472,13 +454,13 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `t_payment`
 --
 ALTER TABLE `t_payment`
-  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_sale`
 --
 ALTER TABLE `t_sale`
-  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_stock`

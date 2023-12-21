@@ -13,7 +13,7 @@
             <h3 class="box-title">Data Product Items</h3>
             <div class="pull-right">
                 <a href="<?= site_url('item/add'); ?>" class="btn btn-primary btn-flat">
-                    <i class="fa fa-plus"></i> Create Product Item
+                    <i class="fa fa-plus"></i>
                 </a>
             </div>
         </div>

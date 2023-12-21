@@ -21,10 +21,9 @@
                 <div class="col-md-4 col-md-offset-4">
                     <form action="" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label>Profile Image</label>
                             <?php if ($row->img != null) : ?>
-                                <div class="existing-profile-image">
-                                    <img src="<?= base_url('assets/img/' . $row->img); ?>" alt="Profile Image" class="img-thumbnail">
+                                <div class="existing-profile-image text-center" style="margin-bottom: 15px; margin-top: 15px;">
+                                    <img src="<?= base_url('assets/img/' . $row->img); ?>" alt="Profile Image" class="img-thumbnail" style="border-radius: 50%;">
                                 </div>
                             <?php endif; ?>
                             <input type="file" name="img" class="form-control" accept="image/*">
@@ -36,7 +35,7 @@
                         </div>
                         <div class="form-group <?= form_error('username') ? 'has-error' : null ?>">
                             <label>Username</label>
-                            <input type="text" name="username" class="form-control" value="<?= $this->input->post('username') ?? $row->username; ?>">
+                            <input type="text" name="username" class="form-control" value="<?= $this->input->post('username') ?? $row->username; ?>" readonly>
                             <?= form_error('username') ?>
                         </div>
                         <div class="form-group <?= form_error('password') ? 'has-error' : null ?>">
