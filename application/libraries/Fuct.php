@@ -54,4 +54,9 @@ class Fuct
         $this->ci->load->model('m_user');
         return $this->ci->m_user->get()->num_rows();
     }
+    public function count_sale()
+    {
+        $this->ci->load->model('m_sale');
+        return $this->ci->m_sale->hitung_penjualan();
+    }
 }

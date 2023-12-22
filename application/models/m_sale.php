@@ -19,6 +19,10 @@ class m_sale extends CI_Model
         $invoice = "MP" . date('ymd') . $no;
         return $invoice;
     }
+    public function hitung_penjualan()
+    {
+        return $this->db->count_all('t_sale'); // Ganti 'tabel_penjualan' dengan nama tabel penjualan sesuai dengan struktur database Anda
+    }
     function lihat_barang($id)
     {
         return $this->db->select('SUM(stock) as total')
