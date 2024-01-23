@@ -134,8 +134,15 @@ class User extends CI_Controller
 
                 if ($this->db->affected_rows() > 0) {
                     echo "<script>alert('Data saved!');</script>";
+                } else {
+                    echo "<script>alert('Data Not Saved Please, Try again!');</script>";
                 }
-                echo "<script>window.location='" . site_url('user') . "';</script>";
+
+                if ($this->fuct->user_login()->level == 1) {
+                    echo "<script>window.location='" . site_url('user') . "';</script>";
+                } else {
+                    echo "<script>window.location='" . site_url('dashboard') . "';</script>";
+                }
             }
         }
     }
@@ -151,15 +158,19 @@ class User extends CI_Controller
             return true;
         }
     }
-
-    public function del()
+    public function del($id)
     {
-        $id = $this->input->post('id_user');
-        $this->m_user->del($id);
+        $this->load->model('m_user');
 
-        if ($this->db->affected_rows() > 0) {
-            echo "<script>alert('Data deleted!');</script>";
+        if ($this->m_user->delete($id)) {
+            // User deleted successfully
+            echo "<script>alert('User deleted!');</script>";
+        } else {
+            // User not found or deletion failed
+            echo "<script>alert('User not found or deletion failed');</script>";
         }
+
+        // Redirect to the user list or any other page
         echo "<script>window.location='" . site_url('user') . "';</script>";
     }
 }

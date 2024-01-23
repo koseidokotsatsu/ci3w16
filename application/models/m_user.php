@@ -44,9 +44,15 @@ class m_user extends CI_Model
 
         $data['level'] = $post['level'];
 
+        // Check if a new image is uploaded
         if (!empty($_FILES['img']['name'])) {
-            $data['img'] = $this->handleProfileImage($post);
+            // Delete the old profile image
+            $this->deleteProfileImage($post['id_user']);
+
+            // Upload the new profile image
+            $data['img'] = $this->handleProfileImage();
         } else {
+            // Keep the existing profile image
             $data['img'] = $this->getExistingProfileImage($post['id_user']);
         }
 
@@ -89,4 +95,34 @@ class m_user extends CI_Model
         }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function delete($id)
+    {
+        // Check if the user exists
+        $user = $this->get($id)->row();
+        if (!$user) {
+            // User not found
+            return false;
+        }
+
+        // Delete the user's profile image if it's not the default image
+        if ($user->img !== 'default.jpg') {
+            $this->deleteProfileImage($user->img);
+        }
+
+        // Delete the user from the database
+        $this->db->where('id_user', $id);
+        $this->db->delete('user');
+
+        // Check if the deletion was successful
+        return $this->db->affected_rows() > 0;
+    }
+
+    // New function to delete a profile image
+    private function deleteProfileImage($imageName)
+    {
+        $imagePath = './assets/img/' . $imageName;
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+    }
 }

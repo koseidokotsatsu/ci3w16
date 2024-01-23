@@ -57,13 +57,13 @@
 <section class='content'>
 
     <?php if ($this->session->flashdata('message')) { ?>
-        <div class="col-lg-12 alerts">
-            <div class="alert alert-dismissible alert-success">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <h4> <i class="icon fa fa-check"></i> Success</h4>
-                <p><?= $this->session->flashdata('message'); ?></p>
-            </div>
+    <div class="col-lg-12 alerts">
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4> <i class="icon fa fa-check"></i> Success</h4>
+            <p><?= $this->session->flashdata('message'); ?></p>
         </div>
+    </div>
     <?php } else { } ?>
 
     <div class='row'>
@@ -102,12 +102,12 @@
                                                 <?php
 
                                                 foreach ($result as $row) { ?>
-                                                    <tr>
-                                                        <td><?= $row->name; ?></td>
-                                                        <td style="text-align:center;"><?= $row->qty; ?></td>
-                                                        <td class="text-center">Rp.<?= number_format($row->price); ?></td>
-                                                        <td class="text-right">Rp.<?= number_format($row->sub_total); ?></td>
-                                                    </tr>
+                                                <tr>
+                                                    <td><?= $row->name; ?></td>
+                                                    <td style="text-align:center;"><?= $row->qty; ?></td>
+                                                    <td class="text-center">Rp.<?= number_format($row->price); ?></td>
+                                                    <td class="text-right">Rp.<?= number_format($row->sub_total); ?></td>
+                                                </tr>
                                                 <?php }
                                                 ?>
                                             </tbody>

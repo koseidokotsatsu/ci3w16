@@ -7,6 +7,7 @@ class Stock extends CI_Controller
     {
         parent::__construct();
         check_not_login();
+        check_level();
         $this->load->model(['m_item', 'm_supplier', 'm_stock']);
         $this->load->helper('currency');
     }

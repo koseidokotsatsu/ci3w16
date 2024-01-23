@@ -8,9 +8,10 @@
 <!-- Main content -->
 <section class="content">
     <?php if ($this->session->flashdata('success')) : ?>
-        <div class="alert alert-success">
-            <?= $this->session->flashdata('success') ?>
-        </div>
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <?= $this->session->flashdata('success') ?>
+    </div>
     <?php endif; ?>
     <div class="box">
         <div class="box-header">
@@ -36,21 +37,21 @@
                 <tbody>
                     <?php $no = 1;
                     foreach ($row as $key => $data) { ?>
-                        <tr>
-                            <td style="width:5%;"><?= $no++ ?></td>
-                            <td><?= $data->barcode ?></td>
-                            <td><?= $data->item_name ?></td>
-                            <td class="text-right"><?= $data->qty ?></td>
-                            <td class="text-center"><?= indo_date($data->date) ?></td>
-                            <td class="text-center" width="160px">
-                                <a id="set_detail" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-detail" data-barcode="<?= $data->barcode ?>" data-itemname="<?= $data->item_name ?>" data-detail="<?= $data->detail ?>" data-suppliername="<?= $data->supplier_name ?>" data-qty="<?= $data->qty ?>" data-date="<?= indo_date($data->date) ?>">
-                                    <i class="fa fa-eye"> Detail</i>
-                                </a>
-                                <a href="<?= site_url('stock/in/del/' . $data->id_stock . '/' . $data->id_item) ?>" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-danger btn-xs">
-                                    <i class="fa fa-trash"> Delete</i>
-                                </a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td style="width:5%;"><?= $no++ ?></td>
+                        <td><?= $data->barcode ?></td>
+                        <td><?= $data->item_name ?></td>
+                        <td class="text-right"><?= $data->qty ?></td>
+                        <td class="text-center"><?= indo_date($data->date) ?></td>
+                        <td class="text-center" width="160px">
+                            <a id="set_detail" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-detail" data-barcode="<?= $data->barcode ?>" data-itemname="<?= $data->item_name ?>" data-detail="<?= $data->detail ?>" data-suppliername="<?= $data->supplier_name ?>" data-qty="<?= $data->qty ?>" data-date="<?= indo_date($data->date) ?>">
+                                <i class="fa fa-eye"> Detail</i>
+                            </a>
+                            <a href="<?= site_url('stock/in/del/' . $data->id_stock . '/' . $data->id_item) ?>" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-danger btn-xs">
+                                <i class="fa fa-trash"> Delete</i>
+                            </a>
+                        </td>
+                    </tr>
                     <?php
                     } ?>
                 </tbody>

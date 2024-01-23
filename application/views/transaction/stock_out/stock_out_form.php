@@ -43,11 +43,11 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <label for="name_unit">Item Unit</label>
-                                    <input type="text" name="name_unit" id="name_unit" value="-" class="form-control" readonly>
+                                    <label for="unit_name">Item Unit</label>
+                                    <input type="text" name="unit_name" id="unit_name_input" value="-" class="form-control" readonly>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="stock">Initial Stock</label>
+                                    <label for="stock">Stock</label>
                                     <input type="text" name="stock" id="stock" value="-" class="form-control" readonly>
                                 </div>
                             </div>
@@ -99,18 +99,18 @@
                     </thead>
                     <tbody>
                         <?php foreach ($item as $i => $data) { ?>
-                            <tr>
-                                <td><?= $data->barcode ?></td>
-                                <td><?= $data->name ?></td>
-                                <td><?= $data->unit_name ?></td>
-                                <td class="text-right"><?= indo_currency($data->price) ?></td>
-                                <td class="text-right"><?= $data->stock ?></td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" style="margin-left: 20px;" id="select" data-id="<?= $data->id_item ?>" data-barcode="<?= $data->barcode ?>" data-name="<?= $data->name ?>" data-unit="<?= $data->unit_name ?>" data-stock="<?= $data->stock ?>">
-                                        <i class="fa fa-check">Select</i>
-                                    </button>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td><?= $data->barcode ?></td>
+                            <td><?= $data->name ?></td>
+                            <td><?= $data->unit_name ?></td>
+                            <td class="text-right"><?= indo_currency($data->price) ?></td>
+                            <td class="text-right"><?= $data->stock ?></td>
+                            <td>
+                                <button class="btn btn-sm btn-info" style="margin-left: 20px;" id="select" data-id="<?= $data->id_item ?>" data-barcode="<?= $data->barcode ?>" data-name="<?= $data->name ?>" data-unit="<?= $data->unit_name ?>" data-stock="<?= $data->stock ?>">
+                                    <i class="fa fa-check">Select</i>
+                                </button>
+                            </td>
+                        </tr>
                         <?php } ?>
                     </tbody>
                 </table>
@@ -132,13 +132,18 @@
             var unit_name = $(this).data('unit');
             var stock = $(this).data('stock');
 
+            console.log('id_item:', id_item);
+            console.log('barcode:', barcode);
+            console.log('name:', name);
+            console.log('unit_name:', unit_name);
+            console.log('stock:', stock);
+
             $('#id_item').val(id_item);
             $('#barcode').val(barcode);
             $('#item_name').val(name);
-            $('#unit_name').val(unit_name);
+            $('#unit_name_input').val(unit_name);
             $('#stock').val(stock);
             $('#modal-item').modal('hide');
-
-        })
+        });
     })
 </script>

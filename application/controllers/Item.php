@@ -7,7 +7,6 @@ class item extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        check_level();
         $this->load->model(['m_item', 'm_general_name', 'm_category', 'm_unit', 'm_type']);
         $this->load->helper('currency');
     }
@@ -52,6 +51,8 @@ class item extends CI_Controller
     }
     public function add()
     {
+        check_level();
+
         $item = new stdClass();
         $item->id_item = null;
         $item->barcode = null;
@@ -80,6 +81,8 @@ class item extends CI_Controller
     }
     public function edit($id)
     {
+        check_level();
+
         $query = $this->m_item->get($id);
         if ($query->num_rows() > 0) {
             $item = $query->row();
@@ -108,6 +111,7 @@ class item extends CI_Controller
     }
     public function process()
     {
+        check_level();
 
         $config['upload_path']          = './uploads/product/';
         $config['allowed_types']        = 'gif|jpg|jpeg|png';
@@ -179,6 +183,8 @@ class item extends CI_Controller
     }
     public function del($id)
     {
+        check_level();
+
         $item = $this->m_item->get($id)->row();
         if ($item->image != null) {
             $target_file = './uploads/product/' . $item->image;

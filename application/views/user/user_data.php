@@ -35,26 +35,29 @@
                             continue;
                         }
                         ?>
-                        <tr>
-                            <td style="width:5%;"><?= $no++ ?></td>
-                            <td><?= $data->username ?></td>
-                            <td><?= $data->name ?></td>
-                            <td>
-                                <img src="<?= base_url('assets/img/' . $data->img); ?>" style="max-width: 50px; max-height: 50px; border-radius: 50px">
-                            </td>
-                            <td><?= $data->level == 1 ? "Admin" : "Cashier" ?></td>
-                            <td class="text-center" width="160px">
-                                <a href="<?= site_url('user/edit/' . $data->id_user) ?>" class="btn btn-primary btn-xs" style="margin-bottom: 3px;">
-                                    <i class="fa fa-pencil"></i>&nbsp;Edit
-                                </a>
-                                <form action="<?= site_url('user/del') ?>" method="post">
-                                    <input type="hidden" name="id_user" value="<?= $data->id_user ?>">
-                                    <button class="btn btn-danger btn-xs">
-                                        <i class="fa fa-trash"></i>&nbsp;Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td style="width:5%;"><?= $no++ ?></td>
+                        <td><?= $data->username ?></td>
+                        <td><?= $data->name ?></td>
+                        <td>
+                            <img src="<?= base_url('assets/img/' . $data->img); ?>" style="max-width: 50px; max-height: 50px; border-radius: 50px">
+                        </td>
+                        <td><?= $data->level == 1 ? "Admin" : "Cashier" ?></td>
+                        <td class="text-center" width="160px">
+                            <a href="<?= site_url('user/edit/' . $data->id_user) ?>" class="btn btn-primary btn-xs" style="margin-bottom: 3px;">
+                                <i class="fa fa-pencil"></i>&nbsp;Edit
+                            </a>
+                            <a href="<?= site_url('user/del/' . $data->id_user) ?>" class="btn btn-danger btn-xs" style="margin-bottom: 3px;">
+                                <i class="fa fa-trash"></i>&nbsp;Delete
+                            </a>
+                            <!-- <form action="<?= site_url('user/del') ?>" method="post">
+                                <input type="hidden" name="id_user" value="<?= $data->id_user ?>">
+                                <button class="btn btn-danger btn-xs">
+                                    <i class="fa fa-trash"></i>&nbsp;Delete
+                                </button>
+                            </form> -->
+                        </td>
+                    </tr>
                     <?php
                     } ?>
                 </tbody>
