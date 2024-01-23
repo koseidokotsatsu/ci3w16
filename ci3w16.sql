@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Des 2023 pada 05.32
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Waktu pembuatan: 23 Jan 2024 pada 07.09
+-- Versi server: 10.4.22-MariaDB
+-- Versi PHP: 8.1.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,18 +31,18 @@ CREATE TABLE `customer` (
   `id_customer` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `gender` enum('L','P') DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
+  `phone` varchar(125) DEFAULT NULL,
   `address` text DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `customer`
 --
 
 INSERT INTO `customer` (`id_customer`, `name`, `gender`, `phone`, `address`, `created_at`, `updated_at`) VALUES
-(5, 'Muhammad Hanif Nur A.', 'L', '(+62) 812-2671-', 'Gelang, Keling, Jepara', '2023-12-19 13:24:54', NULL);
+(5, 'Muhammad Hanif Nur A.', 'L', '(+62) 812-2671-8705', 'Gelang Keling, Jepara', '2023-12-19 13:24:54', '2024-01-23 04:17:37');
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,7 @@ CREATE TABLE `p_category` (
   `name` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `p_category`
@@ -80,7 +80,7 @@ CREATE TABLE `p_general_name` (
   `name` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `p_general_name`
@@ -112,15 +112,15 @@ CREATE TABLE `p_item` (
   `image` varchar(100) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `p_item`
 --
 
 INSERT INTO `p_item` (`id_item`, `barcode`, `id_general_name`, `name`, `id_category`, `id_type`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
-(27, 'P00001', 1, 'Pandol 500mg', 13, 1, 11, 12500, 89, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2023-12-19 15:48:11'),
-(29, 'P00002', 2, 'Ponstan 500 mg 10 Tablet', 14, 2, 13, 38000, 176, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2023-12-19 15:54:56');
+(27, 'P00001', 1, 'Panadol 500mg', 13, 1, 11, 12500, 88, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-01-22 05:55:00'),
+(29, 'P00002', 2, 'Ponstan 500 mg 10 Tablet', 14, 2, 13, 38000, 154, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2023-12-19 15:54:56');
 
 -- --------------------------------------------------------
 
@@ -133,7 +133,7 @@ CREATE TABLE `p_type` (
   `name` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `p_type`
@@ -185,7 +185,7 @@ CREATE TABLE `p_unit` (
   `name` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `p_unit`
@@ -210,7 +210,7 @@ CREATE TABLE `supplier` (
   `description` text DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `supplier`
@@ -231,16 +231,16 @@ CREATE TABLE `t_payment` (
   `id_transaction` int(11) NOT NULL,
   `id_sale` int(5) NOT NULL,
   `id_item` int(11) NOT NULL,
-  `stock` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
   `price` bigint(20) NOT NULL,
   `sub_total` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `t_payment`
 --
 
-INSERT INTO `t_payment` (`id_transaction`, `id_sale`, `id_item`, `stock`, `price`, `sub_total`) VALUES
+INSERT INTO `t_payment` (`id_transaction`, `id_sale`, `id_item`, `qty`, `price`, `sub_total`) VALUES
 (3, 50, 16, 3, 4500, 13500),
 (4, 51, 27, 96, 12240, 12240),
 (5, 52, 27, 96, 12240, 12240),
@@ -253,7 +253,12 @@ INSERT INTO `t_payment` (`id_transaction`, `id_sale`, `id_item`, `stock`, `price
 (12, 62, 27, 4, 12240, 48960),
 (13, 64, 27, 4, 12240, 48960),
 (14, 65, 27, 3, 12500, 37500),
-(15, 66, 29, 12, 38000, 456000);
+(15, 66, 29, 12, 38000, 456000),
+(20, 70, 27, 1, 12500, 12500),
+(21, 70, 29, 1, 38000, 38000),
+(22, 71, 29, 6, 38000, 228000),
+(23, 72, 29, 5, 38000, 190000),
+(24, 74, 29, 5, 38000, 190000);
 
 -- --------------------------------------------------------
 
@@ -273,7 +278,18 @@ CREATE TABLE `t_sale` (
   `note` varchar(100) DEFAULT NULL,
   `date_tf` date NOT NULL,
   `hour_tf` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `t_sale`
+--
+
+INSERT INTO `t_sale` (`id_sale`, `invoice`, `customer_name`, `total_early`, `total_final`, `discount`, `cash`, `remain`, `note`, `date_tf`, `hour_tf`) VALUES
+(70, 'MP2401170001', 'Umum', 50500, 49000, 1500, 50000, 1000, 'Sassy Baka', '2024-01-17', '13:44:47'),
+(71, 'MP2401220001', 'Umum', 228000, 220000, 8000, 220000, 0, '', '2024-01-22', '04:06:03'),
+(72, 'MP2401220002', 'Umum', 190000, 189000, 1000, 200000, 11000, '', '2024-01-22', '05:56:58'),
+(73, 'MP2401220003', 'Umum', 190000, 185000, 5000, 200000, 15000, '', '2024-01-22', '07:32:43'),
+(74, 'MP2401220004', 'Umum', 190000, 175000, 15000, 175000, 0, '', '2024-01-22', '07:33:34');
 
 -- --------------------------------------------------------
 
@@ -291,7 +307,7 @@ CREATE TABLE `t_stock` (
   `date` date NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `id_user` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `t_stock`
@@ -315,7 +331,7 @@ CREATE TABLE `user` (
   `img` varchar(255) NOT NULL,
   `level` int(11) NOT NULL COMMENT '1:admin,2:staff',
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `user`
@@ -323,9 +339,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `name`, `img`, `level`, `created_at`) VALUES
 (1, 'admin', '8cb2237d0679ca88db6464eac60da96345513964', 'admin', 'default.jpg', 1, '2023-10-09 09:30:25'),
-(6, 'Raesoxee', '8cb2237d0679ca88db6464eac60da96345513964', 'Ranggita Putri Alya', 'ishimiyoko_(2).jpeg', 1, '2023-12-18 09:58:05'),
-(7, 'radityaabib', '8cb2237d0679ca88db6464eac60da96345513964', 'Raditya Abib Shanau', 'ishimiyoko_(3).jpeg', 1, '2023-12-19 13:08:42'),
-(8, 'qoqon', '8cb2237d0679ca88db6464eac60da96345513964', 'Muhammad Furqon Maulana', 'belike.png', 2, '2023-12-19 13:10:43'),
+(6, 'Raesoxee', '8cb2237d0679ca88db6464eac60da96345513964', 'Ranggita Putri Alya', 'download.jpeg', 1, '2023-12-18 09:58:05'),
+(7, 'radityaabib', '8cb2237d0679ca88db6464eac60da96345513964', 'Raditya Abib', '17013085864821.jpeg', 1, '2023-12-19 13:08:42'),
+(8, 'qoqon', '8cb2237d0679ca88db6464eac60da96345513964', 'Muhammad Furqon ', 'belike.png', 2, '2023-12-19 13:10:43'),
 (9, 'donald', '8cb2237d0679ca88db6464eac60da96345513964', 'Donald Hugh Henley', 'da8743a4912631a20d71c2733a4199ae.jpg', 2, '2023-12-19 18:39:42');
 
 --
@@ -454,13 +470,13 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `t_payment`
 --
 ALTER TABLE `t_payment`
-  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_sale`
 --
 ALTER TABLE `t_sale`
-  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_stock`

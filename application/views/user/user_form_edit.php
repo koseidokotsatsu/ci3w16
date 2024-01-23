@@ -11,9 +11,15 @@
         <div class="box-header">
             <h3 class="box-title">Edit Users</h3>
             <div class="pull-right">
-                <a href="<?= site_url('user'); ?>" class="btn btn-warning btn-flat">
-                    <i class="fa fa-undo"></i>&nbsp;&nbsp;Return
-                </a>
+                <?php if ($level == 1) : ?>
+                    <a href="<?= site_url('user'); ?>" class="btn btn-warning btn-flat">
+                        <i class="fa fa-undo"></i>&nbsp;&nbsp;Return
+                    </a>
+                <?php else : ?>
+                    <a href="<?= site_url('dashboard'); ?>" class="btn btn-warning btn-flat">
+                        <i class="fa fa-undo"></i>&nbsp;&nbsp;Dashboard
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
         <div class="box-body">
@@ -49,15 +55,19 @@
                             <input type="password" name="passconf" class="form-control" value="<?= $this->input->post('passconf'); ?>">
                             <?= form_error('passconf') ?>
                         </div>
-                        <div class="form-group <?= form_error('level') ? 'has-error' : null ?>">
-                            <label>Level</label>
-                            <select name="level" class="form-control">
-                                <?php $level = $this->input->post('level') ? $this->input->post('level') : $row->level ?>
-                                <option value="1">Admin</option>
-                                <option value="2" <?= $level == 2 ? 'selected' : null ?>>Cashier</option>
-                            </select>
-                            <?= form_error('level') ?>
-                        </div>
+                        <?php if ($level == 1) { ?>
+                            <div class="form-group <?= form_error('level') ? 'has-error' : null ?>">
+                                <label>Level</label>
+                                <select name="level" class="form-control">
+                                    <?php $level = $this->input->post('level') ? $this->input->post('level') : $row->level ?>
+                                    <option value="1">Admin</option>
+                                    <option value="2" <?= $level == 2 ? 'selected' : null ?>>Cashier</option>
+                                </select>
+                                <?= form_error('level') ?>
+                            </div>
+                        <?php } else { ?>
+                            <input type="text" name="level" value="<?= $row->level ?>" hidden>
+                        <?php } ?>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-flat">
                                 <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;Save

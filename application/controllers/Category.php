@@ -6,6 +6,7 @@ class Category extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        check_level();
         check_not_login();
         $this->load->model('m_category');
     }

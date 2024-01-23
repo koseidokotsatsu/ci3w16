@@ -45,13 +45,13 @@
                                     Generate <i class="fa fa-barcode"></i> <i class="fa fa-qrcode"></i>
                                 </a>
                             </td>
-                            <td><?= $data->name ?></td>
-                            <td><?= $data->general_name ?></td>
-                            <td><?= $data->name_category ?></td>
-                            <td><?= $data->type_name ?></td>
-                            <td><?= $data->name_unit ?></td>
-                            <td><?= $data->price ?></td>
-                            <td><?= $data->stock ?></td>
+                            <td><?= $data->name ?? 'N/A' ?></td>
+                            <td><?= $data->general_name ?? 'N/A' ?></td>
+                            <td><?= $data->name_category ?? 'N/A' ?></td>
+                            <td><?= $data->type_name ?? 'N/A' ?></td>
+                            <td><?= $data->name_unit ?? 'N/A' ?></td>
+                            <td><?= $data->price ?? 'N/A' ?></td>
+                            <td><?= $data->stock ?? 'N/A' ?></td>
                             <td>
                                 <?php if ($data->image != null) { ?>
 

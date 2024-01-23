@@ -21,17 +21,30 @@ class Auth extends CI_Controller
                     'level' => $row->level
                 );
                 $this->session->set_userdata($params);
-                echo "<script>
+
+                // Check user level and redirect accordingly
+                if ($row->level == 2) {
+                    echo "<script>
+                        alert('Login Success');
+                        window.location='" . site_url('sale') .
+                        "'</script>";
+                } elseif ($row->level == 1) {
+                    echo "<script>
                         alert('Login Success');
                         window.location='" . site_url('dashboard') .
-                    "'</script>";
+                        "'</script>";
+                }
             } else {
                 echo "<script>
-                        alert('Login failed, wrong username or password');
-                        window.location='" . site_url('auth/login') .
+                    alert('Login failed, wrong username or password');
+                    window.location='" . site_url('auth/login') .
                     "'</script>";
             }
         }
+    }
+    public function blocked()
+    {
+        $this->load->view('forbidden');
     }
     public function logout()
     {

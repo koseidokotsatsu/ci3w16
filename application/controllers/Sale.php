@@ -44,8 +44,8 @@ class Sale extends CI_Controller
                 'qty'     => $qty,
                 'price'   => $result->price,
                 'name'    => $result->name,
-                'barcode'   => $result->barcode,
-                'stock' => $result->stock,
+                'barcode' => $result->barcode,
+                'stock'   => $result->stock,
             );
             echo "Data to be inserted into cart:";
             echo "<pre>";
@@ -109,7 +109,7 @@ class Sale extends CI_Controller
             redirect(base_url('sale'));
         }
 
-        $detail_penjualan =  $this->m_sale->tambah_trf($payment); //tambah data ke tabel detail
+        $detail_penjualan =  $this->m_sale->tambah_trf($payment); //tambah data ke tabel M_Sale
         $id_sale = $this->m_sale->get_id($invoice); //ambil id
 
         // echo '<pre>';
@@ -136,7 +136,7 @@ class Sale extends CI_Controller
             $penjualan[] = array(
                 'id_sale'           => $id_sale['id_sale'],
                 'id_item'           => $items['id'],
-                'stock'             => $items['qty'],
+                'qty'             => $items['qty'],
                 'price'             => $items['price'],
                 'sub_total'         => $items['subtotal']
             );
@@ -159,12 +159,14 @@ class Sale extends CI_Controller
             redirect(base_url('sale'));
         }
     }
+
     function cancel()
     {
         $this->cart->destroy();
         redirect('sale/');
     }
-    function receipt_detail($id)
+
+    function receipt_detail()
     {
         $cek = $this->m_sale->cek_transaksi($this->uri->segment(3));
         $data = array(

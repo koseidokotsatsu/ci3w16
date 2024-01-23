@@ -6,7 +6,6 @@ class User extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        check_level();
         check_not_login();
 
         $this->load->library('form_validation');
@@ -14,13 +13,14 @@ class User extends CI_Controller
     }
     public function index()
     {
+        check_level();
         $data['row'] = $this->m_user->get();
-
         $this->template->load('template', 'user/user_data', $data);
     }
 
     public function add()
     {
+        check_level();
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|is_unique[user.username]');
@@ -47,119 +47,18 @@ class User extends CI_Controller
             echo "<script>window.location='" . site_url('user') . "';</script>";
         }
     }
-    public function edit($id)
-    {
-        $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|callback_username_check');
-        if ($this->input->post('password')) {
-            $this->form_validation->set_rules('password', 'Password', 'min_length[5]');
-            $this->form_validation->set_rules('passconf', 'Confirm Password', 'matches[password]', array('required' => '%s isn`t the same as the current Password!'));
-        }
-        if ($this->input->post('passconf')) {
-            $this->form_validation->set_rules('passconf', 'Confirm Password', 'matches[password]', array('required' => '%s isn`t the same as the current Password!'));
-        }
-        $this->form_validation->set_rules('level', 'Level', 'required');
-
-        $this->form_validation->set_message('required', '%s still empty, please fill it in');
-        $this->form_validation->set_message('min_length', '{field} minimum 5 characters');
-        $this->form_validation->set_message('is_unique', '{field} has been used, please try another one');
-
-        $this->form_validation->set_error_delimiters('<span class="help-block">', '</span>');
-
-        if ($this->form_validation->run() == false) {
-            $query = $this->m_user->get($id);
-            if ($query->num_rows() > 0) {
-                $data['row'] = $query->row();
-                $this->template->load('template', 'user/user_form_edit', $data);
-            } else {
-                echo "<script>alert('Data not found');";
-                echo "window.location='" . site_url('user') . "';</script>";
-            }
-        } else {
-            $post = $this->input->post(null, true);
-
-            // Get the old profile image name
-            $oldProfileImage = $this->m_user->get($id)->row()->img;
-
-            $newProfileImage = $this->handleProfileImage($id);
-
-            // Only delete the old image if a new image is provided
-            if ($newProfileImage != 'default.jpg') {
-                $this->deleteOldProfileImage($oldProfileImage);
-            }
-
-            $post['profile_image'] = $newProfileImage;
-            $this->m_user->edit($post);
-
-            if ($this->db->affected_rows() > 0) {
-                echo "<script>alert('Data saved!');</script>";
-            }
-            echo "<script>window.location='" . site_url('user') . "';</script>";
-        }
-    }
-
-    public function edit_profile()
-    {
-        $id = $this->session->userdata('user_id'); // Assuming you store the user ID in the session
-
-        $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|callback_username_check[' . $id . ']');
-        if ($this->input->post('password')) {
-            $this->form_validation->set_rules('password', 'Password', 'min_length[5]');
-            $this->form_validation->set_rules('passconf', 'Confirm Password', 'matches[password]', array('required' => '%s isn`t the same as the current Password!'));
-        }
-        if ($this->input->post('passconf')) {
-            $this->form_validation->set_rules('passconf', 'Confirm Password', 'matches[password]', array('required' => '%s isn`t the same as the current Password!'));
-        }
-        $this->form_validation->set_rules('level', 'Level', 'required');
-
-        $this->form_validation->set_message('required', '%s still empty, please fill it in');
-        $this->form_validation->set_message('min_length', '{field} minimum 5 characters');
-        $this->form_validation->set_message('is_unique', '{field} has been used, please try another one');
-
-        $this->form_validation->set_error_delimiters('<span class="help-block">', '</span>');
-
-        if ($this->form_validation->run() == false) {
-            $query = $this->m_user->get($id);
-            if ($query->num_rows() > 0) {
-                $data['row'] = $query->row();
-                $this->template->load('template', 'user/user_form_edit', $data);
-            } else {
-                echo "<script>alert('Data not found');";
-                echo "window.location='" . site_url('user') . "';</script>";
-            }
-        } else {
-            $post = $this->input->post(null, true);
-
-            // Get the old profile image name
-            $oldProfileImage = $this->m_user->get($id)->row()->img;
-
-            $newProfileImage = $this->handleProfileImage($id);
-
-            // Only delete the old image if a new image is provided
-            if ($newProfileImage != 'default.jpg') {
-                $this->deleteOldProfileImage($oldProfileImage);
-            }
-
-            $post['profile_image'] = $newProfileImage;
-            $this->m_user->edit($post);
-
-            if ($this->db->affected_rows() > 0) {
-                echo "<script>alert('Data saved!');</script>";
-            }
-            echo "<script>window.location='" . site_url('user') . "';</script>";
-        }
-    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private function handleProfileImage()
     {
-        if (!empty($_FILES['profile_image']['name'])) {
+        if (!empty($_FILES['img']['name'])) {
             $config['upload_path'] = './assets/img/';
             $config['allowed_types'] = 'jpg|jpeg|png|gif';
             $config['max_size'] = 2024;
 
             $this->load->library('upload', $config);
 
-            if ($this->upload->do_upload('profile_image')) {
+            if ($this->upload->do_upload('img')) {
                 $upload_data = $this->upload->data();
                 return $upload_data['file_name'];
             } else {
@@ -178,6 +77,69 @@ class User extends CI_Controller
         }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function edit($id)
+    {
+        $data['user'] = $this->m_user->get($id)->row();
+        $data['level'] = $this->fuct->user_login()->level;
+
+        $loggedInUserLevel = $this->fuct->user_login()->level;
+        // var_dump($loggedInUserLevel);
+        // die;
+
+        if ($loggedInUserLevel != 1 && $this->fuct->user_login()->id_user !== $id) {
+            redirect('auth/blocked');
+        }
+
+        if ($id == 1) {
+            redirect('user');
+        } else {
+
+            if ($this->input->post('password')) {
+                $this->form_validation->set_rules('password', 'Password', 'min_length[5]');
+            }
+            if ($this->input->post('passconf')) {
+                $this->form_validation->set_rules('passconf', 'Confirm Password', 'matches[password]', array('required' => '%s isn`t the same as the current Password!'));
+            }
+            $this->form_validation->set_rules('level', 'Level', 'required');
+
+            $this->form_validation->set_message('min_length', '{field} minimum 5 characters');
+            $this->form_validation->set_message('is_unique', '{field} has been used, please try another one');
+
+            $this->form_validation->set_error_delimiters('<span class="help-block">', '</span>');
+
+            if ($this->form_validation->run() == false) {
+                $query = $this->m_user->get($id);
+                if ($query->num_rows() > 0) {
+                    $data['row'] = $query->row();
+                    $this->template->load('template', 'user/user_form_edit', $data);
+                } else {
+                    echo "<script>alert('Data not found');";
+                    echo "window.location='" . site_url('user') . "';</script>";
+                }
+            } else {
+                $post = $this->input->post(null, true);
+                $oldProfileImage = $this->m_user->get($id)->row()->img;
+                $newProfileImage = $this->handleProfileImage($id);
+
+                // var_dump($newProfileImage);
+                // var_dump($oldProfileImage);
+                // die;
+
+                if ($newProfileImage != 'default.jpg') {
+                    $this->deleteOldProfileImage($oldProfileImage);
+                }
+                $post['profile_image'] = $newProfileImage;
+                $this->m_user->edit($post);
+
+                if ($this->db->affected_rows() > 0) {
+                    echo "<script>alert('Data saved!');</script>";
+                }
+                echo "<script>window.location='" . site_url('user') . "';</script>";
+            }
+        }
+    }
+
     function username_check()
     {
         $post = $this->input->post(null, TRUE);

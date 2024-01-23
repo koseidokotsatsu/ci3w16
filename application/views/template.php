@@ -37,6 +37,9 @@
   <script src="<?= base_url(''); ?>assets/https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
+    <!-- Logo -->
+    <link rel="icon" href="<?= base_url(); ?>assets/img/logo/ngana.png" type="image/x-icon">
+
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
@@ -83,11 +86,11 @@
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <?php if ($this->fuct->user_login()->level == 1) { ?>
-                                        <div class="pull-left">
+                                    <div class="pull-left">
+                                        <?php if ($this->fuct->user_login()->username != 'admin') { ?>
                                             <a href="<?= base_url('user/edit/' . $this->fuct->user_login()->id_user); ?>" class="btn btn-primary btn-flat">Edit Profile</a>
-                                        </div>
-                                    <?php } ?>
+                                        <?php } ?>
+                                    </div>
                                     <div class="pull-right">
                                         <a href="<?= base_url('auth/logout'); ?>" class="btn btn-danger btn-flat">Sign out</a>
                                     </div>
@@ -109,7 +112,7 @@
                     </div>
                     <div class="pull-left info">
                         <p><?= $this->fuct->user_login()->username ?></p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        <a><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
                 <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -121,50 +124,56 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li <?= $this->uri->segment(1) == 'supplier'  ? 'class="active"' : '' ?>>
-                        <a href="<?= site_url('supplier'); ?>">
-                            <i class="fa fa-truck"></i>
-                            <span>Suppliers</span>
-                        </a>
-                    </li>
+                    <?php if ($this->fuct->user_login()->level == 1) { ?>
+                        <li <?= $this->uri->segment(1) == 'supplier'  ? 'class="active"' : '' ?>>
+                            <a href="<?= site_url('supplier'); ?>">
+                                <i class="fa fa-truck"></i>
+                                <span>Suppliers</span>
+                            </a>
+                        </li>
+                    <?php } ?>
                     <li <?= $this->uri->segment(1) == 'customer'  ? 'class="active"' : '' ?>>
                         <a href="<?= site_url('customer'); ?>">
                             <i class="fa fa-users"></i>
                             <span>Customers</span>
                         </a>
                     </li>
-                    <li class="treeview <?= $this->uri->segment(1) == 'category' ||
-                                            $this->uri->segment(1) == 'type' ||
-                                            $this->uri->segment(1) == 'general_name' ||
-                                            $this->uri->segment(1) == 'unit' ||
-                                            $this->uri->segment(1) == 'item' ? 'active' : '' ?>">
+                    <?php if ($this->fuct->user_login()->level == 1) { ?>
+                        <li class="treeview <?= $this->uri->segment(1) == 'category' ||
+                                                    $this->uri->segment(1) == 'type' ||
+                                                    $this->uri->segment(1) == 'general_name' ||
+                                                    $this->uri->segment(1) == 'unit' ||
+                                                    $this->uri->segment(1) == 'item' ? 'active' : '' ?>">
+                            <a href="#">
+                                <i class="fa fa-archive"></i>
+                                <span>Product</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li <?= $this->uri->segment(1) == 'category'  ? 'class="active"' : '' ?>>
+                                    <a href="<?= site_url('category'); ?>"><i class="fa fa-circle-o"></i> Categories</a>
+                                </li>
+                                <li <?= $this->uri->segment(1) == 'type'  ? 'class="active"' : '' ?>>
+                                    <a href="<?= site_url('type'); ?>"><i class="fa fa-circle-o"></i> Type</a></li>
+                                <li <?= $this->uri->segment(1) == 'general_name'  ? 'class="active"' : '' ?>>
+                                    <a href="<?= site_url('general_name'); ?>"><i class="fa fa-circle-o"></i> General Name</a>
+                                </li>
+                                <li <?= $this->uri->segment(1) == 'unit'  ? 'class="active"' : '' ?>>
+                                    <a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Units</a>
+                                </li>
+                                <li <?= $this->uri->segment(1) == 'item'  ? 'class="active"' : '' ?>>
+                                    <a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a>
+                                </li>
+                            </ul>
+                        </li>
+                    <?php } ?>
+                    <li class="treeview <?= $this->uri->segment(1) == 'stock' ||
+                                            $this->uri->segment(1) == 'receipt' ||
+                                            $this->uri->segment(1) == 'sale' ? 'active' : '' ?>">
                         <a href="#">
-                            <i class="fa fa-archive"></i>
-                            <span>Product</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li <?= $this->uri->segment(1) == 'category'  ? 'class="active"' : '' ?>>
-                                <a href="<?= site_url('category'); ?>"><i class="fa fa-circle-o"></i> Categories</a>
-                            </li>
-                            <li <?= $this->uri->segment(1) == 'type'  ? 'class="active"' : '' ?>>
-                                <a href="<?= site_url('type'); ?>"><i class="fa fa-circle-o"></i> Type</a></li>
-                            <li <?= $this->uri->segment(1) == 'general_name'  ? 'class="active"' : '' ?>>
-                                <a href="<?= site_url('general_name'); ?>"><i class="fa fa-circle-o"></i> General Name</a>
-                            </li>
-                            <li <?= $this->uri->segment(1) == 'unit'  ? 'class="active"' : '' ?>>
-                                <a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Units</a>
-                            </li>
-                            <li <?= $this->uri->segment(1) == 'item'  ? 'class="active"' : '' ?>>
-                                <a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="treeview <?= $this->uri->segment(1) == 'stock' || $this->uri->segment(1) == 'sale' ? 'active' : '' ?>">
-                        <a href="#">
-                            <i class="fa fa-archive"></i>
+                            <i class="fa fa-cart-arrow-down"></i>
                             <span>Transaction</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -185,12 +194,19 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="header">SETTINGS</li>
                     <?php if ($this->fuct->user_login()->level == 1) { ?>
-                        <li class="header">SETTINGS</li>
-                        <li>
+                        <li <?= $this->uri->segment(1) == 'user'  ? 'class="active"' : '' ?>>
                             <a href="<?= site_url('user'); ?>">
-                                <i class="fa fa-user"></i>
+                                <i class="fa fa-users"></i>
                                 <span>Users</span>
+                            </a>
+                        </li>
+                    <?php } else { ?>
+                        <li <?= $this->uri->segment(1) == 'user'  ? 'class="active"' : '' ?>>
+                            <a href="<?= site_url('user/edit/' . $this->fuct->user_login()->id_user); ?>">
+                                <i class="fa fa-pencil-square-o"></i>
+                                <span>Edit Profile</span>
                             </a>
                         </li>
                     <?php } ?>
@@ -213,199 +229,6 @@
             reserved.
         </footer>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Create the tabs -->
-            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <!-- Home tab content -->
-                <div class="tab-pane" id="control-sidebar-home-tab">
-                    <h3 class="control-sidebar-heading">Recent Activity</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                    <p>Will be 23 on April 24th</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="menu-icon fa fa-user bg-yellow"></i>
-
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                                    <p>New phone +1(800)555-1234</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
-                                    <p>nora@example.com</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-                                <div class="menu-info">
-                                    <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-
-                                    <p>Execution time 5 seconds</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.control-sidebar-menu -->
-
-                    <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                    <ul class="control-sidebar-menu">
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h4 class="control-sidebar-subheading">
-                                    Custom Template Design
-                                    <span class="label label-danger pull-right">70%</span>
-                                </h4>
-
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h4 class="control-sidebar-subheading">
-                                    Update Resume
-                                    <span class="label label-success pull-right">95%</span>
-                                </h4>
-
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h4 class="control-sidebar-subheading">
-                                    Laravel Integration
-                                    <span class="label label-warning pull-right">50%</span>
-                                </h4>
-
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h4 class="control-sidebar-subheading">
-                                    Back End Framework
-                                    <span class="label label-primary pull-right">68%</span>
-                                </h4>
-
-                                <div class="progress progress-xxs">
-                                    <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.control-sidebar-menu -->
-
-                </div>
-                <!-- /.tab-pane -->
-                <!-- Stats tab content -->
-                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-                <!-- /.tab-pane -->
-                <!-- Settings tab content -->
-                <div class="tab-pane" id="control-sidebar-settings-tab">
-                    <form method="post">
-                        <h3 class="control-sidebar-heading">General Settings</h3>
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Report panel usage
-                                <input type="checkbox" class="pull-right" checked>
-                            </label>
-
-                            <p>
-                                Some information about this general settings option
-                            </p>
-                        </div>
-                        <!-- /.form-group -->
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Allow mail redirect
-                                <input type="checkbox" class="pull-right" checked>
-                            </label>
-
-                            <p>
-                                Other sets of options are available
-                            </p>
-                        </div>
-                        <!-- /.form-group -->
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Expose author name in posts
-                                <input type="checkbox" class="pull-right" checked>
-                            </label>
-
-                            <p>
-                                Allow the user to show his name in blog posts
-                            </p>
-                        </div>
-                        <!-- /.form-group -->
-
-                        <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Show me as online
-                                <input type="checkbox" class="pull-right" checked>
-                            </label>
-                        </div>
-                        <!-- /.form-group -->
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Turn off notifications
-                                <input type="checkbox" class="pull-right">
-                            </label>
-                        </div>
-                        <!-- /.form-group -->
-
-                        <div class="form-group">
-                            <label class="control-sidebar-subheading">
-                                Delete chat history
-                                <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-                            </label>
-                        </div>
-                        <!-- /.form-group -->
-                    </form>
-                </div>
-                <!-- /.tab-pane -->
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
-        <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
     </div>
     <!-- ./wrapper -->
 

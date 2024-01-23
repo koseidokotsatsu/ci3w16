@@ -7,6 +7,7 @@ class item extends CI_Controller
     {
         parent::__construct();
         check_not_login();
+        check_level();
         $this->load->model(['m_item', 'm_general_name', 'm_category', 'm_unit', 'm_type']);
         $this->load->helper('currency');
     }

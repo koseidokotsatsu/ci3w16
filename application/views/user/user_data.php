@@ -30,7 +30,11 @@
                 </thead>
                 <tbody>
                     <?php $no = 1;
-                    foreach ($row->result() as $key => $data) { ?>
+                    foreach ($row->result() as $key => $data) {
+                        if ($data->username == 'admin') {
+                            continue;
+                        }
+                        ?>
                         <tr>
                             <td style="width:5%;"><?= $no++ ?></td>
                             <td><?= $data->username ?></td>

@@ -55,6 +55,7 @@
 </style>
 
 <section class='content'>
+
     <?php if ($this->session->flashdata('message')) { ?>
         <div class="col-lg-12 alerts">
             <div class="alert alert-dismissible alert-success">
@@ -64,6 +65,7 @@
             </div>
         </div>
     <?php } else { } ?>
+
     <div class='row'>
         <div class='col-xs-12'>
             <div class='box box-primary'>
@@ -78,7 +80,7 @@
                                     <div>
                                         <div style="text-align:center;">
                                             <img src="<?= base_url(); ?>assets/img/logo/ngana.png" style="max-width:150px;">
-                                            <p style="text-align:center;"><strong>OurPharmacy</strong><br>jL. Kasihan</p>
+                                            <p style="text-align:center;"><strong>OurPharmacy</strong><br>Jl. Kasihan</p>
                                             <p></p>
                                         </div>
                                         <p>
@@ -97,11 +99,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($result as $row) { ?>
+                                                <?php
+
+                                                foreach ($result as $row) { ?>
                                                     <tr>
                                                         <td><?= $row->name; ?></td>
-                                                        <td style="text-align:center;"><?= $row->stock; ?></td>
-                                                        <td class="text-center">Rp.<?= $row->price; ?></td>
+                                                        <td style="text-align:center;"><?= $row->qty; ?></td>
+                                                        <td class="text-center">Rp.<?= number_format($row->price); ?></td>
                                                         <td class="text-right">Rp.<?= number_format($row->sub_total); ?></td>
                                                     </tr>
                                                 <?php }
@@ -143,7 +147,7 @@
                                 <span class="pull-right col-xs-12">
                                     <button onclick="printDiv('print-area')" class="btn btn-block btn-primary">Print</button> </span>
                                 <span class="col-xs-12">
-                                    <a class="btn btn-block btn-warning" href="<?= base_url() ?>index.php/penjualan">Kembali ke Penjualan</a>
+                                    <a class="btn btn-block btn-warning" href="<?= base_url('sale') ?>">Kembali ke Penjualan</a>
                                 </span>
                                 <div style="clear:both;"></div>
                             </div>

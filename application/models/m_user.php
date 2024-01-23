@@ -28,7 +28,7 @@ class m_user extends CI_Model
         $data['username'] = $post['username'];
         $data['password'] = sha1($post['password']);
         $data['level'] = $post['level'];
-        $data['img'] = 'default.jpg'; // New line
+        $data['img'] = 'default.jpg';
 
         $this->db->insert('user', $data);
     }
@@ -38,19 +38,15 @@ class m_user extends CI_Model
         $data['name'] = $post['name'] != "" ? $post['name'] : null;
         $data['username'] = $post['username'];
 
-        // Check if a new password is provided
         if (!empty($post['password'])) {
             $data['password'] = sha1($post['password']);
         }
 
         $data['level'] = $post['level'];
 
-        // Check if a new profile image is uploaded
         if (!empty($_FILES['img']['name'])) {
-            // Handle image upload here and set the new profile image
             $data['img'] = $this->handleProfileImage($post);
         } else {
-            // No new image uploaded, keep the existing profile image
             $data['img'] = $this->getExistingProfileImage($post['id_user']);
         }
 
