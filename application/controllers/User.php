@@ -48,13 +48,12 @@ class User extends CI_Controller
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private function handleProfileImage()
     {
         if (!empty($_FILES['img']['name'])) {
             $config['upload_path'] = './assets/img/';
             $config['allowed_types'] = 'jpg|jpeg|png|gif';
-            $config['max_size'] = 2024;
+            $config['max_size'] = 5120;
 
             $this->load->library('upload', $config);
 
@@ -69,6 +68,7 @@ class User extends CI_Controller
             return 'default.jpg';
         }
     }
+
     private function deleteOldProfileImage($imageName)
     {
         $imagePath = './assets/img/' . $imageName;
@@ -85,12 +85,10 @@ class User extends CI_Controller
         $loggedInUserLevel = $this->fuct->user_login()->level;
 
         if ($loggedInUserLevel != 1 && $loggedInUserId !== $id) {
-            // If the logged-in user is not an admin and is not editing their own profile
             redirect('auth/blocked');
         }
 
         if ($id == 1 && $loggedInUserId != 1) {
-            // If the target user is admin and the logged-in user is not admin
             redirect('user');
         }
 
@@ -101,10 +99,8 @@ class User extends CI_Controller
             $this->form_validation->set_rules('passconf', 'Confirm Password', 'matches[password]', array('required' => '%s isn\'t the same as the current Password!'));
         }
         $this->form_validation->set_rules('level', 'Level', 'required');
-
         $this->form_validation->set_message('min_length', '{field} minimum 5 characters');
         $this->form_validation->set_message('is_unique', '{field} has been used, please try another one');
-
         $this->form_validation->set_error_delimiters('<span class="help-block">', '</span>');
 
         if ($this->form_validation->run() == false) {
@@ -119,12 +115,17 @@ class User extends CI_Controller
         } else {
             $post = $this->input->post(null, true);
             $oldProfileImage = $this->m_user->get($id)->row()->img;
-            $newProfileImage = $this->handleProfileImage($id);
 
-            if ($newProfileImage != 'default.jpg') {
-                $this->deleteOldProfileImage($oldProfileImage);
+            if (!empty($_FILES['img']['name'])) {
+                $post['profile_image'] = $this->handleProfileImage();
+
+                if ($oldProfileImage !== 'default.jpg') {
+                    $this->deleteOldProfileImage($oldProfileImage);
+                }
+            } else {
+                $post['profile_image'] = $oldProfileImage;
             }
-            $post['profile_image'] = $newProfileImage;
+
             $this->m_user->edit($post);
 
             if ($this->db->affected_rows() > 0) {

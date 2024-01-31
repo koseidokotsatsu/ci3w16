@@ -45,10 +45,10 @@
                         <td class="text-center"><?= indo_date($data->date) ?></td>
                         <td class="text-center" width="160px">
                             <a id="set_detail" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-detail" data-barcode="<?= $data->barcode ?>" data-itemname="<?= $data->item_name ?>" data-detail="<?= $data->detail ?>" data-suppliername="<?= $data->supplier_name ?>" data-qty="<?= $data->qty ?>" data-date="<?= indo_date($data->date) ?>">
-                                <i class="fa fa-eye"> Detail</i>
+                                <i class="fa fa-eye"></i>&nbsp;Detail
                             </a>
                             <a href="<?= site_url('stock/in/del/' . $data->id_stock . '/' . $data->id_item) ?>" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-danger btn-xs">
-                                <i class="fa fa-trash"> Delete</i>
+                                <i class="fa fa-trash"></i>&nbsp;Delete
                             </a>
                         </td>
                     </tr>

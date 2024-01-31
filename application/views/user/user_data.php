@@ -50,12 +50,6 @@
                             <a href="<?= site_url('user/del/' . $data->id_user) ?>" class="btn btn-danger btn-xs" style="margin-bottom: 3px;">
                                 <i class="fa fa-trash"></i>&nbsp;Delete
                             </a>
-                            <!-- <form action="<?= site_url('user/del') ?>" method="post">
-                                <input type="hidden" name="id_user" value="<?= $data->id_user ?>">
-                                <button class="btn btn-danger btn-xs">
-                                    <i class="fa fa-trash"></i>&nbsp;Delete
-                                </button>
-                            </form> -->
                         </td>
                     </tr>
                     <?php

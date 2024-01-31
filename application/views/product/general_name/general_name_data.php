@@ -6,7 +6,7 @@
 </section>
 
 <!-- Main content -->
-<section class="content">
+<section class="content col-lg-6">
     <?php $this->view('message'); ?>
     <div class="box">
         <div class="box-header">
@@ -29,18 +29,18 @@
                 <tbody>
                     <?php $no = 1;
                     foreach ($row->result() as $key => $data) { ?>
-                        <tr>
-                            <td style="width:5%;"><?= $no++ ?></td>
-                            <td><?= $data->name ?></td>
-                            <td class="text-center" width="160px">
-                                <a href="<?= site_url('general_name/edit/' . $data->id_general_name) ?>" class="btn btn-primary btn-xs">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a href="<?= site_url('general_name/del/' . $data->id_general_name) ?>" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-danger btn-xs">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td style="width:5%;"><?= $no++ ?></td>
+                        <td><?= $data->name ?></td>
+                        <td class="text-center" width="160px">
+                            <a href="<?= site_url('general_name/edit/' . $data->id_general_name) ?>" class="btn btn-primary btn-xs">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="<?= site_url('general_name/del/' . $data->id_general_name) ?>" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-danger btn-xs">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
                     <?php
                     } ?>
                 </tbody>
