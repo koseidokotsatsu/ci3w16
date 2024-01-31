@@ -3,6 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
+    public function index()
+    {
+        redirect('auth/login');
+    }
     public function login()
     {
         check_already_login();

@@ -40,7 +40,7 @@
             <div class="error-content">
                 <h3><i class="fa fa-warning text-yellow"></i>&nbsp;&nbsp;You Are Forbidden To See This Page</h3>
                 <p>
-                    You are unauthorized to see or use this page you may <a href="<?= base_url('/') ?>dashboard">return to dashboard</a> now.
+                    You are unauthorized to see or use this page you may <a href="<?= base_url('/') ?>auth">return to dashboard</a> now.
                 </p>
             </div>
         </div>

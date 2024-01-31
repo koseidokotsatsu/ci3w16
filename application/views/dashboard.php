@@ -51,6 +51,7 @@
       <!-- /.info-box -->
     </div>
     <!-- /.col -->
+
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
         <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
@@ -63,6 +64,7 @@
       </div>
       <!-- /.info-box -->
     </div>
+
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
         <span class="info-box-icon bg-purple"><i class="ion ion-ios-paper"></i></span>
