@@ -3,6 +3,11 @@
         General Name
         <small>General Name Form</small>
     </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?= base_url('dashboard') ?>"><i class="fa fa-dashboard"></i></a></li>
+        <li>Product</li>
+        <li class="active">General Name</li>
+    </ol>
 </section>
 
 <!-- Main content -->

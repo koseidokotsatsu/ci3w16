@@ -1,5 +1,4 @@
 <?php
-// Check if there's a flash message in the session
 $flashMessage = $this->session->flashdata('message');
 ?>
 
@@ -8,7 +7,7 @@ $flashMessage = $this->session->flashdata('message');
         <small>Sales</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i></a></li>
+        <li><a href="<?= base_url('dashboard') ?>"><i class="fa fa-dashboard"></i></a></li>
         <li>Transaction</li>
         <li class="active">Sales</li>
     </ol>
@@ -16,10 +15,10 @@ $flashMessage = $this->session->flashdata('message');
 
 <section class="content">
     <?php if (!empty($flashMessage)) : ?>
-    <div class="alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <?= $flashMessage ?>
-    </div>
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <?= $flashMessage ?>
+        </div>
     <?php endif; ?>
     <form action="<?= base_url('sale/transaction'); ?>" method="post">
         <div class="row">
@@ -106,7 +105,7 @@ $flashMessage = $this->session->flashdata('message');
                                         <select id="customer" name="customer" class="form-control">
                                             <option value="Umum">Umum</option>
                                             <?php foreach ($customer as $value) { ?>
-                                            <option value="<?= $value->name ?>"><?= $value->name ?></option>
+                                                <option value="<?= $value->name ?>"><?= $value->name ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -153,30 +152,30 @@ $flashMessage = $this->session->flashdata('message');
                                 <?php
                                 if (!empty($this->cart->contents())) {
                                     foreach ($this->cart->contents() as $items) { ?>
-                                <tr>
-                                    <td>
-                                        <span><?= $items['barcode']; ?></span>
-                                    </td>
-                                    <td>
-                                        <span><?= $items['name']; ?></span>
-                                    </td>
-                                    <td>
-                                        <span><?= $items['qty']; ?></span>
-                                    </td>
-                                    <td>
-                                        <span><?= $items['price']; ?></span>
-                                    </td>
-                                    <td>
-                                        <span><?= $items['subtotal']; ?></span>
-                                    </td>
-                                    <td align="center">
-                                        <a onclick="location.href = '<?= base_url(); ?>sale/hapus_cart/<?= $items['rowid']; ?>';" title="Batalkan">
-                                            <i class="fa fa-trash-o tip pointer posdel"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <?php }
-                                } else { ?>
+                                        <tr>
+                                            <td>
+                                                <span><?= $items['barcode']; ?></span>
+                                            </td>
+                                            <td>
+                                                <span><?= $items['name']; ?></span>
+                                            </td>
+                                            <td>
+                                                <span><?= $items['qty']; ?></span>
+                                            </td>
+                                            <td>
+                                                <span><?= $items['price']; ?></span>
+                                            </td>
+                                            <td>
+                                                <span><?= $items['subtotal']; ?></span>
+                                            </td>
+                                            <td align="center">
+                                                <a onclick="location.href = '<?= base_url(); ?>sale/hapus_cart/<?= $items['rowid']; ?>';" title="Batalkan">
+                                                    <i class="fa fa-trash-o tip pointer posdel"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php }
+                                    } else { ?>
                                 <?php } ?>
                             </tbody>
                         </table>
@@ -303,22 +302,22 @@ $flashMessage = $this->session->flashdata('message');
                     </thead>
                     <tbody>
                         <?php foreach ($item as $row) { ?>
-                        <tr>
-                            <td hidden><?= $row->id_item ?></td>
-                            <td><?= $row->barcode ?></td>
-                            <td><?= $row->name ?></td>
-                            <td><?= $row->unit_name ?></td>
-                            <td class="text-right"><?= indo_currency($row->price) ?></td>
-                            <td class="text-right"><?= $row->stock ?></td>
-                            <td>
-                                <!-- <a href="<?= base_url() . 'sale/tambah_barang/' . $row->id_item . '/1' ?>" class="btn btn-sm btn-info select-item" style="margin-left: 20px;">
+                            <tr>
+                                <td hidden><?= $row->id_item ?></td>
+                                <td><?= $row->barcode ?></td>
+                                <td><?= $row->name ?></td>
+                                <td><?= $row->unit_name ?></td>
+                                <td class="text-right"><?= indo_currency($row->price) ?></td>
+                                <td class="text-right"><?= $row->stock ?></td>
+                                <td>
+                                    <!-- <a href="<?= base_url() . 'sale/tambah_barang/' . $row->id_item . '/1' ?>" class="btn btn-sm btn-info select-item" style="margin-left: 20px;">
                                         <i class="fa fa-check"></i>&nbsp;Select
                                     </a> -->
-                                <button class="btn btn-sm btn-info select-item" style="margin-left: 20px;" id="select" data-id="<?= $row->id_item ?>" data-barcode="<?= $row->barcode ?>" data-name="<?= $row->name ?>" data-unit="<?= $row->unit_name ?>" data-stock="<?= $row->stock ?>" data-price="<?= $row->price ?>">
-                                    <i class="fa fa-check"></i>&nbsp;Select
-                                </button>
-                            </td>
-                        </tr>
+                                    <button class="btn btn-sm btn-info select-item" style="margin-left: 20px;" id="select" data-id="<?= $row->id_item ?>" data-barcode="<?= $row->barcode ?>" data-name="<?= $row->name ?>" data-unit="<?= $row->unit_name ?>" data-stock="<?= $row->stock ?>" data-price="<?= $row->price ?>">
+                                        <i class="fa fa-check"></i>&nbsp;Select
+                                    </button>
+                                </td>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>

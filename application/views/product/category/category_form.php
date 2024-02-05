@@ -3,6 +3,11 @@
         Category
         <small>Category data</small>
     </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?= base_url('dashboard') ?>"><i class="fa fa-dashboard"></i></a></li>
+        <li>Product</li>
+        <li class="active">Category</li>
+    </ol>
 </section>
 
 <!-- Main content -->

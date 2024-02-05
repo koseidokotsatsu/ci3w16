@@ -3,6 +3,12 @@
         Stock Out
         <small>Barang Keluar</small>
     </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?= base_url('dashboard') ?>"><i class="fa fa-dashboard"></i></a></li>
+        <li>Transaction</li>
+        <li>Stock Out</li>
+        <li class="active">Add</li>
+    </ol>
 </section>
 
 <!-- Main content -->
@@ -99,18 +105,18 @@
                     </thead>
                     <tbody>
                         <?php foreach ($item as $i => $data) { ?>
-                        <tr>
-                            <td><?= $data->barcode ?></td>
-                            <td><?= $data->name ?></td>
-                            <td><?= $data->unit_name ?></td>
-                            <td class="text-right"><?= indo_currency($data->price) ?></td>
-                            <td class="text-right"><?= $data->stock ?></td>
-                            <td>
-                                <button class="btn btn-sm btn-info" style="margin-left: 20px;" id="select" data-id="<?= $data->id_item ?>" data-barcode="<?= $data->barcode ?>" data-name="<?= $data->name ?>" data-unit="<?= $data->unit_name ?>" data-stock="<?= $data->stock ?>">
-                                    <i class="fa fa-check">Select</i>
-                                </button>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td><?= $data->barcode ?></td>
+                                <td><?= $data->name ?></td>
+                                <td><?= $data->unit_name ?></td>
+                                <td class="text-right"><?= indo_currency($data->price) ?></td>
+                                <td class="text-right"><?= $data->stock ?></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" style="margin-left: 20px;" id="select" data-id="<?= $data->id_item ?>" data-barcode="<?= $data->barcode ?>" data-name="<?= $data->name ?>" data-unit="<?= $data->unit_name ?>" data-stock="<?= $data->stock ?>">
+                                        <i class="fa fa-check">Select</i>
+                                    </button>
+                                </td>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>

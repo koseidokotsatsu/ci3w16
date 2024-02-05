@@ -3,6 +3,10 @@
         Supplier
         <small>Supplier data</small>
     </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?= base_url('dashboard') ?>"><i class="fa fa-dashboard"></i></a></li>
+        <li class="active">Supplier</li>
+    </ol>
 </section>
 
 <!-- Main content -->

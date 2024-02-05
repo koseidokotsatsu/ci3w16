@@ -3,6 +3,12 @@
         Stock In
         <small>Barang Masuk / Pembelian</small>
     </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?= base_url('dashboard') ?>"><i class="fa fa-dashboard"></i></a></li>
+        <li>Transaction</li>
+        <li>Stock In</li>
+        <li class="active">Add</li>
+    </ol>
 </section>
 
 <!-- Main content -->
@@ -108,18 +114,18 @@
                     </thead>
                     <tbody>
                         <?php foreach ($item as $i => $query) { ?>
-                        <tr>
-                            <td><?= $query->barcode ?></td>
-                            <td><?= $query->name ?></td>
-                            <td><?= $query->unit_name ?></td>
-                            <td class="text-right"><?= indo_currency($query->price) ?></td>
-                            <td class="text-right"><?= $query->stock ?></td>
-                            <td>
-                                <button class="btn btn-sm btn-info" style="margin-left: 20px;" id="select" data-id="<?= $query->id_item ?>" data-barcode="<?= $query->barcode ?>" data-name="<?= $query->name ?>" data-unit="<?= $query->unit_name ?>" data-stock="<?= $query->stock ?>">
-                                    <i class="fa fa-check">Select</i>
-                                </button>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td><?= $query->barcode ?></td>
+                                <td><?= $query->name ?></td>
+                                <td><?= $query->unit_name ?></td>
+                                <td class="text-right"><?= indo_currency($query->price) ?></td>
+                                <td class="text-right"><?= $query->stock ?></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" style="margin-left: 20px;" id="select" data-id="<?= $query->id_item ?>" data-barcode="<?= $query->barcode ?>" data-name="<?= $query->name ?>" data-unit="<?= $query->unit_name ?>" data-stock="<?= $query->stock ?>">
+                                        <i class="fa fa-check">Select</i>
+                                    </button>
+                                </td>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>

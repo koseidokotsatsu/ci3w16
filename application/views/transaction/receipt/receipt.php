@@ -3,6 +3,11 @@
         Struk
         <small>Data Sale</small>
     </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?= base_url('dashboard') ?>"><i class="fa fa-dashboard"></i></a></li>
+        <li>Transaction</li>
+        <li class="active">Data Sale</li>
+    </ol>
 </section>
 
 <!-- Main content -->
@@ -65,20 +70,20 @@
             <tbody>
                 <?php $no = 1;
                 foreach ($receipt as $data) { ?>
-                <tr>
-                    <td style="width:5%;"><?= $no++ ?></td>
-                    <td><?= $data->invoice ?></td>
-                    <td><?= $data->customer_name ?></td>
-                    <td><?= $data->date_tf ?></td>
-                    <td><?= $data->hour_tf ?></td>
-                    <td>
-                        <?php
-                            echo anchor(site_url('sale/receipt_detail/' . $data->id_sale), '<i class="fa fa-eye"></i>&nbsp;&nbsp;Detail', array('title' => 'edit', 'class' => 'btn btn-primary btn-xs'));
-                            echo '&nbsp';
-                            echo anchor(site_url('receipt/hapus/' . $data->id_sale), '<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;Hapus', 'title="delete" class="btn btn-danger btn-xs "');
-                            ?>
-                    </td>
-                </tr>
+                    <tr>
+                        <td style="width:5%;"><?= $no++ ?></td>
+                        <td><?= $data->invoice ?></td>
+                        <td><?= $data->customer_name ?></td>
+                        <td><?= $data->date_tf ?></td>
+                        <td><?= $data->hour_tf ?></td>
+                        <td>
+                            <?php
+                                echo anchor(site_url('sale/receipt_detail/' . $data->id_sale), '<i class="fa fa-eye"></i>&nbsp;&nbsp;Detail', array('title' => 'edit', 'class' => 'btn btn-primary btn-xs'));
+                                echo '&nbsp';
+                                echo anchor(site_url('receipt/hapus/' . $data->id_sale), '<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;Hapus', 'title="delete" class="btn btn-danger btn-xs "');
+                                ?>
+                        </td>
+                    </tr>
                 <?php
                 } ?>
             </tbody>

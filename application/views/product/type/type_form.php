@@ -3,6 +3,11 @@
         Type
         <small>Type data</small>
     </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?= base_url('dashboard') ?>"><i class="fa fa-dashboard"></i></a></li>
+        <li>Product</li>
+        <li class="active">Type</li>
+    </ol>
 </section>
 
 <!-- Main content -->

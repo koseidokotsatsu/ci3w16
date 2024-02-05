@@ -3,6 +3,11 @@
         Units
         <small>Satuan Barang</small>
     </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?= base_url('dashboard') ?>"><i class="fa fa-dashboard"></i></a></li>
+        <li>Product</li>
+        <li class="active">Unit</li>
+    </ol>
 </section>
 
 <!-- Main content -->

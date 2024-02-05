@@ -1,3 +1,9 @@
+<?php
+$login = $this->session->flashdata('login');
+if (!isset($login)) {
+	$login = '';
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -45,8 +51,14 @@
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
-			<p class="login-box-msg">Sign in to start your session</p>
-
+			<!-- Flash message for login -->
+			<?php if ($login) { ?>
+				<div class="alert alert-danger" role="alert">
+					<?= $login ?>
+				</div>
+			<?php } else { ?>
+				<p class="login-box-msg">Sign in to start your session</p>
+			<?php } ?>
 			<form action="<?= site_url('auth/process'); ?>" method="post">
 				<div class="form-group has-feedback">
 					<input type="text" name="username" class="form-control" placeholder="Username" required autofocus />

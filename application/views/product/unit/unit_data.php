@@ -3,6 +3,11 @@
         Units
         <small>Satuan Barang</small>
     </h1>
+    <ol class="breadcrumb">
+        <li><a href="<?= base_url('dashboard') ?>"><i class="fa fa-dashboard"></i></a></li>
+        <li>Product</li>
+        <li class="active">Unit</li>
+    </ol>
 </section>
 
 <!-- Main content -->
@@ -29,18 +34,18 @@
                 <tbody>
                     <?php $no = 1;
                     foreach ($row->result() as $key => $data) { ?>
-                    <tr>
-                        <td style="width:5%;"><?= $no++ ?></td>
-                        <td><?= $data->name ?></td>
-                        <td class="text-center" width="160px">
-                            <a href="<?= site_url('unit/edit/' . $data->id_unit) ?>" class="btn btn-primary btn-xs">
-                                <i class="fa fa-pencil"></i>
-                            </a>
-                            <a href="<?= site_url('unit/del/' . $data->id_unit) ?>" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-danger btn-xs">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td style="width:5%;"><?= $no++ ?></td>
+                            <td><?= $data->name ?></td>
+                            <td class="text-center" width="160px">
+                                <a href="<?= site_url('unit/edit/' . $data->id_unit) ?>" class="btn btn-primary btn-xs">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a href="<?= site_url('unit/del/' . $data->id_unit) ?>" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-danger btn-xs">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
                     <?php
                     } ?>
                 </tbody>

@@ -26,23 +26,16 @@ class Auth extends CI_Controller
                 );
                 $this->session->set_userdata($params);
 
-                // Check user level and redirect accordingly
                 if ($row->level == 2) {
-                    echo "<script>
-                        alert('Login Success');
-                        window.location='" . site_url('sale') .
-                        "'</script>";
+                    $this->session->set_flashdata('login', 'Login Success');
+                    redirect('sale');
                 } elseif ($row->level == 1) {
-                    echo "<script>
-                        alert('Login Success');
-                        window.location='" . site_url('dashboard') .
-                        "'</script>";
+                    $this->session->set_flashdata('login', 'Login Success');
+                    redirect('dashboard');
                 }
             } else {
-                echo "<script>
-                    alert('Login failed, wrong username or password');
-                    window.location='" . site_url('auth/login') .
-                    "'</script>";
+                $this->session->set_flashdata('login', 'Login failed, wrong username or password');
+                redirect('auth/login');
             }
         }
     }
@@ -54,6 +47,7 @@ class Auth extends CI_Controller
     {
         $params = array('id_user', 'level');
         $this->session->unset_userdata($params);
+        $this->session->set_flashdata('login', 'You have been logged out');
         redirect('auth/login');
     }
 }
