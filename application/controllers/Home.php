@@ -7,4 +7,20 @@ class home extends CI_Controller
     {
         $this->load->view('frontend/home');
     }
+    public function about()
+    {
+        $this->load->view('frontend/about');
+    }
+    public function blog()
+    {
+        $this->load->view('frontend/blog');
+    }
+    public function blog_details()
+    {
+        $this->load->view('frontend/blog_details');
+    }
+    public function contact()
+    {
+        $this->load->view('frontend/contact');
+    }
 }

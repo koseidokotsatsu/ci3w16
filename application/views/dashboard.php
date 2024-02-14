@@ -4,12 +4,12 @@ $login = $this->session->flashdata('login');
 
 
 <?php if ($login) : ?>
-  <section class="content-header">
-    <div class="alert alert-success" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <?= $login ?>
-    </div>
-  </section>
+<section class="content-header">
+  <div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <?= $login ?>
+  </div>
+</section>
 <?php endif; ?>
 
 <section class="content-header">
