@@ -5,22 +5,26 @@ class home extends CI_Controller
 {
     public function index()
     {
-        $this->load->view('frontend/home');
+        $this->templatefront->load('frontend/templatefront', 'frontend/home');
+    }
+    public function product()
+    {
+        $this->templatefront->load('frontend/templatefront', 'frontend/product');
+    }
+    public function product_detail()
+    {
+        $this->templatefront->load('frontend/templatefront', 'frontend/product_detail');
     }
     public function about()
     {
-        $this->load->view('frontend/about');
-    }
-    public function blog()
-    {
-        $this->load->view('frontend/blog');
-    }
-    public function blog_details()
-    {
-        $this->load->view('frontend/blog_details');
+        $this->templatefront->load('frontend/templatefront', 'frontend/about');
     }
     public function contact()
     {
-        $this->load->view('frontend/contact');
+        $this->templatefront->load('frontend/templatefront', 'frontend/contact');
+    }
+    public function cart()
+    {
+        $this->templatefront->load('frontend/templatefront', 'frontend/cart');
     }
 }
