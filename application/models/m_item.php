@@ -11,9 +11,10 @@ class m_item extends CI_Model
 
     private function _get_datatables_query()
     {
-        $this->db->select('p_item.*, p_category.name as category_name, p_unit.name as unit_name, p_type.name as type_name, p_general_name.name as general_name');
+        $this->db->select('p_item.*, p_category.name as category_name, p_unit.name as unit_name, p_type.name as type_name, p_general_name.name as general_name, p_item_general.*');
         $this->db->from('p_item');
         $this->db->join('p_category', 'p_item.id_category = p_category.id_category');
+        $this->db->join('p_item_general', 'p_item.id_item_general = p_item_general.id_item_general');
         $this->db->join('p_general_name', 'p_item.id_general_name = p_general_name.id_general_name');
         $this->db->join('p_type', 'p_item.id_type = p_type.id_type');
         $this->db->join('p_unit', 'p_item.id_unit = p_unit.id_unit');
@@ -62,9 +63,10 @@ class m_item extends CI_Model
 
     public function get($id = null)
     {
-        $this->db->select('p_item.*, p_category.name as category_name, p_unit.name as unit_name, p_type.name as type_name, p_general_name.name as general_name');
+        $this->db->select('p_item.*, p_category.name as category_name, p_unit.name as unit_name, p_type.name as type_name, p_general_name.name as general_name, p_item_general.*');
         $this->db->from('p_item');
         $this->db->join('p_category', 'p_item.id_category = p_category.id_category');
+        $this->db->join('p_item_general', 'p_item.id_item_general = p_item_general.id_item_general');
         $this->db->join('p_general_name', 'p_item.id_general_name = p_general_name.id_general_name');
         $this->db->join('p_type', 'p_item.id_type = p_type.id_type');
         $this->db->join('p_unit', 'p_item.id_unit = p_unit.id_unit');

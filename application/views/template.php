@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Our Pharmacy</title>
+    <title>&mdash; OurPharmacy &mdash;</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -216,11 +216,13 @@
         </aside>
         <!-- jQuery 3 -->
         <script src="<?= base_url(''); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <?= $contents; ?>
         </div>
         <!-- /.content-wrapper -->
+
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Version</b> 2.4.0

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 31 Jan 2024 pada 23.19
+-- Waktu pembuatan: 25 Feb 2024 pada 20.37
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -67,7 +67,8 @@ INSERT INTO `p_category` (`id_category`, `name`, `created_at`, `update_at`) VALU
 (15, 'Obat Wajib Apotek (OWA)', '2023-12-19 13:25:55', NULL),
 (16, 'Obat Golongan Narkotika', '2023-12-19 13:26:02', NULL),
 (17, 'Obat Psikotropika', '2023-12-19 13:26:12', NULL),
-(18, 'Obat Herbal', '2023-12-19 13:26:16', NULL);
+(18, 'Obat Herbal', '2023-12-19 13:26:16', NULL),
+(19, 'Lainnya', '2024-02-15 11:04:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -119,7 +120,7 @@ CREATE TABLE `p_item` (
 --
 
 INSERT INTO `p_item` (`id_item`, `barcode`, `id_general_name`, `name`, `id_category`, `id_type`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
-(27, 'P00001', 1, 'Panadol 500mg', 13, 1, 11, 12500, 88, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-01-22 05:55:00'),
+(27, 'P00001', 1, 'Panadol 500mg', 13, 1, 11, 12500, 85, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-01-22 05:55:00'),
 (29, 'P00002', 2, 'Ponstan 500 mg 10 Tablet', 14, 2, 13, 38000, 154, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2023-12-19 15:54:56');
 
 -- --------------------------------------------------------
@@ -258,7 +259,8 @@ INSERT INTO `t_payment` (`id_transaction`, `id_sale`, `id_item`, `qty`, `price`,
 (21, 70, 29, 1, 38000, 38000),
 (22, 71, 29, 6, 38000, 228000),
 (23, 72, 29, 5, 38000, 190000),
-(24, 74, 29, 5, 38000, 190000);
+(24, 74, 29, 5, 38000, 190000),
+(25, 75, 27, 3, 12500, 37500);
 
 -- --------------------------------------------------------
 
@@ -289,7 +291,8 @@ INSERT INTO `t_sale` (`id_sale`, `invoice`, `customer_name`, `total_early`, `tot
 (71, 'MP2401220001', 'Umum', 228000, 220000, 8000, 220000, 0, '', '2024-01-22', '04:06:03'),
 (72, 'MP2401220002', 'Umum', 190000, 189000, 1000, 200000, 11000, '', '2024-01-22', '05:56:58'),
 (73, 'MP2401220003', 'Umum', 190000, 185000, 5000, 200000, 15000, '', '2024-01-22', '07:32:43'),
-(74, 'MP2401220004', 'Umum', 190000, 175000, 15000, 175000, 0, '', '2024-01-22', '07:33:34');
+(74, 'MP2401220004', 'Umum', 190000, 175000, 15000, 175000, 0, '', '2024-01-22', '07:33:34'),
+(75, 'MP2402160001', 'Umum', 37500, 36500, 1000, 50000, 13500, 'pemakaian 3x sehari', '2024-02-16', '07:40:15');
 
 -- --------------------------------------------------------
 
@@ -434,7 +437,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT untuk tabel `p_category`
 --
 ALTER TABLE `p_category`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `p_general_name`
@@ -470,13 +473,13 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `t_payment`
 --
 ALTER TABLE `t_payment`
-  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_sale`
 --
 ALTER TABLE `t_sale`
-  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_stock`
