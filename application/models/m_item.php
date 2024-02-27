@@ -5,7 +5,7 @@ class m_item extends CI_Model
 {
 
     // start datatables
-    var $column_order = array(null, 'barcode', 'p_item.name', 'p_item.id_item_general', 'general_name', 'type_name', 'category_name', 'unit_name', 'price', 'stock'); //set column field database for datatable orderable
+    var $column_order = array(null, 'barcode', 'p_item.name', 'general_name', 'type_name', 'category_name', 'unit_name', 'price', 'stock'); //set column field database for datatable orderable
     var $column_search = array('barcode', 'p_item.name', 'price'); //set column field database for datatable searchable
     var $order = array('id_item' => 'asc'); // default order 
 
@@ -77,10 +77,12 @@ class m_item extends CI_Model
     }
     public function add($post)
     {
+        $general_names = implode(',', $post['general_name']);
+
         $params = [
             'barcode' => $post['barcode'],
             'name' => $post['product_name'],
-            'id_general_name' => $post['general_name'],
+            'id_general_name' => $general_names,
             'id_category' => $post['category'],
             'id_unit' => $post['unit'],
             'id_type' => $post['type'],
@@ -91,11 +93,13 @@ class m_item extends CI_Model
     }
     public function edit($post)
     {
+        $general_names = implode(',', $post['general_name']);
+
         $params = [
             'barcode' => $post['barcode'],
             'name' => $post['product_name'],
             'id_category' => $post['category'],
-            'id_general_name' => $post['general_name'],
+            'id_general_name' => $general_names,
             'id_unit' => $post['unit'],
             'id_type' => $post['type'],
             'price' => $post['price'],

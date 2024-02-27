@@ -30,6 +30,9 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="<?= base_url(''); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
+    <!-- Select2 -->
+    <link rel="stylesheet" href="<?= base_url(''); ?>assets/plugins/select2/select2.min.css" />
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -274,9 +277,16 @@
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_url(''); ?>assets/dist/js/demo.js"></script>
 
+    <!-- Select2 -->
+    <script src="<?= base_url(''); ?>assets/plugins/select2/select2.full.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#table1').DataTable()
+        })
+
+        $(function() {
+            $(".select2").select2();
         })
     </script>
 </body>

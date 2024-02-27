@@ -22,14 +22,16 @@ class item extends CI_Controller
             $row[] = $no . ".";
             $row[] = $item->barcode . '<br><a href="' . site_url('item/barcode_qrcode/' . $item->id_item) . '" class="btn btn-warning btn-xs">Generate <i class="fa fa-barcode"></i> <i class="fa fa-qrcode"></i></a>';
             $row[] = $item->name;
-            $row[] = $item->id_item_general;
-            $row[] = $item->general_name;
+
+            $row[] = explode(",", $item->general_name);
+
             $row[] = $item->category_name;
             $row[] = $item->type_name;
             $row[] = $item->unit_name;
             $row[] = indo_currency($item->price);
             $row[] = $item->stock;
             $row[] = $item->image != null ? '<img src="' . base_url('uploads/product/' . $item->image) . '" class="img" style="width:100px">' : null;
+
             // add html for action
             $row[] = '<a href="' . site_url('item/edit/' . $item->id_item) . '" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Update</a>
                     <a href="' . site_url('item/del/' . $item->id_item) . '" onclick="return confirm(\'Yakin hapus data?\')"  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>';
@@ -57,7 +59,6 @@ class item extends CI_Controller
         $item = new stdClass();
         $item->id_item = null;
         $item->barcode = null;
-        $item->id_item_general = null;
         $item->id_general_name = null;
         $query_general_name = $this->m_general_name->get();
         $item->name = null;
@@ -130,6 +131,13 @@ class item extends CI_Controller
                 if (@$_FILES['image']['name'] != null) {
                     if ($this->upload->do_upload('image')) {
                         $post['image'] = $this->upload->data('file_name');
+
+                        // echo '<pre>';
+                        // print_r($post);
+                        // echo '</pre>';
+
+                        // die();
+
                         $this->m_item->add($post);
                         if ($this->db->affected_rows() > 0) {
                             $this->session->set_flashdata('flashdata', 'Data Saved!');
@@ -146,7 +154,14 @@ class item extends CI_Controller
                     if ($this->db->affected_rows() > 0) {
                         $this->session->set_flashdata('flashdata', 'Data Saved!');
                     }
-                    redirect('item');
+
+                    // echo '<pre>';
+                    // print_r($post);
+                    // echo '</pre>';
+
+                    // die();
+
+                    // redirect('item');
                 }
             }
         } elseif (isset($_POST['edit'])) {

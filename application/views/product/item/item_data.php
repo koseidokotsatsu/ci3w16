@@ -31,7 +31,6 @@
                         <th>No</th>
                         <th>Barcode</th>
                         <th>Name</th>
-                        <th>Item General</th>
                         <th>General Name</th>
                         <th>Category</th>
                         <th>Type</th>
@@ -56,8 +55,9 @@
                             </a>
                         </td>
                         <td><?= $data->name ?? 'N/A' ?></td>
-                        <td><?= $data->item_general ?? 'N/A' ?></td>
+
                         <td><?= $data->general_name ?? 'N/A' ?></td>
+
                         <td><?= $data->name_category ?? 'N/A' ?></td>
                         <td><?= $data->type_name ?? 'N/A' ?></td>
                         <td><?= $data->name_unit ?? 'N/A' ?></td>

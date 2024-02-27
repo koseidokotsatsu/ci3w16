@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Feb 2024 pada 20.37
+-- Waktu pembuatan: 27 Feb 2024 pada 20.04
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -92,7 +92,8 @@ INSERT INTO `p_general_name` (`id_general_name`, `name`, `created_at`, `update_a
 (2, 'Asam Mefenamat', '2023-12-19 14:01:38', NULL),
 (3, 'Sertraline', '2023-12-19 14:01:48', NULL),
 (4, 'Ibuprofen', '2023-12-19 14:01:56', NULL),
-(5, 'Amoksisilin', '2023-12-19 14:02:06', NULL);
+(5, 'Amoksisilin', '2023-12-19 14:02:06', NULL),
+(6, 'Lainnya', '2024-02-27 13:59:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -103,7 +104,7 @@ INSERT INTO `p_general_name` (`id_general_name`, `name`, `created_at`, `update_a
 CREATE TABLE `p_item` (
   `id_item` int(11) NOT NULL,
   `barcode` varchar(100) DEFAULT NULL,
-  `id_general_name` int(11) DEFAULT NULL,
+  `id_general_name` varchar(256) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `id_category` int(11) NOT NULL,
   `id_type` int(11) NOT NULL,
@@ -120,8 +121,9 @@ CREATE TABLE `p_item` (
 --
 
 INSERT INTO `p_item` (`id_item`, `barcode`, `id_general_name`, `name`, `id_category`, `id_type`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
-(27, 'P00001', 1, 'Panadol 500mg', 13, 1, 11, 12500, 85, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-01-22 05:55:00'),
-(29, 'P00002', 2, 'Ponstan 500 mg 10 Tablet', 14, 2, 13, 38000, 154, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2023-12-19 15:54:56');
+(27, 'P00001', '1', 'Panadol 500mg', 13, 1, 11, 12500, 85, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-01-22 05:55:00'),
+(29, 'P00002', '2', 'Ponstan 500 mg 10 Tablet', 14, 2, 13, 38000, 154, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2023-12-19 15:54:56'),
+(32, 'A011', '1,2,3,4,5,6', 'Panadol 500mg', 13, 2, 11, 1200, 0, 'item-240227-4d2107119f.png', '2024-02-27 23:53:39', '2024-02-27 19:49:35');
 
 -- --------------------------------------------------------
 
@@ -173,7 +175,8 @@ INSERT INTO `p_type` (`id_type`, `name`, `created_at`, `update_at`) VALUES
 (30, 'Sitotoksik', '2023-12-19 13:50:38', NULL),
 (31, 'Dekongestan', '2023-12-19 13:50:45', NULL),
 (32, 'Ekspektoran', '2023-12-19 13:50:49', NULL),
-(33, 'Obat tidur', '2023-12-19 13:50:54', NULL);
+(33, 'Obat tidur', '2023-12-19 13:50:54', NULL),
+(34, 'Lainnya', '2024-02-27 13:59:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -195,7 +198,8 @@ CREATE TABLE `p_unit` (
 INSERT INTO `p_unit` (`id_unit`, `name`, `created_at`, `update_at`) VALUES
 (11, 'PCS', '2023-12-19 13:30:55', NULL),
 (12, 'BOTOL', '2023-12-19 13:30:59', NULL),
-(13, 'UNIT', '2023-12-19 13:31:05', NULL);
+(13, 'UNIT', '2023-12-19 13:31:05', NULL),
+(14, 'Lainnya', '2024-02-27 13:59:56', '2024-02-27 08:00:02');
 
 -- --------------------------------------------------------
 
@@ -290,7 +294,6 @@ INSERT INTO `t_sale` (`id_sale`, `invoice`, `customer_name`, `total_early`, `tot
 (70, 'MP2401170001', 'Umum', 50500, 49000, 1500, 50000, 1000, 'Sassy Baka', '2024-01-17', '13:44:47'),
 (71, 'MP2401220001', 'Umum', 228000, 220000, 8000, 220000, 0, '', '2024-01-22', '04:06:03'),
 (72, 'MP2401220002', 'Umum', 190000, 189000, 1000, 200000, 11000, '', '2024-01-22', '05:56:58'),
-(73, 'MP2401220003', 'Umum', 190000, 185000, 5000, 200000, 15000, '', '2024-01-22', '07:32:43'),
 (74, 'MP2401220004', 'Umum', 190000, 175000, 15000, 175000, 0, '', '2024-01-22', '07:33:34'),
 (75, 'MP2402160001', 'Umum', 37500, 36500, 1000, 50000, 13500, 'pemakaian 3x sehari', '2024-02-16', '07:40:15');
 
@@ -443,25 +446,25 @@ ALTER TABLE `p_category`
 -- AUTO_INCREMENT untuk tabel `p_general_name`
 --
 ALTER TABLE `p_general_name`
-  MODIFY `id_general_name` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_general_name` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `p_item`
 --
 ALTER TABLE `p_item`
-  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT untuk tabel `p_type`
 --
 ALTER TABLE `p_type`
-  MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `p_unit`
 --
 ALTER TABLE `p_unit`
-  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `supplier`
@@ -479,7 +482,7 @@ ALTER TABLE `t_payment`
 -- AUTO_INCREMENT untuk tabel `t_sale`
 --
 ALTER TABLE `t_sale`
-  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_stock`
