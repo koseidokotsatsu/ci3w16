@@ -5,7 +5,7 @@ class m_item extends CI_Model
 {
 
     // start datatables
-    var $column_order = array(null, 'barcode', 'p_item.name', 'general_name', 'type_name', 'category_name', 'unit_name', 'price', 'stock'); //set column field database for datatable orderable
+    var $column_order = array(null, 'barcode', 'p_item.name', 'p_item.id_item_general', 'general_name', 'type_name', 'category_name', 'unit_name', 'price', 'stock'); //set column field database for datatable orderable
     var $column_search = array('barcode', 'p_item.name', 'price'); //set column field database for datatable searchable
     var $order = array('id_item' => 'asc'); // default order 
 

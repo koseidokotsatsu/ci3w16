@@ -37,10 +37,10 @@
                     </div>
                     <div class="form-group">
                         <label>General Name<span style="color: #BA3131;">*</span></label>
-                        <select name="general_name" class="form-control" required>
+                        <select name="general_name[]" class="form-control" required>
                             <option value="">-- Pilih --</option>
                             <?php foreach ($general_name->result() as $key => $data) { ?>
-                                <option value="<?= $data->id_general_name ?>" <?= $data->id_general_name == $row->id_general_name ? "selected" : null; ?>><?= $data->name ?></option>
+                            <option value="<?= $data->id_general_name ?>" <?= $data->id_general_name == $row->id_general_name ? "selected" : null; ?>><?= $data->name ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -49,7 +49,7 @@
                         <select name="category" class="form-control" required>
                             <option value="" <?= $row->id_category ?? "" == "" ? "selected" : null; ?>>-- Pilih --</option>
                             <?php foreach ($category->result() as $key => $data) { ?>
-                                <option value="<?= $data->id_category ?>" <?= $data->id_category == $row->id_category ? "selected" : null; ?>><?= $data->name ?></option>
+                            <option value="<?= $data->id_category ?>" <?= $data->id_category == $row->id_category ? "selected" : null; ?>><?= $data->name ?></option>
                             <?php } ?>
                         </select>
 
@@ -59,7 +59,7 @@
                         <select name="type" class="form-control" required>
                             <option value="">-- Pilih --</option>
                             <?php foreach ($type->result() as $key => $data) { ?>
-                                <option value="<?= $data->id_type ?>" <?= $data->id_type == $row->id_type ? "selected" : null; ?>><?= $data->name ?></option>
+                            <option value="<?= $data->id_type ?>" <?= $data->id_type == $row->id_type ? "selected" : null; ?>><?= $data->name ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -75,9 +75,9 @@
                         <label>Image</label>
                         <?php if ($page == 'edit') {
                             if ($row->image != null) { ?>
-                                <div>
-                                    <img src="<?= base_url('uploads/product/' . $row->image) ?>" style="width: 70%;">
-                                </div>
+                        <div>
+                            <img src="<?= base_url('uploads/product/' . $row->image) ?>" style="width: 70%;">
+                        </div>
                         <?php }
                         } ?>
                         <br>

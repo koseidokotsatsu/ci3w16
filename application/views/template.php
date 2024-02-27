@@ -49,7 +49,7 @@
 
 </head>
 
-<body class="hold-transition skin-red sidebar-mini <?= $this->uri->segment(1) == 'sale' ? 'sidebar-collapse' : null ?>">
+<body class="hold-transition skin-purple sidebar-mini <?= $this->uri->segment(1) == 'sale' ? 'sidebar-collapse' : null ?>">
     <div class="wrapper">
 
         <header class="main-header">

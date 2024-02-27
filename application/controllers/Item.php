@@ -22,6 +22,7 @@ class item extends CI_Controller
             $row[] = $no . ".";
             $row[] = $item->barcode . '<br><a href="' . site_url('item/barcode_qrcode/' . $item->id_item) . '" class="btn btn-warning btn-xs">Generate <i class="fa fa-barcode"></i> <i class="fa fa-qrcode"></i></a>';
             $row[] = $item->name;
+            $row[] = $item->id_item_general;
             $row[] = $item->general_name;
             $row[] = $item->category_name;
             $row[] = $item->type_name;
@@ -56,6 +57,7 @@ class item extends CI_Controller
         $item = new stdClass();
         $item->id_item = null;
         $item->barcode = null;
+        $item->id_item_general = null;
         $item->id_general_name = null;
         $query_general_name = $this->m_general_name->get();
         $item->name = null;
