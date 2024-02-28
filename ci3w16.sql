@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Feb 2024 pada 20.04
+-- Waktu pembuatan: 29 Feb 2024 pada 00.24
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -68,7 +68,7 @@ INSERT INTO `p_category` (`id_category`, `name`, `created_at`, `update_at`) VALU
 (16, 'Obat Golongan Narkotika', '2023-12-19 13:26:02', NULL),
 (17, 'Obat Psikotropika', '2023-12-19 13:26:12', NULL),
 (18, 'Obat Herbal', '2023-12-19 13:26:16', NULL),
-(19, 'Lainnya', '2024-02-15 11:04:48', NULL);
+(999, 'Lainnya', '2024-02-15 11:04:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,8 @@ INSERT INTO `p_general_name` (`id_general_name`, `name`, `created_at`, `update_a
 (3, 'Sertraline', '2023-12-19 14:01:48', NULL),
 (4, 'Ibuprofen', '2023-12-19 14:01:56', NULL),
 (5, 'Amoksisilin', '2023-12-19 14:02:06', NULL),
-(6, 'Lainnya', '2024-02-27 13:59:50', NULL);
+(7, 'Ranitidine HCl', '2024-02-29 06:22:08', NULL),
+(999, 'Lainnya', '2024-02-27 13:59:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -121,9 +122,10 @@ CREATE TABLE `p_item` (
 --
 
 INSERT INTO `p_item` (`id_item`, `barcode`, `id_general_name`, `name`, `id_category`, `id_type`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
-(27, 'P00001', '1', 'Panadol 500mg', 13, 1, 11, 12500, 85, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-01-22 05:55:00'),
-(29, 'P00002', '2', 'Ponstan 500 mg 10 Tablet', 14, 2, 13, 38000, 154, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2023-12-19 15:54:56'),
-(32, 'A011', '1,2,3,4,5,6', 'Panadol 500mg', 13, 2, 11, 1200, 0, 'item-240227-4d2107119f.png', '2024-02-27 23:53:39', '2024-02-27 19:49:35');
+(27, 'P00001', '1,999', 'Panadol 500mg', 13, 1, 11, 12500, 85, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-02-29 00:23:18'),
+(29, 'P00002', '2,999', 'Ponstan 500 mg 10 Tablet', 14, 2, 13, 38000, 154, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2024-02-29 00:23:22'),
+(32, 'A011', '1,999', 'Panadol 500mg', 13, 2, 11, 1200, 0, 'item-240227-4d2107119f.png', '2024-02-27 23:53:39', '2024-02-29 00:23:12'),
+(33, 'A012', '7', 'Ranitidine HCl', 14, 2, 11, 12000, 0, 'item-240229-eb2d7ac5c9.png', '2024-02-29 06:23:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -199,7 +201,7 @@ INSERT INTO `p_unit` (`id_unit`, `name`, `created_at`, `update_at`) VALUES
 (11, 'PCS', '2023-12-19 13:30:55', NULL),
 (12, 'BOTOL', '2023-12-19 13:30:59', NULL),
 (13, 'UNIT', '2023-12-19 13:31:05', NULL),
-(14, 'Lainnya', '2024-02-27 13:59:56', '2024-02-27 08:00:02');
+(999, 'Lainnya', '2024-02-27 13:59:56', '2024-02-27 08:00:02');
 
 -- --------------------------------------------------------
 
@@ -440,19 +442,19 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT untuk tabel `p_category`
 --
 ALTER TABLE `p_category`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
 
 --
 -- AUTO_INCREMENT untuk tabel `p_general_name`
 --
 ALTER TABLE `p_general_name`
-  MODIFY `id_general_name` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_general_name` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
 
 --
 -- AUTO_INCREMENT untuk tabel `p_item`
 --
 ALTER TABLE `p_item`
-  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `p_type`
@@ -464,7 +466,7 @@ ALTER TABLE `p_type`
 -- AUTO_INCREMENT untuk tabel `p_unit`
 --
 ALTER TABLE `p_unit`
-  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
 
 --
 -- AUTO_INCREMENT untuk tabel `supplier`
