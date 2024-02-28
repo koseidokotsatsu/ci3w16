@@ -23,7 +23,12 @@ class item extends CI_Controller
             $row[] = $item->barcode . '<br><a href="' . site_url('item/barcode_qrcode/' . $item->id_item) . '" class="btn btn-warning btn-xs">Generate <i class="fa fa-barcode"></i> <i class="fa fa-qrcode"></i></a>';
             $row[] = $item->name;
 
-            $row[] = explode(",", $item->general_name);
+            $id_general_names = explode(",", $item->id_general_name);
+            $general_names = array();
+            foreach ($id_general_names as $id) {
+                $general_names[] = $this->m_item->getGeneralNameById($id);
+            }
+            $row[] = implode("<br>", $general_names);
 
             $row[] = $item->category_name;
             $row[] = $item->type_name;
