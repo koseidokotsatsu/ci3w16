@@ -55,10 +55,16 @@
                     </div>
                     <div class="icons">
                         <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-                        <a href="<?= base_url('home/cart') ?>" class="icons-btn d-inline-block bag">
+                        <a href="<?= base_url('home/view_cart') ?>" class="icons-btn d-inline-block bag">
                             <span class="icon-shopping-bag"></span>
                             <span class="number">2</span>
                         </a>
+                        <?php if ($this->session->userdata('id_customer')) { ?>
+                        <a href="<?= base_url('home/user') ?>" class="icons-btn d-inline-block"><span class="icon-user"></span></a>
+                        <a href="<?= base_url('customerauth/logout') ?>" class="icons-btn d-inline-block"><span class="icon-input"></span></a>
+                        <?php } else { ?>
+                        <a href="<?= base_url('customerauth/login') ?>" class="icons-btn d-inline-block"><span class="icon-user"></span></a>
+                        <?php } ?>
                         <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
                     </div>
                 </div>

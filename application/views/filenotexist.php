@@ -40,7 +40,7 @@
             <div class="error-content">
                 <h3><i class="fa fa-warning text-yellow"></i>&nbsp;&nbsp;The Page Is Not Exist</h3>
                 <p>
-                    The page you want to see is not exist, you may return to <a href="<?= base_url('/') ?>dashboard">return to dashboard</a>.
+                    The page you want to see is not exist, you may return to <a href="<?= base_url('/') ?>">return to home</a>.
                 </p>
             </div>
         </div>

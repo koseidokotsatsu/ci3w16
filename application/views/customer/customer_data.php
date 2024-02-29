@@ -11,6 +11,12 @@
 
 <!-- Main content -->
 <section class="content">
+    <?php if ($this->session->flashdata('success')) : ?>
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <?= $this->session->flashdata('success'); ?>
+    </div>
+    <?php endif; ?>
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Data Customer</h3>
@@ -25,6 +31,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Username</th>
                         <th>Name</th>
                         <th>Gender</th>
                         <th>Phone</th>
@@ -35,21 +42,22 @@
                 <tbody>
                     <?php $no = 1;
                     foreach ($row->result() as $key => $data) { ?>
-                        <tr>
-                            <td style="width:5%;"><?= $no++ ?></td>
-                            <td><?= $data->name ?></td>
-                            <td><?= $data->gender ?></td>
-                            <td><?= $data->phone ?></td>
-                            <td><?= $data->address ?></td>
-                            <td class="text-center" width="160px">
-                                <a href="<?= site_url('customer/edit/' . $data->id_customer) ?>" class="btn btn-primary btn-xs">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a href="<?= site_url('customer/del/' . $data->id_customer) ?>" class="btn btn-danger btn-xs">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td style="width:5%;"><?= $no++ ?></td>
+                        <td><?= $data->username ?? '<i>N/A</i>' ?></td>
+                        <td><?= $data->name ?></td>
+                        <td><?= $data->gender ?></td>
+                        <td><?= $data->phone ?></td>
+                        <td><?= $data->address ?></td>
+                        <td class="text-center" width="160px">
+                            <a href="<?= site_url('customer/edit/' . $data->id_customer) ?>" class="btn btn-primary btn-xs">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="<?= site_url('customer/del/' . $data->id_customer) ?>" class="btn btn-danger btn-xs">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
                     <?php
                     } ?>
                 </tbody>

@@ -24,9 +24,27 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <form action="<?= base_url('customer/process') ?>" method="post">
+                        <!-- Username input -->
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="hidden" name="id" value="<?= $row->id_customer; ?>">
+                            <input type="text" name="username" class="form-control" value="<?= $row->username; ?>">
+                            <?php if ($this->session->flashdata('username_error')) : ?>
+                            <div class="text-danger"><?= $this->session->flashdata('username_error'); ?></div>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control">
+                            <?php if ($this->session->flashdata('password_error')) : ?>
+                            <div class="text-danger"><?= $this->session->flashdata('password_error'); ?></div>
+                            <?php endif; ?>
+                            <span><i>leave it when you aren't gonna change it</i></span>
+                        </div>
                         <div class="form-group">
                             <label>Customer Name<span style="color: #BA3131;">*</span></label>
-                            <input type="hidden" name="id" value="<?= $row->id_customer; ?>">
                             <input type="text" name="customer_name" class="form-control" value="<?= $row->name; ?>" required>
                         </div>
                         <div class="form-group">
