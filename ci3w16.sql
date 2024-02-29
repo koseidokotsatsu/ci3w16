@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Feb 2024 pada 19.52
+-- Waktu pembuatan: 29 Feb 2024 pada 23.55
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -29,6 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `customer` (
   `id_customer` int(11) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `gender` enum('L','P') DEFAULT NULL,
   `phone` varchar(125) DEFAULT NULL,
@@ -41,8 +43,8 @@ CREATE TABLE `customer` (
 -- Dumping data untuk tabel `customer`
 --
 
-INSERT INTO `customer` (`id_customer`, `name`, `gender`, `phone`, `address`, `created_at`, `updated_at`) VALUES
-(5, 'Muhammad Hanif Nur A.', 'L', '(+62) 812-2671-8705', 'Gelang Keling, Jepara', '2023-12-19 13:24:54', '2024-01-23 04:17:37');
+INSERT INTO `customer` (`id_customer`, `username`, `password`, `name`, `gender`, `phone`, `address`, `created_at`, `updated_at`) VALUES
+(5, 'ruci', '8cb2237d0679ca88db6464eac60da96345513964', 'Muhammad Ruci ', 'P', '028321412', 'Kelet, Keling', '2023-12-19 13:24:54', '2024-02-29 23:45:31');
 
 -- --------------------------------------------------------
 
