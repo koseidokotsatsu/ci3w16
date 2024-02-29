@@ -45,7 +45,7 @@
                 </thead>
                 <tbody>
                     <?php $no = 1;
-                    foreach ($about as $data) { ?>
+                    foreach ($row->result() as $key => $data) { ?>
                         <tr>
                             <td style="width:5%;"><?= $no++ ?></td>
                             <td><?= $data->about ?></td>
