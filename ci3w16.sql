@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Feb 2024 pada 00.24
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Waktu pembuatan: 29 Feb 2024 pada 13.59
+-- Versi server: 10.4.22-MariaDB
+-- Versi PHP: 8.1.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,7 +35,7 @@ CREATE TABLE `customer` (
   `address` text DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `customer`
@@ -55,7 +55,7 @@ CREATE TABLE `p_category` (
   `name` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `p_category`
@@ -81,7 +81,7 @@ CREATE TABLE `p_general_name` (
   `name` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `p_general_name`
@@ -94,7 +94,8 @@ INSERT INTO `p_general_name` (`id_general_name`, `name`, `created_at`, `update_a
 (4, 'Ibuprofen', '2023-12-19 14:01:56', NULL),
 (5, 'Amoksisilin', '2023-12-19 14:02:06', NULL),
 (7, 'Ranitidine HCl', '2024-02-29 06:22:08', NULL),
-(999, 'Lainnya', '2024-02-27 13:59:50', NULL);
+(8, 'Salbutamol', '2024-02-29 11:45:31', '2024-02-29 05:45:35'),
+(9, 'Lainnya', '2024-02-27 13:59:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -107,6 +108,7 @@ CREATE TABLE `p_item` (
   `barcode` varchar(100) DEFAULT NULL,
   `id_general_name` varchar(256) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `id_category` int(11) NOT NULL,
   `id_type` int(11) NOT NULL,
   `id_unit` int(11) NOT NULL,
@@ -115,17 +117,18 @@ CREATE TABLE `p_item` (
   `image` varchar(100) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `p_item`
 --
 
-INSERT INTO `p_item` (`id_item`, `barcode`, `id_general_name`, `name`, `id_category`, `id_type`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
-(27, 'P00001', '1,999', 'Panadol 500mg', 13, 1, 11, 12500, 85, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-02-29 00:23:18'),
-(29, 'P00002', '2,999', 'Ponstan 500 mg 10 Tablet', 14, 2, 13, 38000, 154, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2024-02-29 00:23:22'),
-(32, 'A011', '1,999', 'Panadol 500mg', 13, 2, 11, 1200, 0, 'item-240227-4d2107119f.png', '2024-02-27 23:53:39', '2024-02-29 00:23:12'),
-(33, 'A012', '7', 'Ranitidine HCl', 14, 2, 11, 12000, 0, 'item-240229-eb2d7ac5c9.png', '2024-02-29 06:23:48', NULL);
+INSERT INTO `p_item` (`id_item`, `barcode`, `id_general_name`, `name`, `description`, `id_category`, `id_type`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
+(27, 'P001', '1,9', 'Panadol 500mg', 'Salbutamol Yarindo diproduksi oleh PT. Yarindo Farmatama- Indonesia dengan no.registrasi GKL9832707710A1 yang mengandung Salbutamol 2mg. Salbutamol merupakan obat saluran nafas yang digunakan untuk mencegah bronkospasme pada semua jenis asma bronkial. Salbutamol obat golongan bronkodilator yang dapat meredakan batuk, mengi, sesak napas, dan pernapasan yang terganggu dengan meningkatkan aliran udara melalui saluran bronkial. Salbutamol hanya dapat diperoleh dengan resep dokter.', 13, 1, 11, 12500, 85, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-02-29 08:07:53'),
+(29, 'P002', '2,9', 'Ponstan 500 mg 10 Tablet', '', 14, 2, 13, 38000, 154, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2024-02-29 08:08:13'),
+(32, 'A011', '1,9', 'Panadol 500mg Extra', '', 13, 2, 11, 1200, 0, 'item-240227-4d2107119f.png', '2024-02-27 23:53:39', '2024-02-29 08:08:05'),
+(33, 'A012', '7', 'Ranitidine HCl', NULL, 14, 2, 11, 12000, 0, 'item-240229-ffc6691ac4.png', '2024-02-29 06:23:48', '2024-02-29 06:59:50'),
+(34, 'S001', '1000', 'Salbutamol Yarindo 2mg Tablet (per Tablet)', NULL, 14, 2, 11, 213, 0, 'item-240229-1e82182cde.jpg', '2024-02-29 12:43:28', '2024-02-29 06:59:07');
 
 -- --------------------------------------------------------
 
@@ -138,7 +141,7 @@ CREATE TABLE `p_type` (
   `name` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `p_type`
@@ -191,7 +194,7 @@ CREATE TABLE `p_unit` (
   `name` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `p_unit`
@@ -201,7 +204,7 @@ INSERT INTO `p_unit` (`id_unit`, `name`, `created_at`, `update_at`) VALUES
 (11, 'PCS', '2023-12-19 13:30:55', NULL),
 (12, 'BOTOL', '2023-12-19 13:30:59', NULL),
 (13, 'UNIT', '2023-12-19 13:31:05', NULL),
-(999, 'Lainnya', '2024-02-27 13:59:56', '2024-02-27 08:00:02');
+(14, 'Lainnya', '2024-02-27 13:59:56', '2024-02-27 08:00:02');
 
 -- --------------------------------------------------------
 
@@ -217,7 +220,7 @@ CREATE TABLE `supplier` (
   `description` text DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `supplier`
@@ -241,7 +244,7 @@ CREATE TABLE `t_payment` (
   `qty` int(11) NOT NULL,
   `price` bigint(20) NOT NULL,
   `sub_total` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `t_payment`
@@ -286,7 +289,7 @@ CREATE TABLE `t_sale` (
   `note` varchar(100) DEFAULT NULL,
   `date_tf` date NOT NULL,
   `hour_tf` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `t_sale`
@@ -315,7 +318,7 @@ CREATE TABLE `t_stock` (
   `date` date NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `id_user` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `t_stock`
@@ -339,14 +342,14 @@ CREATE TABLE `user` (
   `img` varchar(255) NOT NULL,
   `level` int(11) NOT NULL COMMENT '1:admin,2:staff',
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `name`, `img`, `level`, `created_at`) VALUES
-(1, 'admin', '8cb2237d0679ca88db6464eac60da96345513964', 'admin', 'default.jpg', 1, '2023-10-09 09:30:25'),
+(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin', 'default.jpg', 1, '2023-10-09 09:30:25'),
 (6, 'raesoxee', '8cb2237d0679ca88db6464eac60da96345513964', 'Ranggita Putri Alya', '2_21.gif', 1, '2023-12-18 09:58:05'),
 (7, 'radityaabib', '8cb2237d0679ca88db6464eac60da96345513964', 'Raditya Abib', '1_21.gif', 1, '2023-12-19 13:08:42'),
 (8, 'qoqon', '8cb2237d0679ca88db6464eac60da96345513964', 'Muhammad Furqon ', 'Screenshot_3712.png', 2, '2023-12-19 13:10:43'),
@@ -448,13 +451,13 @@ ALTER TABLE `p_category`
 -- AUTO_INCREMENT untuk tabel `p_general_name`
 --
 ALTER TABLE `p_general_name`
-  MODIFY `id_general_name` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
+  MODIFY `id_general_name` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
 
 --
 -- AUTO_INCREMENT untuk tabel `p_item`
 --
 ALTER TABLE `p_item`
-  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `p_type`
