@@ -3,37 +3,34 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class m_item extends CI_Model
 {
-
-    // start datatables
-    var $column_order = array(null, 'barcode', 'p_item.name', 'general_name', 'type_name', 'category_name', 'unit_name', 'price', 'stock'); //set column field database for datatable orderable
-    var $column_search = array('barcode', 'p_item.name', 'price'); //set column field database for datatable searchable
-    var $order = array('id_item' => 'asc'); // default order 
+    var $column_order = array(null, 'barcode', 'p_item.name', 'general_name', 'type_name', 'category_name', 'unit_name', 'price', 'stock');
+    var $column_search = array('barcode', 'p_item.name', 'price');
+    var $order = array('id_item' => 'asc');
 
     private function _get_datatables_query()
     {
-        $this->db->select('p_item.*, p_category.name as category_name, p_unit.name as unit_name, p_type.name as type_name, p_general_name.name as general_name, p_item_general.*');
+        $this->db->select('p_item.*, p_category.name as category_name, p_unit.name as unit_name, p_type.name as type_name, p_general_name.name as general_name, p_item.description');
         $this->db->from('p_item');
         $this->db->join('p_category', 'p_item.id_category = p_category.id_category');
-        $this->db->join('p_item_general', 'p_item.id_item_general = p_item_general.id_item_general');
         $this->db->join('p_general_name', 'p_item.id_general_name = p_general_name.id_general_name');
         $this->db->join('p_type', 'p_item.id_type = p_type.id_type');
         $this->db->join('p_unit', 'p_item.id_unit = p_unit.id_unit');
         $i = 0;
-        foreach ($this->column_search as $item) { // loop column 
-            if (@$_POST['search']['value']) { // if datatable send POST for search
-                if ($i === 0) { // first loop
-                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+        foreach ($this->column_search as $item) {
+            if (@$_POST['search']['value']) {
+                if ($i === 0) {
+                    $this->db->group_start();
                     $this->db->like($item, $_POST['search']['value']);
                 } else {
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
-                if (count($this->column_search) - 1 == $i) //last loop
-                    $this->db->group_end(); //close bracket
+                if (count($this->column_search) - 1 == $i)
+                    $this->db->group_end();
             }
             $i++;
         }
 
-        if (isset($_POST['order'])) { // here order processing
+        if (isset($_POST['order'])) {
             $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         } else if (isset($this->order)) {
             $order = $this->order;
@@ -59,14 +56,12 @@ class m_item extends CI_Model
         $this->db->from('p_item');
         return $this->db->count_all_results();
     }
-    // end datatables
 
     public function get($id = null)
     {
-        $this->db->select('p_item.*, p_category.name as category_name, p_unit.name as unit_name, p_type.name as type_name, p_general_name.name as general_name, p_item_general.*');
+        $this->db->select('p_item.*, p_category.name as category_name, p_unit.name as unit_name, p_type.name as type_name, p_general_name.name as general_name, p_item.description');
         $this->db->from('p_item');
         $this->db->join('p_category', 'p_item.id_category = p_category.id_category');
-        $this->db->join('p_item_general', 'p_item.id_item_general = p_item_general.id_item_general');
         $this->db->join('p_general_name', 'p_item.id_general_name = p_general_name.id_general_name');
         $this->db->join('p_type', 'p_item.id_type = p_type.id_type');
         $this->db->join('p_unit', 'p_item.id_unit = p_unit.id_unit');
@@ -79,10 +74,13 @@ class m_item extends CI_Model
     }
     public function add($post)
     {
+        $general_names = implode(',', $post['general_name']);
+
         $params = [
             'barcode' => $post['barcode'],
             'name' => $post['product_name'],
-            'id_general_name' => $post['general_name'],
+            'description' => $post['description'],
+            'id_general_name' => $general_names,
             'id_category' => $post['category'],
             'id_unit' => $post['unit'],
             'id_type' => $post['type'],
@@ -93,11 +91,14 @@ class m_item extends CI_Model
     }
     public function edit($post)
     {
+        $general_names = implode(',', $post['general_name']);
+
         $params = [
             'barcode' => $post['barcode'],
             'name' => $post['product_name'],
+            'description' => $post['description'],
             'id_category' => $post['category'],
-            'id_general_name' => $post['general_name'],
+            'id_general_name' => $general_names,
             'id_unit' => $post['unit'],
             'id_type' => $post['type'],
             'price' => $post['price'],
@@ -150,5 +151,16 @@ class m_item extends CI_Model
             ->update('p_item');
 
         return $this->db->affected_rows() > 0;
+    }
+
+    public function getGeneralNameById($id)
+    {
+        $query = $this->db->get_where('p_general_name', array('id_general_name' => $id));
+
+        if ($query->num_rows() > 0) {
+            return '<span class="label label-primary mb-3">' . $query->row()->name . '</span>';
+        } else {
+            return '<span class="label label-danger"><i>N/A</i></span>';
+        }
     }
 }

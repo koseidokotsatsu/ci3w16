@@ -21,23 +21,25 @@
                 <h2 class="text-uppercase">Popular Products</h2>
             </div>
         </div>
-
         <div class="row">
-            <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                <a href="shop-single.html"> <img src="<?= base_url('assets/frontend/') ?>images/product_01.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">Bioderma</a></h3>
-                <p class="price"><del>95.00</del> &mdash; $55.00</p>
-            </div>
-            <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                <a href="shop-single.html"> <img src="<?= base_url('assets/frontend/') ?>images/product_02.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">Chanca Piedra</a></h3>
-                <p class="price">$70.00</p>
-            </div>
-            <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                <a href="shop-single.html"> <img src="<?= base_url('assets/frontend/') ?>images/product_03.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-            </div>
+
+            <?php
+            shuffle($items);
+            $limitedItems = array_slice($items, 0, 3);
+
+            foreach ($limitedItems as $item) {
+                ?>
+                <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                    <a href="#">
+                        <img src="<?= base_url('uploads/product/') . $item->image ?>" alt="Image" class="product-image">
+                    </a>
+                    <h3 class="text-dark">
+                        <a href="#"><?= $item->name ?></a>
+                    </h3>
+                    <p class="price"><?= indo_currency($item->price) ?></p>
+                </div>
+            <?php } ?>
+
         </div>
         <div class="row mt-5">
             <div class="col-12 text-center">
@@ -57,33 +59,25 @@
         <div class="row">
             <div class="col-md-12 block-3 products-wrap">
                 <div class="nonloop-block-3 owl-carousel">
+                    <?php
+                    shuffle($items);
+                    $limitedItems = array_slice($items, 0, 6);
 
-                    <div class="text-center item mb-4">
-                        <a href="shop-single.html"> <img src="<?= base_url('assets/frontend/') ?>images/product_03.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-                        <p class="price">$120.00</p>
-                    </div>
-
-                    <div class="text-center item mb-4">
-                        <a href="shop-single.html"> <img src="<?= base_url('assets/frontend/') ?>images/product_01.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-                        <p class="price">$120.00</p>
-                    </div>
-
-                    <div class="text-center item mb-4">
-                        <a href="shop-single.html"> <img src="<?= base_url('assets/frontend/') ?>images/product_02.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-                        <p class="price">$120.00</p>
-                    </div>
-
-                    <div class="text-center item mb-4">
-                        <a href="shop-single.html"> <img src="<?= base_url('assets/frontend/') ?>images/product_04.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-                        <p class="price">$120.00</p>
-                    </div>
-
+                    foreach ($limitedItems as $item) {
+                        ?>
+                        <div class="text-center item mb-4">
+                            <a href="#">
+                                <div class="product-image-container">
+                                    <img src="<?= base_url('uploads/product/') . $item->image ?>" alt="Image" class="product-image-slide">
+                                </div>
+                            </a>
+                            <h3 class="text-dark"><a href="#"><?= $item->name ?></a></h3>
+                            <p class="price"><?= indo_currency($item->price) ?></p>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

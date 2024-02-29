@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>&mdash; OurPharmacy &mdash;</title>
+    <title>Admin | OurPharmacy </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -30,6 +30,9 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="<?= base_url(''); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
+    <!-- Select2 -->
+    <link rel="stylesheet" href="<?= base_url(''); ?>assets/plugins/select2/select2.min.css" />
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -49,7 +52,7 @@
 
 </head>
 
-<body class="hold-transition skin-red sidebar-mini <?= $this->uri->segment(1) == 'sale' ? 'sidebar-collapse' : null ?>">
+<body class="hold-transition skin-purple sidebar-mini <?= $this->uri->segment(1) == 'sale' ? 'sidebar-collapse' : null ?>">
     <div class="wrapper">
 
         <header class="main-header">
@@ -113,6 +116,7 @@
                         <a><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
+
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
@@ -194,6 +198,24 @@
                             <?php } ?>
                         </ul>
                     </li>
+                    <!-- frontend controller -->
+
+                    <?php if ($this->fuct->user_login()->level == 1) { ?>
+                        <li class="header">FRONTEND</li>
+                        <li <?= $this->uri->segment(1) == 'about' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
+                            <a href="<?= site_url('about'); ?>">
+                                <i class="fa fa-dot-circle-o"></i>
+                                <span>About</span>
+                            </a>
+                        </li>
+                        <li <?= $this->uri->segment(1) == 'contact' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
+                            <a href="<?= site_url('contact'); ?>">
+                                <i class="fa fa-dot-circle-o"></i>
+                                <span>Contact</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+
                     <li class="header">SETTINGS</li>
                     <?php if ($this->fuct->user_login()->level == 1) { ?>
                         <li <?= $this->uri->segment(1) == 'user'  ? 'class="active"' : '' ?>>
@@ -211,6 +233,8 @@
                         </li>
                     <?php } ?>
                 </ul>
+
+
             </section>
             <!-- /.sidebar -->
         </aside>
@@ -274,9 +298,16 @@
     <!-- AdminLTE for demo purposes -->
     <script src="<?= base_url(''); ?>assets/dist/js/demo.js"></script>
 
+    <!-- Select2 -->
+    <script src="<?= base_url(''); ?>assets/plugins/select2/select2.full.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#table1').DataTable()
+        })
+
+        $(function() {
+            $(".select2").select2();
         })
     </script>
 </body>

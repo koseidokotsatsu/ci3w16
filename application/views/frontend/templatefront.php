@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>&mdash; OurPharmacy &mdash;</title>
+    <title>OurPharmacy</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -128,8 +128,8 @@
     <script src="<?= base_url('assets/frontend/') ?>js/owl.carousel.min.js"></script>
     <script src="<?= base_url('assets/frontend/') ?>js/jquery.magnific-popup.min.js"></script>
     <script src="<?= base_url('assets/frontend/') ?>js/aos.js"></script>
-
     <script src="<?= base_url('assets/frontend/') ?>js/main.js"></script>
+
 
 </body>
 

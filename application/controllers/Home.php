@@ -5,11 +5,15 @@ class home extends CI_Controller
 {
     public function index()
     {
-        $this->templatefront->load('frontend/templatefront', 'frontend/home');
+        $this->load->model('m_item');
+        $data['items'] = $this->m_item->get_datatables();
+        $this->templatefront->load('frontend/templatefront', 'frontend/home', $data);
     }
     public function product()
     {
-        $this->templatefront->load('frontend/templatefront', 'frontend/product');
+        $this->load->model('m_item');
+        $data['items'] = $this->m_item->get_datatables();
+        $this->templatefront->load('frontend/templatefront', 'frontend/product', $data);
     }
     public function product_detail()
     {

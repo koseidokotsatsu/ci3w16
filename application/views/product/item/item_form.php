@@ -35,15 +35,28 @@
                         <label>Product Name<span style="color: #BA3131;">*</span></label>
                         <input type="text" name="product_name" class="form-control" value="<?= $row->name; ?>" required>
                     </div>
+
                     <div class="form-group">
-                        <label>General Name<span style="color: #BA3131;">*</span></label>
-                        <select name="general_name" class="form-control" required>
-                            <option value="">-- Pilih --</option>
+                        <label>Description</label>
+                        <textarea name="description" class="form-control"><?= $row->description; ?></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>General_name<span style="color: #BA3131;">*</span></label>
+
+                        <select class="form-control select2" name="general_name[]" multiple="multiple" data-placeholder="-- Pilih --" style="width: 100%">
+                            <?php
+                            $selected_general_names = explode(",", $row->id_general_name);
+                            ?>
                             <?php foreach ($general_name->result() as $key => $data) { ?>
-                                <option value="<?= $data->id_general_name ?>" <?= $data->id_general_name == $row->id_general_name ? "selected" : null; ?>><?= $data->name ?></option>
+                                <option value="<?= $data->id_general_name ?>" <?= in_array($data->id_general_name, $selected_general_names) ? "selected" : ""; ?>>
+                                    <?= $data->name ?>
+                                </option>
                             <?php } ?>
                         </select>
+
                     </div>
+
                     <div class="form-group">
                         <label>Category<span style="color: #BA3131;">*</span></label>
                         <select name="category" class="form-control" required>
@@ -52,7 +65,6 @@
                                 <option value="<?= $data->id_category ?>" <?= $data->id_category == $row->id_category ? "selected" : null; ?>><?= $data->name ?></option>
                             <?php } ?>
                         </select>
-
                     </div>
                     <div class="form-group">
                         <label>Type<span style="color: #BA3131;">*</span></label>
@@ -65,7 +77,7 @@
                     </div>
                     <div class="form-group">
                         <label>Unit<span style="color: #BA3131;">*</span></label>
-                        <?php echo form_dropdown('unit', $unit, $selectedunit, ['class' => 'form-control', 'required' => 'required']) ?>
+                        <?= form_dropdown('unit', $unit, $selectedunit, ['class' => 'form-control', 'required' => 'required']) ?>
                     </div>
                     <div class="form-group">
                         <label>Price<span style="color: #BA3131;">*</span></label>

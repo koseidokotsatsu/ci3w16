@@ -31,6 +31,7 @@
                         <th>No</th>
                         <th>Barcode</th>
                         <th>Name</th>
+                        <th>Description</th>
                         <th>General Name</th>
                         <th>Category</th>
                         <th>Type</th>
@@ -55,7 +56,8 @@
                                 </a>
                             </td>
                             <td><?= $data->name ?? 'N/A' ?></td>
-                            <td><?= $data->general_name ?? 'N/A' ?></td>
+                            <td><?= $data->description ?? 'N/A' ?></td>
+                            <td><span class="label label-primary"><?= $data->general_name ?? 'N/A' ?></span></td>
                             <td><?= $data->name_category ?? 'N/A' ?></td>
                             <td><?= $data->type_name ?? 'N/A' ?></td>
                             <td><?= $data->name_unit ?? 'N/A' ?></td>
@@ -64,7 +66,6 @@
                             <?php if ($this->fuct->user_login()->level == 1) { ?>
                                 <td>
                                     <?php if ($data->image != null) { ?>
-
                                         <img src="<?= base_url('uploads/product/' . $data->image) ?>" style="width: 100px;">
                                     <?php } ?>
                                 </td>
