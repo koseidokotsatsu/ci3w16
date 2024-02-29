@@ -28,4 +28,40 @@ class Receipt extends CI_Controller
         $this->m_receipt->hapus_id($id);
         redirect('receipt');
     }
+
+    public function edit($id)
+    {
+        // $data['sale'] = $this->m_sale->get_id($id);
+
+        // print_r($data);
+        // die;
+
+        $query = $this->m_receipt->get($id);
+
+        if ($query->num_rows() > 0) {
+            $sale = $query->row();
+            $data = array(
+                'page' => 'edit',
+                'row' => $sale
+            );
+            $this->template->load('template', 'transaction/delivery/sale_edit', $data);
+        } else {
+            echo "<script>alert('Data not found!');";
+            echo "window.location='" . site_url('receipt') . "';</script>";
+        }
+    }
+
+    public function process()
+    {
+        $post = $this->input->post(null, true);
+        if (isset($_POST['add'])) {
+            $this->m_receipt->add($post);
+        } elseif (isset($_POST['edit'])) {
+            $this->m_receipt->edit($post);
+        }
+        if ($this->db->affected_rows() > 0) {
+            echo "<script>alert('Data Saved!');</script>";
+        }
+        echo "<script>window.location='" . site_url('receipt') . "';</script>";
+    }
 }

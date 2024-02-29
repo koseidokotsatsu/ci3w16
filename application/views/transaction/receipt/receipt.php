@@ -60,30 +60,84 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>No Transaksi</th>
-                    <th>Pelanggan</th>
-                    <th>Tanggal Transaksi</th>
-                    <th>Jam Transaksi</th>
+                    <th>No Transaction</th>
+                    <th>Customer</th>
+                    <th>Delivery</th>
+                    <th>Date Transaction</th>
+                    <th>Hour Transaction</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $no = 1;
                 foreach ($receipt as $data) { ?>
-                    <tr>
-                        <td style="width:5%;"><?= $no++ ?></td>
-                        <td><?= $data->invoice ?></td>
-                        <td><?= $data->customer_name ?></td>
-                        <td><?= $data->date_tf ?></td>
-                        <td><?= $data->hour_tf ?></td>
-                        <td>
-                            <?php
-                                echo anchor(site_url('sale/receipt_detail/' . $data->id_sale), '<i class="fa fa-eye"></i>&nbsp;&nbsp;Detail', array('title' => 'edit', 'class' => 'btn btn-primary btn-xs'));
-                                echo '&nbsp';
-                                echo anchor(site_url('receipt/hapus/' . $data->id_sale), '<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;Hapus', 'title="delete" class="btn btn-danger btn-xs "');
-                                ?>
-                        </td>
-                    </tr>
+                <tr>
+                    <td style="width:5%;"><?= $no++ ?></td>
+                    <td><?= $data->invoice ?></td>
+                    <td><?= $data->customer_name ?></td>
+                    <td>
+                        <?php if ($data->delivery == 'yes') { ?>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#deliveryModal<?= $data->id_sale ?>">Yes</button>
+                        <?php if ($data->accepted != 'yes') { ?>
+                        <i class="fa fa-info-circle" style="color: #EC3939;" data-toggle="tooltip" title="Not Accepted"></i>
+                        <?php } ?>
+                        <?php } else { ?>
+                        <button type="button" class="btn btn-danger btn-sm" disabled>No</button>
+                        <?php } ?>
+                    </td>
+                    <td><?= $data->date_tf ?></td>
+                    <td><?= $data->hour_tf ?></td>
+                    <td>
+                        <?php
+                            echo anchor(site_url('sale/receipt_detail/' . $data->id_sale), '<i class="fa fa-eye"></i>&nbsp;&nbsp;Detail', array('title' => 'edit', 'class' => 'btn btn-primary btn-xs'));
+                            echo '&nbsp';
+                            echo anchor(site_url('receipt/hapus/' . $data->id_sale), '<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;Hapus', 'title="delete" class="btn btn-danger btn-xs "');
+                            ?>
+                    </td>
+                </tr>
+                <!-- Modal -->
+                <div class="modal fade" id="deliveryModal<?= $data->id_sale ?>" tabindex="-1" role="dialog" aria-labelledby="deliveryModalLabel<?= $data->id_sale ?>" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deliveryModalLabel<?= $data->id_sale ?>"><strong><i>Delivery Status</i></strong></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p><strong>No. Resi</strong></p>
+                                        <p><strong>Expedition</strong></p>
+                                        <p><strong>Address</strong></p>
+                                        <p><strong>Pos Code</strong></p>
+                                        <p><strong>Ongkos</strong></p>
+                                        <p><strong>Accepted</strong></p>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <p>:&nbsp;&nbsp;<?= $data->no_resi ?></p>
+                                        <p>:&nbsp;&nbsp;<?= $data->expedition ?></p>
+                                        <p>:&nbsp;&nbsp;<?= $data->address ?></p>
+                                        <p>:&nbsp;&nbsp;<?= $data->pos_code ?></p>
+                                        <p>:&nbsp;&nbsp;Rp.<?= number_format($data->ongkos) ?></p>
+                                        <?php if ($data->accepted == 'yes') { ?>
+                                        <p>:&nbsp;&nbsp;<span class="label label-success"><?= $data->accepted ?></span></p>
+                                        <?php } else { ?>
+                                        <p>:&nbsp;&nbsp;<span class="label label-danger"><?= $data->accepted ?></span></p>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                                <!-- Add more delivery status information here -->
+                            </div>
+                            <div class="modal-footer">
+                                <a href="<?= site_url('receipt/edit/' . $data->id_sale) ?>" class="btn btn-primary">Edit</a>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <?php
                 } ?>
             </tbody>

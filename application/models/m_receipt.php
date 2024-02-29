@@ -40,4 +40,29 @@ class m_receipt extends CI_Model
     {
         $this->db->where('id_sale', $id)->delete('t_payment');
     }
+
+    public function get($id = null)
+    {
+        $this->db->from('t_sale');
+        if ($id != null) {
+            $this->db->where('id_sale', $id);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+    public function edit($post)
+    {
+        $params = [
+            'expedition' => $post['expedition'],
+            'ongkos' => $post['ongkos'],
+            'accepted' => $post['accepted'],
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        // print_r($params);
+        // die;
+
+        $this->db->where('id_sale', $post['id_sale']);
+        $this->db->update('t_sale', $params);
+    }
 }

@@ -2,7 +2,6 @@
 $login = $this->session->flashdata('login');
 ?>
 
-
 <?php if ($login) : ?>
 <section class="content-header">
   <div class="alert alert-success" role="alert">

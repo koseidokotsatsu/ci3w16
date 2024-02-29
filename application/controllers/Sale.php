@@ -100,6 +100,7 @@ class Sale extends CI_Controller
             'cash' => $this->input->post('cash'),
             'remain' => $this->input->post('change'),
             'note' => $this->input->post('note'),
+            'delivery' => 'no',
             'date_tf' => date('Y-m-d'),
             'hour_tf' => date('H:i:s')
         );

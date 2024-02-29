@@ -127,12 +127,12 @@
                         </a>
                     </li>
                     <?php if ($this->fuct->user_login()->level == 1) { ?>
-                        <li <?= $this->uri->segment(1) == 'supplier'  ? 'class="active"' : '' ?>>
-                            <a href="<?= site_url('supplier'); ?>">
-                                <i class="fa fa-truck"></i>
-                                <span>Suppliers</span>
-                            </a>
-                        </li>
+                    <li <?= $this->uri->segment(1) == 'supplier'  ? 'class="active"' : '' ?>>
+                        <a href="<?= site_url('supplier'); ?>">
+                            <i class="fa fa-truck"></i>
+                            <span>Suppliers</span>
+                        </a>
+                    </li>
                     <?php } ?>
                     <li <?= $this->uri->segment(1) == 'customer'  ? 'class="active"' : '' ?>>
                         <a href="<?= site_url('customer'); ?>">
@@ -157,17 +157,17 @@
                                 <a href="<?= site_url('item'); ?>"><i class="fa fa-circle-o"></i> Items</a>
                             </li>
                             <?php if ($this->fuct->user_login()->level == 1) { ?>
-                                <li <?= $this->uri->segment(1) == 'category'  ? 'class="active"' : '' ?>>
-                                    <a href="<?= site_url('category'); ?>"><i class="fa fa-circle-o"></i> Categories</a>
-                                </li>
-                                <li <?= $this->uri->segment(1) == 'type'  ? 'class="active"' : '' ?>>
-                                    <a href="<?= site_url('type'); ?>"><i class="fa fa-circle-o"></i> Type</a></li>
-                                <li <?= $this->uri->segment(1) == 'general_name'  ? 'class="active"' : '' ?>>
-                                    <a href="<?= site_url('general_name'); ?>"><i class="fa fa-circle-o"></i> General Name</a>
-                                </li>
-                                <li <?= $this->uri->segment(1) == 'unit'  ? 'class="active"' : '' ?>>
-                                    <a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Units</a>
-                                </li>
+                            <li <?= $this->uri->segment(1) == 'category'  ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('category'); ?>"><i class="fa fa-circle-o"></i> Categories</a>
+                            </li>
+                            <li <?= $this->uri->segment(1) == 'type'  ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('type'); ?>"><i class="fa fa-circle-o"></i> Type</a></li>
+                            <li <?= $this->uri->segment(1) == 'general_name'  ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('general_name'); ?>"><i class="fa fa-circle-o"></i> General Name</a>
+                            </li>
+                            <li <?= $this->uri->segment(1) == 'unit'  ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('unit'); ?>"><i class="fa fa-circle-o"></i> Units</a>
+                            </li>
                             <?php } ?>
                         </ul>
                     </li>
@@ -189,48 +189,42 @@
                                 <a href="<?= site_url('receipt'); ?>"><i class="fa fa-circle-o"></i> Data Sale</a>
                             </li>
                             <?php if ($this->fuct->user_login()->level == 1) { ?>
-                                <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ? 'class="active"' : '' ?>>
-                                    <a href="<?= site_url('stock/in'); ?>"><i class="fa fa-circle-o"></i> Stock in</a>
-                                </li>
-                                <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'out' ? 'class="active"' : '' ?>>
-                                    <a href="<?= site_url('stock/out'); ?>"><i class="fa fa-circle-o"></i> Stock Out</a>
-                                </li>
+                            <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('stock/in'); ?>"><i class="fa fa-circle-o"></i> Stock in</a>
+                            </li>
+                            <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'out' ? 'class="active"' : '' ?>>
+                                <a href="<?= site_url('stock/out'); ?>"><i class="fa fa-circle-o"></i> Stock Out</a>
+                            </li>
                             <?php } ?>
                         </ul>
                     </li>
                     <!-- frontend controller -->
 
                     <?php if ($this->fuct->user_login()->level == 1) { ?>
-                        <li class="header">FRONTEND</li>
-                        <li <?= $this->uri->segment(1) == 'about' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
-                            <a href="<?= site_url('about'); ?>">
-                                <i class="fa fa-dot-circle-o"></i>
-                                <span>About</span>
-                            </a>
-                        </li>
-                        <li <?= $this->uri->segment(1) == 'contact' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
-                            <a href="<?= site_url('contact'); ?>">
-                                <i class="fa fa-dot-circle-o"></i>
-                                <span>Contact</span>
-                            </a>
-                        </li>
+                    <li class="header">FRONTEND</li>
+                    <li <?= $this->uri->segment(1) == 'about' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
+                        <a href="<?= site_url('about'); ?>">
+                            <i class="fa fa-dot-circle-o"></i>
+                            <span>About <i>(not work yet)</i></span>
+                        </a>
+                    </li>
                     <?php } ?>
 
                     <li class="header">SETTINGS</li>
                     <?php if ($this->fuct->user_login()->level == 1) { ?>
-                        <li <?= $this->uri->segment(1) == 'user'  ? 'class="active"' : '' ?>>
-                            <a href="<?= site_url('user'); ?>">
-                                <i class="fa fa-users"></i>
-                                <span>Users</span>
-                            </a>
-                        </li>
+                    <li <?= $this->uri->segment(1) == 'user'  ? 'class="active"' : '' ?>>
+                        <a href="<?= site_url('user'); ?>">
+                            <i class="fa fa-users"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
                     <?php } else { ?>
-                        <li <?= $this->uri->segment(1) == 'user'  ? 'class="active"' : '' ?>>
-                            <a href="<?= site_url('user/edit/' . $this->fuct->user_login()->id_user); ?>">
-                                <i class="fa fa-pencil-square-o"></i>
-                                <span>Edit Profile</span>
-                            </a>
-                        </li>
+                    <li <?= $this->uri->segment(1) == 'user'  ? 'class="active"' : '' ?>>
+                        <a href="<?= site_url('user/edit/' . $this->fuct->user_login()->id_user); ?>">
+                            <i class="fa fa-pencil-square-o"></i>
+                            <span>Edit Profile</span>
+                        </a>
+                    </li>
                     <?php } ?>
                 </ul>
 

@@ -31,6 +31,10 @@ class m_supplier extends CI_Model
             'description' => empty($post['description']) ? null : $post['description'],
             'updated_at' => date('Y-m-d H:i:s')
         ];
+
+        // print_r($params);
+        // die;
+
         $this->db->where('id_supplier', $post['id']);
         $this->db->update('supplier', $params);
     }

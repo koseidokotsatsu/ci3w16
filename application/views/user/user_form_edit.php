@@ -12,13 +12,13 @@
             <h3 class="box-title">Edit Users</h3>
             <div class="pull-right">
                 <?php if ($level == 1) : ?>
-                    <a href="<?= site_url('user'); ?>" class="btn btn-warning btn-flat">
-                        <i class="fa fa-undo"></i>&nbsp;&nbsp;Return
-                    </a>
+                <a href="<?= site_url('user'); ?>" class="btn btn-warning btn-flat">
+                    <i class="fa fa-undo"></i>&nbsp;&nbsp;Return
+                </a>
                 <?php else : ?>
-                    <a href="<?= site_url('dashboard'); ?>" class="btn btn-warning btn-flat">
-                        <i class="fa fa-undo"></i>&nbsp;&nbsp;Dashboard
-                    </a>
+                <a href="<?= site_url('dashboard'); ?>" class="btn btn-warning btn-flat">
+                    <i class="fa fa-undo"></i>&nbsp;&nbsp;Dashboard
+                </a>
                 <?php endif; ?>
             </div>
         </div>
@@ -28,9 +28,9 @@
                     <form action="" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <?php if ($row->img != null) : ?>
-                                <div class="existing-profile-image text-center" style="margin-bottom: 15px; margin-top: 15px;">
-                                    <img src="<?= base_url('assets/img/' . $row->img); ?>" alt="Profile Image" class="img-thumbnail" style="border-radius: 50%;">
-                                </div>
+                            <div class="existing-profile-image text-center" style="margin-bottom: 15px; margin-top: 15px;">
+                                <img src="<?= base_url('assets/img/' . $row->img); ?>" alt="Profile Image" class="img-thumbnail" style="border-radius: 50%;">
+                            </div>
                             <?php endif; ?>
                             <input type="file" name="img" class="form-control" accept="image/*">
                         </div>
@@ -56,17 +56,17 @@
                             <?= form_error('passconf') ?>
                         </div>
                         <?php if ($level == 1 && $user->username != 'admin') { ?>
-                            <div class="form-group <?= form_error('level') ? 'has-error' : null ?>">
-                                <label>Level</label>
-                                <select name="level" class="form-control">
-                                    <?php $level = $this->input->post('level') ? $this->input->post('level') : $row->level ?>
-                                    <option value="1">Admin</option>
-                                    <option value="2" <?= $level == 2 ? 'selected' : null ?>>Cashier</option>
-                                </select>
-                                <?= form_error('level') ?>
-                            </div>
+                        <div class="form-group <?= form_error('level') ? 'has-error' : null ?>">
+                            <label>Level</label>
+                            <select name="level" class="form-control">
+                                <?php $level = $this->input->post('level') ? $this->input->post('level') : $row->level ?>
+                                <option value="1">Admin</option>
+                                <option value="2" <?= $level == 2 ? 'selected' : null ?>>Cashier</option>
+                            </select>
+                            <?= form_error('level') ?>
+                        </div>
                         <?php } else { ?>
-                            <input type="text" name="level" value="<?= $row->level ?>" hidden>
+                        <input type="text" name="level" value="<?= $row->level ?>" hidden>
                         <?php } ?>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-flat">

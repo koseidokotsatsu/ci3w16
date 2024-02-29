@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Feb 2024 pada 13.59
--- Versi server: 10.4.22-MariaDB
--- Versi PHP: 8.1.0
+-- Waktu pembuatan: 29 Feb 2024 pada 19.52
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,7 +35,7 @@ CREATE TABLE `customer` (
   `address` text DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `customer`
@@ -43,6 +43,25 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`id_customer`, `name`, `gender`, `phone`, `address`, `created_at`, `updated_at`) VALUES
 (5, 'Muhammad Hanif Nur A.', 'L', '(+62) 812-2671-8705', 'Gelang Keling, Jepara', '2023-12-19 13:24:54', '2024-01-23 04:17:37');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `promo`
+--
+
+CREATE TABLE `promo` (
+  `id_promo` int(11) NOT NULL,
+  `code` varchar(256) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `sub_title` varchar(256) NOT NULL,
+  `description` varchar(256) NOT NULL,
+  `value` int(50) NOT NULL,
+  `img` varchar(256) NOT NULL,
+  `period` enum('still','no') NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -55,7 +74,7 @@ CREATE TABLE `p_category` (
   `name` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `p_category`
@@ -81,7 +100,7 @@ CREATE TABLE `p_general_name` (
   `name` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data untuk tabel `p_general_name`
@@ -117,14 +136,14 @@ CREATE TABLE `p_item` (
   `image` varchar(100) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `p_item`
 --
 
 INSERT INTO `p_item` (`id_item`, `barcode`, `id_general_name`, `name`, `description`, `id_category`, `id_type`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
-(27, 'P001', '1,9', 'Panadol 500mg', 'Salbutamol Yarindo diproduksi oleh PT. Yarindo Farmatama- Indonesia dengan no.registrasi GKL9832707710A1 yang mengandung Salbutamol 2mg. Salbutamol merupakan obat saluran nafas yang digunakan untuk mencegah bronkospasme pada semua jenis asma bronkial. Salbutamol obat golongan bronkodilator yang dapat meredakan batuk, mengi, sesak napas, dan pernapasan yang terganggu dengan meningkatkan aliran udara melalui saluran bronkial. Salbutamol hanya dapat diperoleh dengan resep dokter.', 13, 1, 11, 12500, 85, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-02-29 08:07:53'),
+(27, 'P001', '1,9', 'Panadol 500mg', 'Salbutamol Yarindo diproduksi oleh PT. Yarindo Farmatama- Indonesia dengan no.registrasi GKL9832707710A1 yang mengandung Salbutamol 2mg. Salbutamol merupakan obat saluran nafas yang digunakan untuk mencegah bronkospasme pada semua jenis asma bronkial. Salbutamol obat golongan bronkodilator yang dapat meredakan batuk, mengi, sesak napas, dan pernapasan yang terganggu dengan meningkatkan aliran udara melalui saluran bronkial. Salbutamol hanya dapat diperoleh dengan resep dokter.', 13, 1, 11, 12500, 75, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-02-29 08:07:53'),
 (29, 'P002', '2,9', 'Ponstan 500 mg 10 Tablet', '', 14, 2, 13, 38000, 154, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2024-02-29 08:08:13'),
 (32, 'A011', '1,9', 'Panadol 500mg Extra', '', 13, 2, 11, 1200, 0, 'item-240227-4d2107119f.png', '2024-02-27 23:53:39', '2024-02-29 08:08:05'),
 (33, 'A012', '7', 'Ranitidine HCl', NULL, 14, 2, 11, 12000, 0, 'item-240229-ffc6691ac4.png', '2024-02-29 06:23:48', '2024-02-29 06:59:50'),
@@ -141,7 +160,7 @@ CREATE TABLE `p_type` (
   `name` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data untuk tabel `p_type`
@@ -194,7 +213,7 @@ CREATE TABLE `p_unit` (
   `name` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `p_unit`
@@ -220,14 +239,14 @@ CREATE TABLE `supplier` (
   `description` text DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `supplier`
 --
 
 INSERT INTO `supplier` (`id_supplier`, `name`, `phone`, `address`, `description`, `created_at`, `updated_at`) VALUES
-(9, 'PT First Medipharma', '(+62) 31-896381', 'Jl. Raya Sumorame No.41, Sumotuwo, Sumorame, Kec. Candi, Kabupaten Sidoarjo, Jawa Timur 61271', NULL, '2023-12-19 13:18:21', NULL),
+(9, 'PT First Medipharma', '(+62) 31-896381', 'Jl. Raya Sumorame No.41, Sumotuwo, Sumorame, Kec. Candi, Kabupaten Sidoarjo, Jawa Timur 61271', 'Ranitidhine HCl', '2023-12-19 13:18:21', '2024-02-29 18:39:21'),
 (10, 'PT IFARS Pharmaceutical', '(0271) 668616', 'Jl. Raya Solo-Sragen KM 14,9 KEBAKKRAMAT, SOLO 55762 ', '- Solid (tablet, caplet and capsule)\r\n- Liquid (syrup, etc)\r\n- Semi-solid (cream, gel and ointment)', '2023-12-19 13:20:59', NULL),
 (11, 'PT BERLICO Mulia Farma', '(0274) 4986829', 'Jl. Raya Solo - Yogyakarta No.KM.10, RW.6, Cupuwatu I, Purwomartani, Kec. Kalasan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55571', 'Amoxicillin Kaplet\r\nBerlimox Kaplet\r\nDolo-licobion', '2023-12-19 13:22:22', NULL);
 
@@ -244,7 +263,7 @@ CREATE TABLE `t_payment` (
   `qty` int(11) NOT NULL,
   `price` bigint(20) NOT NULL,
   `sub_total` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `t_payment`
@@ -269,7 +288,8 @@ INSERT INTO `t_payment` (`id_transaction`, `id_sale`, `id_item`, `qty`, `price`,
 (22, 71, 29, 6, 38000, 228000),
 (23, 72, 29, 5, 38000, 190000),
 (24, 74, 29, 5, 38000, 190000),
-(25, 75, 27, 3, 12500, 37500);
+(25, 75, 27, 3, 12500, 37500),
+(26, 79, 27, 10, 12500, 125000);
 
 -- --------------------------------------------------------
 
@@ -287,20 +307,31 @@ CREATE TABLE `t_sale` (
   `cash` bigint(20) NOT NULL,
   `remain` bigint(20) NOT NULL,
   `note` varchar(100) DEFAULT NULL,
+  `delivery` enum('yes','no') NOT NULL,
+  `no_resi` varchar(255) DEFAULT NULL,
+  `expedition` varchar(255) DEFAULT NULL,
+  `receiver` varchar(255) DEFAULT NULL,
+  `receiver_phone` varchar(255) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `pos_code` varchar(125) DEFAULT NULL,
+  `ongkos` int(50) DEFAULT NULL,
+  `accepted` enum('yes','no') DEFAULT NULL,
   `date_tf` date NOT NULL,
-  `hour_tf` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `hour_tf` time NOT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `t_sale`
 --
 
-INSERT INTO `t_sale` (`id_sale`, `invoice`, `customer_name`, `total_early`, `total_final`, `discount`, `cash`, `remain`, `note`, `date_tf`, `hour_tf`) VALUES
-(70, 'MP2401170001', 'Umum', 50500, 49000, 1500, 50000, 1000, 'Sassy Baka', '2024-01-17', '13:44:47'),
-(71, 'MP2401220001', 'Umum', 228000, 220000, 8000, 220000, 0, '', '2024-01-22', '04:06:03'),
-(72, 'MP2401220002', 'Umum', 190000, 189000, 1000, 200000, 11000, '', '2024-01-22', '05:56:58'),
-(74, 'MP2401220004', 'Umum', 190000, 175000, 15000, 175000, 0, '', '2024-01-22', '07:33:34'),
-(75, 'MP2402160001', 'Umum', 37500, 36500, 1000, 50000, 13500, 'pemakaian 3x sehari', '2024-02-16', '07:40:15');
+INSERT INTO `t_sale` (`id_sale`, `invoice`, `customer_name`, `total_early`, `total_final`, `discount`, `cash`, `remain`, `note`, `delivery`, `no_resi`, `expedition`, `receiver`, `receiver_phone`, `address`, `pos_code`, `ongkos`, `accepted`, `date_tf`, `hour_tf`, `updated_at`) VALUES
+(70, 'MP2401170001', 'Umum', 50500, 49000, 1500, 50000, 1000, 'Sassy Baka', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-17', '13:44:47', NULL),
+(71, 'MP2401220001', 'Umum', 228000, 220000, 8000, 220000, 0, '', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-22', '04:06:03', NULL),
+(72, 'MP2401220002', 'Umum', 190000, 189000, 1000, 200000, 11000, '', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-22', '05:56:58', NULL),
+(74, 'MP2401220004', 'Umum', 190000, 175000, 15000, 175000, 0, '', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-22', '07:33:34', NULL),
+(75, 'MP2402160001', 'raesoxee', 37500, 36500, 1000, 50000, 13500, 'pemakaian 3x sehari', 'yes', 'JT23213421', 'JNE', 'Ranggita Alya', '083835339435', 'Bantul, Yogyakarta', '55781', 25000, 'no', '2024-02-16', '07:40:15', '2024-02-29 19:11:57'),
+(79, 'MP2402290001', 'raditya', 125000, 105000, 20000, 150000, 45000, 'dipakai yang benar ya', 'yes', 'JT12342123', 'Sicepat', 'Raditya Abib', '082235468531', 'Keling, Jepara', '55194', 20000, 'yes', '2024-02-29', '14:48:56', '2024-02-29 19:16:43');
 
 -- --------------------------------------------------------
 
@@ -318,7 +349,7 @@ CREATE TABLE `t_stock` (
   `date` date NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `id_user` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `t_stock`
@@ -342,7 +373,7 @@ CREATE TABLE `user` (
   `img` varchar(255) NOT NULL,
   `level` int(11) NOT NULL COMMENT '1:admin,2:staff',
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `user`
@@ -353,7 +384,7 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `name`, `img`, `level`, `
 (6, 'raesoxee', '8cb2237d0679ca88db6464eac60da96345513964', 'Ranggita Putri Alya', '2_21.gif', 1, '2023-12-18 09:58:05'),
 (7, 'radityaabib', '8cb2237d0679ca88db6464eac60da96345513964', 'Raditya Abib', '1_21.gif', 1, '2023-12-19 13:08:42'),
 (8, 'qoqon', '8cb2237d0679ca88db6464eac60da96345513964', 'Muhammad Furqon ', 'Screenshot_3712.png', 2, '2023-12-19 13:10:43'),
-(10, 'tested', '8cb2237d0679ca88db6464eac60da96345513964', 'Tested', 'aea72c4777a405dde87b7741b8a8552a1.gif', 2, '2024-01-31 08:06:26');
+(10, 'tested', '880949479ab16e56ead7c08f91861fc6fc708af0', 'Tested', 'aea72c4777a405dde87b7741b8a8552a1.gif', 2, '2024-01-31 08:06:26');
 
 --
 -- Indexes for dumped tables
@@ -364,6 +395,12 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `name`, `img`, `level`, `
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`id_customer`);
+
+--
+-- Indeks untuk tabel `promo`
+--
+ALTER TABLE `promo`
+  ADD PRIMARY KEY (`id_promo`);
 
 --
 -- Indeks untuk tabel `p_category`
@@ -442,6 +479,12 @@ ALTER TABLE `customer`
   MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT untuk tabel `promo`
+--
+ALTER TABLE `promo`
+  MODIFY `id_promo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `p_category`
 --
 ALTER TABLE `p_category`
@@ -481,13 +524,13 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `t_payment`
 --
 ALTER TABLE `t_payment`
-  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_sale`
 --
 ALTER TABLE `t_sale`
-  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_stock`

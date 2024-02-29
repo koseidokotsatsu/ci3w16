@@ -32,6 +32,8 @@ class Supplier extends CI_Controller
     public function edit($id)
     {
         $query = $this->m_supplier->get($id);
+        // print_r($query);
+        // die;
         if ($query->num_rows() > 0) {
             $supplier = $query->row();
             $data = array(

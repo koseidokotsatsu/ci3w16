@@ -29,15 +29,15 @@
 
             foreach ($limitedItems as $item) {
                 ?>
-                <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                    <a href="#">
-                        <img src="<?= base_url('uploads/product/') . $item->image ?>" alt="Image" class="product-image">
-                    </a>
-                    <h3 class="text-dark">
-                        <a href="#"><?= $item->name ?></a>
-                    </h3>
-                    <p class="price"><?= indo_currency($item->price) ?></p>
-                </div>
+            <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                <a href="#">
+                    <img src="<?= base_url('uploads/product/') . $item->image ?>" alt="Image" class="product-image">
+                </a>
+                <h3 class="text-dark">
+                    <a href="#"><?= $item->name ?></a>
+                </h3>
+                <p class="price"><?= indo_currency($item->price) ?></p>
+            </div>
             <?php } ?>
 
         </div>
@@ -65,15 +65,15 @@
 
                     foreach ($limitedItems as $item) {
                         ?>
-                        <div class="text-center item mb-4">
-                            <a href="#">
-                                <div class="product-image-container">
-                                    <img src="<?= base_url('uploads/product/') . $item->image ?>" alt="Image" class="product-image-slide">
-                                </div>
-                            </a>
-                            <h3 class="text-dark"><a href="#"><?= $item->name ?></a></h3>
-                            <p class="price"><?= indo_currency($item->price) ?></p>
-                        </div>
+                    <div class="text-center item mb-4">
+                        <a href="#">
+                            <div class="product-image-container">
+                                <img src="<?= base_url('uploads/product/') . $item->image ?>" alt="Image" class="product-image-slide">
+                            </div>
+                        </a>
+                        <h3 class="text-dark"><a href="#"><?= $item->name ?></a></h3>
+                        <p class="price"><?= indo_currency($item->price) ?></p>
+                    </div>
                     <?php } ?>
                 </div>
             </div>
