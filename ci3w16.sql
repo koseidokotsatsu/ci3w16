@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Feb 2024 pada 23.55
+-- Waktu pembuatan: 01 Mar 2024 pada 07.10
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -35,6 +35,7 @@ CREATE TABLE `customer` (
   `gender` enum('L','P') DEFAULT NULL,
   `phone` varchar(125) DEFAULT NULL,
   `address` text DEFAULT NULL,
+  `pos_code` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -43,8 +44,8 @@ CREATE TABLE `customer` (
 -- Dumping data untuk tabel `customer`
 --
 
-INSERT INTO `customer` (`id_customer`, `username`, `password`, `name`, `gender`, `phone`, `address`, `created_at`, `updated_at`) VALUES
-(5, 'ruci', '8cb2237d0679ca88db6464eac60da96345513964', 'Muhammad Ruci ', 'P', '028321412', 'Kelet, Keling', '2023-12-19 13:24:54', '2024-02-29 23:45:31');
+INSERT INTO `customer` (`id_customer`, `username`, `password`, `name`, `gender`, `phone`, `address`, `pos_code`, `created_at`, `updated_at`) VALUES
+(5, 'ruci', '8cb2237d0679ca88db6464eac60da96345513964', 'Muhammad Ruci ', 'L', '028321412', 'Kelet, Keling', '51932', '2023-12-19 13:24:54', '2024-03-01 03:00:06');
 
 -- --------------------------------------------------------
 
@@ -145,11 +146,11 @@ CREATE TABLE `p_item` (
 --
 
 INSERT INTO `p_item` (`id_item`, `barcode`, `id_general_name`, `name`, `description`, `id_category`, `id_type`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
-(27, 'P001', '1,9', 'Panadol 500mg', 'Salbutamol Yarindo diproduksi oleh PT. Yarindo Farmatama- Indonesia dengan no.registrasi GKL9832707710A1 yang mengandung Salbutamol 2mg. Salbutamol merupakan obat saluran nafas yang digunakan untuk mencegah bronkospasme pada semua jenis asma bronkial. Salbutamol obat golongan bronkodilator yang dapat meredakan batuk, mengi, sesak napas, dan pernapasan yang terganggu dengan meningkatkan aliran udara melalui saluran bronkial. Salbutamol hanya dapat diperoleh dengan resep dokter.', 13, 1, 11, 12500, 75, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-02-29 08:07:53'),
-(29, 'P002', '2,9', 'Ponstan 500 mg 10 Tablet', '', 14, 2, 13, 38000, 154, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2024-02-29 08:08:13'),
-(32, 'A011', '1,9', 'Panadol 500mg Extra', '', 13, 2, 11, 1200, 0, 'item-240227-4d2107119f.png', '2024-02-27 23:53:39', '2024-02-29 08:08:05'),
+(27, 'P001', '1,9', 'Panadol 500mg', '', 13, 1, 11, 12500, 69, 'item-231219-30b2d8f30e.png', '2023-12-19 17:50:00', '2024-03-01 00:41:00'),
+(29, 'P002', '2,9', 'Ponstan 500 mg 10 Tablet', '', 14, 2, 13, 38000, 142, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2024-02-29 08:08:13'),
+(32, 'A011', '1,9', 'Panadol 500mg Extra', '', 13, 2, 11, 1200, -16, 'item-240227-4d2107119f.png', '2024-02-27 23:53:39', '2024-02-29 08:08:05'),
 (33, 'A012', '7', 'Ranitidine HCl', NULL, 14, 2, 11, 12000, 0, 'item-240229-ffc6691ac4.png', '2024-02-29 06:23:48', '2024-02-29 06:59:50'),
-(34, 'S001', '1000', 'Salbutamol Yarindo 2mg Tablet (per Tablet)', NULL, 14, 2, 11, 213, 0, 'item-240229-1e82182cde.jpg', '2024-02-29 12:43:28', '2024-02-29 06:59:07');
+(34, 'S001', '8', 'Salbutamol Yarindo 2mg Tablet (per Tablet)', 'Salbutamol Yarindo diproduksi oleh PT. Yarindo Farmatama- Indonesia dengan no.registrasi GKL9832707710A1 yang mengandung Salbutamol 2mg. Salbutamol merupakan obat saluran nafas yang digunakan untuk mencegah bronkospasme pada semua jenis asma bronkial. Salbutamol obat golongan bronkodilator yang dapat meredakan batuk, mengi, sesak napas, dan pernapasan yang terganggu dengan meningkatkan aliran udara melalui saluran bronkial. Salbutamol hanya dapat diperoleh dengan resep dokter.', 14, 2, 11, 213, 0, 'item-240229-1e82182cde.jpg', '2024-02-29 12:43:28', '2024-03-01 00:41:39');
 
 -- --------------------------------------------------------
 
@@ -291,7 +292,15 @@ INSERT INTO `t_payment` (`id_transaction`, `id_sale`, `id_item`, `qty`, `price`,
 (23, 72, 29, 5, 38000, 190000),
 (24, 74, 29, 5, 38000, 190000),
 (25, 75, 27, 3, 12500, 37500),
-(26, 79, 27, 10, 12500, 125000);
+(26, 79, 27, 10, 12500, 125000),
+(27, 80, 27, 4, 12500, 50000),
+(28, 80, 32, 1, 1200, 1200),
+(29, 86, 27, 1, 12500, 12500),
+(30, 86, 29, 2, 38000, 76000),
+(31, 87, 32, 3, 1200, 3600),
+(32, 88, 32, 4, 1200, 4800),
+(33, 89, 29, 8, 38000, 304000),
+(34, 89, 32, 8, 1200, 9600);
 
 -- --------------------------------------------------------
 
@@ -302,6 +311,7 @@ INSERT INTO `t_payment` (`id_transaction`, `id_sale`, `id_item`, `qty`, `price`,
 CREATE TABLE `t_sale` (
   `id_sale` int(11) NOT NULL,
   `invoice` varchar(50) NOT NULL,
+  `customer_id` int(11) DEFAULT NULL,
   `customer_name` varchar(35) NOT NULL,
   `total_early` bigint(20) NOT NULL,
   `total_final` bigint(20) NOT NULL,
@@ -327,13 +337,18 @@ CREATE TABLE `t_sale` (
 -- Dumping data untuk tabel `t_sale`
 --
 
-INSERT INTO `t_sale` (`id_sale`, `invoice`, `customer_name`, `total_early`, `total_final`, `discount`, `cash`, `remain`, `note`, `delivery`, `no_resi`, `expedition`, `receiver`, `receiver_phone`, `address`, `pos_code`, `ongkos`, `accepted`, `date_tf`, `hour_tf`, `updated_at`) VALUES
-(70, 'MP2401170001', 'Umum', 50500, 49000, 1500, 50000, 1000, 'Sassy Baka', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-17', '13:44:47', NULL),
-(71, 'MP2401220001', 'Umum', 228000, 220000, 8000, 220000, 0, '', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-22', '04:06:03', NULL),
-(72, 'MP2401220002', 'Umum', 190000, 189000, 1000, 200000, 11000, '', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-22', '05:56:58', NULL),
-(74, 'MP2401220004', 'Umum', 190000, 175000, 15000, 175000, 0, '', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-22', '07:33:34', NULL),
-(75, 'MP2402160001', 'raesoxee', 37500, 36500, 1000, 50000, 13500, 'pemakaian 3x sehari', 'yes', 'JT23213421', 'JNE', 'Ranggita Alya', '083835339435', 'Bantul, Yogyakarta', '55781', 25000, 'no', '2024-02-16', '07:40:15', '2024-02-29 19:11:57'),
-(79, 'MP2402290001', 'raditya', 125000, 105000, 20000, 150000, 45000, 'dipakai yang benar ya', 'yes', 'JT12342123', 'Sicepat', 'Raditya Abib', '082235468531', 'Keling, Jepara', '55194', 20000, 'yes', '2024-02-29', '14:48:56', '2024-02-29 19:16:43');
+INSERT INTO `t_sale` (`id_sale`, `invoice`, `customer_id`, `customer_name`, `total_early`, `total_final`, `discount`, `cash`, `remain`, `note`, `delivery`, `no_resi`, `expedition`, `receiver`, `receiver_phone`, `address`, `pos_code`, `ongkos`, `accepted`, `date_tf`, `hour_tf`, `updated_at`) VALUES
+(70, 'MP2401170001', NULL, 'Umum', 50500, 49000, 1500, 50000, 1000, 'Sassy Baka', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-17', '13:44:47', NULL),
+(71, 'MP2401220001', NULL, 'Umum', 228000, 220000, 8000, 220000, 0, '', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-22', '04:06:03', NULL),
+(72, 'MP2401220002', NULL, 'Umum', 190000, 189000, 1000, 200000, 11000, '', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-22', '05:56:58', NULL),
+(74, 'MP2401220004', NULL, 'Umum', 190000, 175000, 15000, 175000, 0, '', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-22', '07:33:34', NULL),
+(75, 'MP2402160001', NULL, 'raesoxee', 37500, 36500, 1000, 50000, 13500, 'pemakaian 3x sehari', 'yes', 'JT23213421', 'JNE', 'Ranggita Alya', '083835339435', 'Bantul, Yogyakarta', '55781', 25000, 'no', '2024-02-16', '07:40:15', '2024-02-29 19:11:57'),
+(79, 'MP2402290001', NULL, 'raditya', 125000, 105000, 20000, 150000, 45000, 'dipakai yang benar ya', 'yes', 'JT12342123', 'Sicepat', 'Raditya Abib', '082235468531', 'Keling, Jepara', '55194', 20000, 'yes', '2024-02-29', '14:48:56', '2024-02-29 19:16:43'),
+(80, 'MP2403010001', NULL, 'Umum', 51200, 0, 0, 0, 0, '', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-03-01', '00:42:56', NULL),
+(86, 'MP2403010007', 5, 'Muhammad Ruci ', 88500, 88500, 0, 88500, 0, '', 'yes', NULL, NULL, 'Muhammad Ruci ', '028321412', 'Kelet, Keling', '51932', 0, 'no', '2024-03-01', '03:19:06', '2024-03-01 03:31:22'),
+(87, 'MP2403010008', 5, 'Muhammad Ruci ', 3600, 3600, 0, 3600, 0, 'cepet ya gan', 'yes', NULL, NULL, 'Hanif', '031283214124', 'Gelang, Keling', '51232', 0, 'no', '2024-03-01', '03:22:10', '2024-03-01 03:31:12'),
+(88, 'MP2403010009', 5, 'Muhammad Ruci ', 4800, 4800, 0, 4800, 0, '', 'yes', NULL, NULL, 'Muhammad Ruci ', '028321412', 'Kelet, Keling', '51932', 0, 'no', '2024-03-01', '03:28:15', '2024-03-01 03:31:34'),
+(89, 'MP2403010010', 5, 'Muhammad Ruci ', 313600, 313600, 0, 313600, 0, '', 'yes', NULL, NULL, 'Muhammad Ruci ', '028321412', 'Kelet, Keling', '51932', NULL, 'no', '2024-03-01', '04:29:56', NULL);
 
 -- --------------------------------------------------------
 
@@ -526,13 +541,13 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `t_payment`
 --
 ALTER TABLE `t_payment`
-  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_sale`
 --
 ALTER TABLE `t_sale`
-  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_stock`

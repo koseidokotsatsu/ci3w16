@@ -9,64 +9,51 @@
         </div>
     </div>
 </div>
+<?php if ($this->session->flashdata('message1')) : ?>
+<div class="container mt-3">
+    <?= $this->session->flashdata('message1'); ?>
+</div>
+<?php endif; ?>
 
 <div class="site-section">
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-9">
-                <!-- Search Bar -->
-                <div class="input-group mb-3">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Search by name...">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" id="searchButton" type="button">Search</button>
+            <div class="col-lg-4">
+                <form action="<?= base_url('home/search') ?>" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" id="search" name="search" class="form-control" placeholder="Search by name...">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" id="searchButton" type="button">Search</button>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <!-- Filter by Preferences Dropdown -->
-                <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Reference</h3>
-                <select id="filterDropdown" class="custom-select">
-                    <option value="relevance">Relevance</option>
-                    <option value="name_az">Name, A to Z</option>
-                    <option value="name_za">Name, Z to A</option>
-                    <option value="price_low">Price, low to high</option>
-                    <option value="price_high">Price, high to low</option>
-                </select>
+                </form>
             </div>
         </div>
 
         <div class="row" id="searchResults">
-
             <?php
             $limitedItems = array_slice($items, 0, 9);
 
             foreach ($limitedItems as $item) {
                 ?>
-                <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                    <a href="#">
-                        <img src="<?= base_url('uploads/product/') . $item->image ?>" alt="Image" class="product-image">
-                    </a>
-                    <h3 class="text-dark">
-                        <a href="#"><?= $item->name ?></a>
-                    </h3>
-                    <p class="price"><?= indo_currency($item->price) ?></p>
-                </div>
+            <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                <a href="<?= base_url('home/product_detail/' . $item->id_item) ?>">
+                    <img src="<?= base_url('uploads/product/') . $item->image ?>" alt="Image" class="product-image">
+                </a>
+                <h3 class="text-dark">
+                    <a href="<?= base_url('home/product_detail/' . $item->id_item) ?>"><?= $item->name ?></a>
+                </h3>
+                <p class="price"><?= indo_currency($item->price) ?></p>
+            </div>
             <?php } ?>
-
         </div>
+
+        <!-- Pagination Links -->
         <div class="row mt-5">
             <div class="col-md-12 text-center">
                 <div class="site-block-27">
-                    <ul>
-                        <li><a href="#">&lt;</a></li>
-                        <li class="active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&gt;</a></li>
-                    </ul>
+                    <?= $links ?>
                 </div>
             </div>
         </div>

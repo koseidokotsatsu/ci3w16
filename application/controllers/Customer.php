@@ -24,6 +24,7 @@ class Customer extends CI_Controller
         $customer->gender = null;
         $customer->phone = null;
         $customer->address = null;
+        $customer->pos_code = null;
         $data = array(
             'page' => 'add',
             'row' => $customer
@@ -68,6 +69,7 @@ class Customer extends CI_Controller
         $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
         $this->form_validation->set_rules('phone', 'Phone', 'trim|required');
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
+        $this->form_validation->set_rules('pos_code', 'Pos Code', 'trim|required');
 
         // Run form validation
         if ($this->form_validation->run() == FALSE) {

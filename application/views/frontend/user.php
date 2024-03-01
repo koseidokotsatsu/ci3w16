@@ -1,9 +1,8 @@
-<?php if ($this->session->flashdata('custedit')) : ?>
+<?php if ($this->session->flashdata('message1')) : ?>
 <div class="container mt-3">
-    <?= $this->session->flashdata('custedit'); ?>
+    <?= $this->session->flashdata('message1'); ?>
 </div>
 <?php endif; ?>
-
 <div class="container">
     <h1 class="mt-5 mb-4">Profile Information</h1>
     <?= form_open('home/custedit'); ?>
@@ -25,17 +24,22 @@
                 <input type="text" name="customer_name" id="customer_name" class="form-control" value="<?= set_value('customer_name', $cust->name) ?>">
                 <?= form_error('customer_name', '<div class="text-danger">', '</div>'); ?>
             </div>
-        </div>
-        <div class="col-md-6">
             <div class="mb-3">
                 <label for="phone" class="form-label"><strong>Phone:</strong></label>
                 <input type="text" name="phone" id="phone" class="form-control" value="<?= set_value('phone', $cust->phone) ?>">
                 <?= form_error('phone', '<div class="text-danger">', '</div>'); ?>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="mb-3">
                 <label for="address" class="form-label"><strong>Address:</strong></label>
                 <textarea name="address" id="address" class="form-control"><?= set_value('address', $cust->address) ?></textarea>
                 <?= form_error('address', '<div class="text-danger">', '</div>'); ?>
+            </div>
+            <div class="mb-3">
+                <label for="pos_code" class="form-label"><strong>Pos Code:</strong></label>
+                <input type="text" name="pos_code" id="pos_code" class="form-control" value="<?= set_value('pos_code', $cust->pos_code) ?>">
+                <?= form_error('pos_code', '<div class="text-danger">', '</div>'); ?>
             </div>
             <div class="mb-3">
                 <label for="gender" class="form-label"><strong>Gender:</strong></label>
@@ -54,3 +58,69 @@
     </div>
     <?= form_close(); ?>
 </div>
+<div class="container">
+    <!-- Profile Information Form (Existing) -->
+
+    <!-- Delivery History Section -->
+    <h2 class="mt-5 mb-4">Delivery History</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="deliveryTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Invoice</th>
+                        <th>Receiver</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $count = 0; ?>
+                    <?php foreach ($sales as $data) { ?>
+                    <?php if ($count < 3) { ?>
+                    <tr>
+                        <td><?= $data->invoice ?></td>
+                        <td><?= $data->receiver ?></td>
+                        <td><?= $data->accepted ?></td>
+                        <td>
+                            <!-- Detail Action Button -->
+                            <button class="btn btn-info btn-sm detail-btn" data-invoice="<?= $data->id_sale ?>">Detail</button>
+                        </td>
+                    </tr>
+                    <?php } else { ?>
+                    <tr class="additional-row" style="display: none;">
+                        <td><?= $data->invoice ?></td>
+                        <td><?= $data->receiver ?></td>
+                        <td><?= $data->accepted ?></td>
+                        <td>
+                            <!-- Detail Action Button for Additional Rows -->
+                            <button class="btn btn-info btn-sm detail-btn" data-invoice="<?= $data->id_sale ?>">Detail</button>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    <?php $count++; ?>
+                    <?php } ?>
+                </tbody>
+            </table>
+            <?php if ($count > 3) { ?>
+            <button id="showMoreBtn" class="btn btn-primary">Show More</button>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('showMoreBtn').addEventListener('click', function() {
+        var additionalRows = document.querySelectorAll('.additional-row');
+        additionalRows.forEach(function(row) {
+            row.style.display = 'table-row';
+        });
+        document.getElementById('showMoreBtn').style.display = 'none';
+    });
+    document.querySelectorAll('.detail-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var invoice = this.getAttribute('data-invoice');
+            // Redirect to the detail page with the invoice parameter
+            window.location.href = '<?= base_url('home/detail_receipt/') ?>' + invoice;
+        });
+    });
+</script>

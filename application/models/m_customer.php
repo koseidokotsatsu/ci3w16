@@ -21,6 +21,7 @@ class m_customer extends CI_Model
             'gender' => $post['gender'],
             'phone' => $post['phone'],
             'address' => $post['address'],
+            'pos_code' => $post['pos_code'],
         ];
         $this->db->insert('customer', $params);
     }
@@ -41,6 +42,11 @@ class m_customer extends CI_Model
         return $this->db->get('customer')->row();
     }
 
+    public function get_sales_by_customer_id($id_customer)
+    {
+        $this->db->where('customer_id', $id_customer);
+        return $this->db->get('t_sale')->result();
+    }
 
     public function edit($post)
     {
@@ -60,6 +66,7 @@ class m_customer extends CI_Model
             'gender' => $post['gender'],
             'phone' => $post['phone'],
             'address' => $post['address'],
+            'pos_code' => $post['pos_code'],
             'updated_at' => date('Y-m-d H:i:s')
         ];
 

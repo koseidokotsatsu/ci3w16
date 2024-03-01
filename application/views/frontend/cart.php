@@ -11,8 +11,8 @@
 
 <div class="site-section">
     <div class="container">
-        <div class="row mb-5">
-            <form class="col-md-12" method="post">
+        <form action="<?= base_url('home/checkout'); ?>" method="post">
+            <div class="row mb-5">
                 <div class="site-blocks-table">
                     <table class="table table-bordered">
                         <thead>
@@ -26,44 +26,99 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Check if $cart_items is not null before looping -->
-                            <?php if (!empty($cart_items)) : ?>
-                            <?php foreach ($cart_items as $item) : ?>
+                            <?php if (!empty($this->cart->contents())) {
+                                foreach ($this->cart->contents() as $items) {
+                                    $total = $items['qty'] * $items['price'];
+                                    ?>
                             <tr>
                                 <td class="product-thumbnail">
-                                    <img src="<?= $item['image'] ?? '' ?>" alt="Image" class="img-fluid">
+                                    <img src="<?= base_url('uploads/product/' . $items['image'])  ?>" alt="Image" class="img-fluid">
                                 </td>
                                 <td class="product-name">
-                                    <h2 class="h5 text-black"><?= $item['name'] ?? '' ?></h2>
+                                    <h2 class="h5 text-black"><?= $items['name'] ?></h2>
                                 </td>
-                                <td>$<?= $item['price'] ?? '' ?></td>
-                                <td>
-                                    <div class="input-group mb-3" style="max-width: 120px;">
-                                        <input type="number" class="form-control text-center" value="<?= $item['quantity'] ?? '' ?>" placeholder="" aria-label="Quantity" aria-describedby="button-addon1">
-                                    </div>
-                                </td>
-                                <td>$<?= $item['total'] ?? '' ?></td>
-                                <td><a href="#" class="btn btn-primary height-auto btn-sm">X</a></td>
+                                <td><?= indo_currency($items['price']) ?></td>
+                                <td><?= $items['qty'] ?></td>
+                                <td><?= indo_currency($total) ?></td> <!-- Display total for the current item -->
+                                <td><a href="<?= base_url(); ?>home/hapus_cart/<?= $items['rowid']; ?>" class="btn btn-primary height-auto btn-sm">X</a></td>
                             </tr>
-                            <?php endforeach; ?>
-                            <?php else : ?>
+                            <?php }
+                            } else { ?>
                             <tr>
                                 <td colspan="6">No items in the cart</td>
                             </tr>
-                            <?php endif; ?>
+                            <?php } ?>
                         </tbody>
-
                     </table>
                 </div>
-            </form>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <!-- Update Cart and Continue Shopping buttons -->
             </div>
-            <div class="col-md-6 pl-5">
-                <!-- Cart Totals -->
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <a href="<?= base_url('home/product') ?>" class="btn btn-outline-primary btn-md btn-block">Continue Shopping</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 pl-5">
+                    <div class="row justify-content-end">
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-12 text-right border-bottom mb-5">
+                                    <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                                </div>
+                            </div>
+
+                            <?php
+                            $total = 0;
+                            foreach ($this->cart->contents() as $items) {
+                                $subTotal = $items['qty'] * $items['price'];
+                                $total += $subTotal;
+                                ?>
+                            <?php } ?>
+
+                            <div class="row mb-5">
+                                <div class="col-md-6">
+                                    <span class="text-black">Total</span>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <strong class="text-black"><?= indo_currency($total) ?></strong>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Proceed To Checkout</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="site-section bg-secondary bg-image" style="background-image: url('images/bg_2.jpg');">
+    <div class="container">
+        <div class="row align-items-stretch">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_1.jpg');">
+                    <div class="banner-1-inner align-self-center">
+                        <h2>Pharma Products</h2>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                        </p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_2.jpg');">
+                    <div class="banner-1-inner ml-auto  align-self-center">
+                        <h2>Rated by Experts</h2>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

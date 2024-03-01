@@ -48,8 +48,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Expedition<span style="color: #BA3131;">*</span></label>
-                            <select name="expedition" class="form-control" required>
+                            <label>Expedition</label>
+                            <select name="expedition" class="form-control">
                                 <?php if (empty($row->expedition)) : ?>
                                 <option value="" selected disabled>- Select Expedition -</option>
                                 <?php endif; ?>
@@ -61,8 +61,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Ongkos<span style="color: #BA3131;">*</span></label>
-                            <input type="text" name="ongkos" class="form-control" value="<?= $row->ongkos; ?>" required>
+                            <label>Ongkos</label>
+                            <input type="text" name="ongkos" class="form-control" value="<?= $row->ongkos; ?>">
                         </div>
                         <div class="form-group">
                             <label>Accepted<span style="color: #BA3131;">*</span></label>

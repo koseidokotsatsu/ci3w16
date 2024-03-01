@@ -174,6 +174,7 @@ class Sale extends CI_Controller
             'date' => $cek[0]->date_tf,
             'hour' => $cek[0]->hour_tf,
             'invoice' => $cek[0]->invoice,
+            'deliver' => $cek[0]->delivery,
             'customer' => $cek[0]->customer_name,
             'total_early' => $cek[0]->total_early,
             'discount' => $cek[0]->discount,
