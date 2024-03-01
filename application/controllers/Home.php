@@ -321,6 +321,9 @@ class home extends CI_Controller
         $this->load->model('m_sale');
         $cek = $this->m_sale->cek_transaksi($this->uri->segment(3));
         $data = array(
+            //iPhone edit
+            'deliver' = $cek[0]->deliver,
+            //end iPhone edit
             'date' => $cek[0]->date_tf,
             'hour' => $cek[0]->hour_tf,
             'invoice' => $cek[0]->invoice,
