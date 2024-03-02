@@ -186,7 +186,12 @@
                                 <a href="<?= site_url('sale'); ?>"><i class="fa fa-circle-o"></i> Sales</a>
                             </li>
                             <li <?= $this->uri->segment(1) == 'receipt'  ? 'class="active"' : '' ?>>
-                                <a href="<?= site_url('receipt'); ?>"><i class="fa fa-circle-o"></i> Data Sale</a>
+                                <a href="<?= site_url('receipt'); ?>">
+                                    <i class="fa fa-circle-o"></i> Data Sale
+                                    <?php if ($pending_deliveries) : ?>
+                                    <span class="label pull-right bg-red">!</span>
+                                    <?php endif; ?>
+                                </a>
                             </li>
                             <?php if ($this->fuct->user_login()->level == 1) { ?>
                             <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ? 'class="active"' : '' ?>>
@@ -202,10 +207,20 @@
 
                     <?php if ($this->fuct->user_login()->level == 1) { ?>
                     <li class="header">FRONTEND</li>
-                    <li <?= $this->uri->segment(1) == 'about' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
-                        <a href="<?= site_url('about'); ?>">
+                    <li <?= $this->uri->segment(1) == 'aboutc' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
+                        <a href="<?= site_url('aboutc'); ?>">
                             <i class="fa fa-dot-circle-o"></i>
-                            <span>About <i>(not work yet)</i></span>
+                            <span>About Content </span>
+                        </a>
+                    </li>
+                    <li <?= $this->uri->segment(1) == 'contact' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
+                        <a href="<?= site_url('contact'); ?>">
+                            <i class="fa fa-dot-circle-o"></i>
+                            <span>Contact
+                                <?php if ($unreadmessage) : ?>
+                                <span class="label pull-right bg-blue">new</span>
+                                <?php endif; ?>
+                            </span>
                         </a>
                     </li>
                     <?php } ?>

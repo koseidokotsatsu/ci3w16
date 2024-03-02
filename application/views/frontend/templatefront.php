@@ -30,8 +30,8 @@
             <div class="search-wrap">
                 <div class="container">
                     <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-                    <form action="#" method="post">
-                        <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
+                    <form action="<?= base_url('home/search') ?>" method="post">
+                        <input type="text" name="search" class="form-control" placeholder="Search product and hit enter...">
                     </form>
                 </div>
             </div>
@@ -55,11 +55,12 @@
                     </div>
                     <div class="icons">
                         <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-                        <a href="<?= base_url('home/view_cart') ?>" class="icons-btn d-inline-block bag">
-                            <span class="icon-shopping-bag"></span>
-                            <span class="number">2</span>
-                        </a>
                         <?php if ($this->session->userdata('id_customer')) { ?>
+                        <a href="<?= base_url('home/view_cart') ?>" class="icons-btn d-inline-block bag">
+                            <a href="<?= base_url('home/view_cart') ?>" class="icons-btn d-inline-block bag">
+                                <span class="icon-shopping-bag"></span>
+                            </a>
+                        </a>
                         <a href="<?= base_url('home/user') ?>" class="icons-btn d-inline-block"><span class="icon-user"></span></a>
                         <a href="<?= base_url('customerauth/logout') ?>" class="icons-btn d-inline-block"><span class="icon-input"></span></a>
                         <?php } else { ?>
@@ -84,18 +85,16 @@
 
                         <div class="block-7">
                             <h3 class="footer-heading mb-4">About Us</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quae reiciendis distinctio voluptates
-                                sed dolorum excepturi iure eaque, aut unde.</p>
+                            <p>Not only have we been providing to the pharmacy sector for over a decade, but we've also got first-hand experience in running pharmacies.</p>
                         </div>
 
                     </div>
                     <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
                         <h3 class="footer-heading mb-4">Quick Links</h3>
                         <ul class="list-unstyled">
-                            <li><a href="#">Supplements</a></li>
-                            <li><a href="#">Vitamins</a></li>
-                            <li><a href="#">Diet &amp; Nutrition</a></li>
-                            <li><a href="#">Tea &amp; Coffee</a></li>
+                            <li><a href="<?= base_url('home/product') ?>">Product</a></li>
+                            <li><a href="<?= base_url('home/about') ?>">About</a></li>
+                            <li><a href="<?= base_url('home/contact') ?>">Contact</a></li>
                         </ul>
                     </div>
 
@@ -103,9 +102,9 @@
                         <div class="block-5 mb-5">
                             <h3 class="footer-heading mb-4">Contact Info</h3>
                             <ul class="list-unstyled">
-                                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
-                                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
-                                <li class="email">emailaddress@domain.com</li>
+                                <li class="address">Kasihan, Bantul, Daerah Istimewa Yogyakarta</li>
+                                <li class="phone"><a href="tel://2826352812">+2 826 352 812</a></li>
+                                <li class="email">ourpharmacy@gmail.com</li>
                             </ul>
                         </div>
 

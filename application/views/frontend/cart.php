@@ -85,13 +85,13 @@
                                     <strong class="text-black"><?= indo_currency($total) ?></strong>
                                 </div>
                             </div>
-
+                            <?php if (!empty($this->cart->contents())) { ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block">Proceed To Checkout</button>
                                 </div>
                             </div>
-
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -99,23 +99,23 @@
         </form>
     </div>
 </div>
-<div class="site-section bg-secondary bg-image" style="background-image: url('images/bg_2.jpg');">
+<div class="site-section bg-secondary bg-image" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_2.jpg');">
     <div class="container">
         <div class="row align-items-stretch">
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_1.jpg');">
+                <a href="<?= base_url('home/product') ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_1.jpg');">
                     <div class="banner-1-inner align-self-center">
                         <h2>Pharma Products</h2>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                        <p>Pharma product is manufacturer of liquid pharmaceutical forms. In the world of pharmacy
                         </p>
                     </div>
                 </a>
             </div>
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_2.jpg');">
+                <a href="<?= base_url('home/contact') ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_2.jpg');">
                     <div class="banner-1-inner ml-auto  align-self-center">
-                        <h2>Rated by Experts</h2>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                        <h2>We Serve <br> You Better</h2>
+                        <p>We are here to serve you better. Let us know if there's anything we can do to help.
                         </p>
                     </div>
                 </a>

@@ -64,6 +64,10 @@
                             <textarea name="address" class="form-control" required><?= $row->address; ?></textarea>
                         </div>
                         <div class="form-group">
+                            <label>Pos Code<span style="color: #BA3131;">*</span></label>
+                            <input type="text" name="pos_code" class="form-control" value="<?= $row->pos_code; ?>" required>
+                        </div>
+                        <div class="form-group">
                             <button type="submit" name="<?= $page ?>" class="btn btn-success btn-flat">
                                 <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;Save
                             </button>

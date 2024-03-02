@@ -19,8 +19,13 @@
                                         <p>
                                             Tanggal : <?= $date . ' ' . $hour; ?><br>
                                             Nomor Transaksi : <?= $invoice; ?><br>
-                                            Nama Pelanggan : <?= $customer; ?> <br>
-                                            Pengiriman : <?= $deliver; ?> <br>
+                                            Nama Penerima : <?= $receiver; ?> <br>
+                                            Diterima : <?= $acc; ?> <br>
+                                            Pengiriman : <?= $expedition; ?> <br>
+                                            Nomor Resi : <?= $resi; ?> <br>
+                                        </p>
+                                        <p hidden>
+                                            <?= $id_cust; ?> <br>
                                         </p>
                                         <div style="clear:both;"></div>
                                         <table class="table table-striped table-condensed">

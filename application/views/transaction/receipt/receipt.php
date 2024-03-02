@@ -69,7 +69,9 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $no = 1;
+                <?php
+                $no = 1;
+                $receipt = array_reverse($receipt); // Reverse the array to display the newest data first
                 foreach ($receipt as $data) { ?>
                 <tr>
                     <td style="width:5%;"><?= $no++ ?></td>
@@ -79,7 +81,7 @@
                         <?php if ($data->delivery == 'yes') { ?>
                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#deliveryModal<?= $data->id_sale ?>">Yes</button>
                         <?php if ($data->accepted != 'yes') { ?>
-                        <i class="fa fa-info-circle" style="color: #EC3939;" data-toggle="tooltip" title="Not Accepted"></i>
+                        <i class="fa fa-info-circle" style="color: #EC3939;" data-toggle="tooltip" title="Not Done"></i>
                         <?php } ?>
                         <?php } else { ?>
                         <button type="button" class="btn btn-danger btn-sm" disabled>No</button>

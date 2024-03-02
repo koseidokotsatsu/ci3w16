@@ -69,4 +69,10 @@ class m_sale extends CI_Model
             ->join('p_item', 'p_item.id_item = t_payment.id_item', 'left')
             ->where('t_sale.id_sale', $id)->get('t_sale')->result();
     }
+    public function countPendingDeliveries()
+    {
+        // Assuming 'accepted' is the field in your t_sale table
+        $this->db->where('accepted', 'no');
+        return $this->db->count_all_results('t_sale');
+    }
 }

@@ -29,6 +29,8 @@ class Customer extends CI_Controller
             'page' => 'add',
             'row' => $customer
         );
+        // print_r($data);
+        // die;
         $this->template->load('template', 'customer/customer_form', $data);
     }
     public function edit($id)
@@ -65,11 +67,13 @@ class Customer extends CI_Controller
         }
 
         // Set validation rules for other fields
-        $this->form_validation->set_rules('customer_name', 'Customer Name', 'trim|required');
+        $this->form_validation->set_rules('customer_name', 'Customer Name', 'trim|required|min_length[5]|max_length[14]');
         $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
         $this->form_validation->set_rules('phone', 'Phone', 'trim|required');
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
         $this->form_validation->set_rules('pos_code', 'Pos Code', 'trim|required');
+
+        $this->form_validation->set_message('is_unique', 'The {field} has been used already.');
 
         // Run form validation
         if ($this->form_validation->run() == FALSE) {
@@ -80,6 +84,8 @@ class Customer extends CI_Controller
             // If validation passes, continue with adding/editing data
             if (isset($_POST['add'])) {
                 $this->m_customer->add($post);
+                // print_r($_post);
+                // die;
             } elseif (isset($_POST['edit'])) {
                 $this->m_customer->edit($post);
             }

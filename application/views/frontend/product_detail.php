@@ -1,7 +1,7 @@
 <div class="bg-light py-3">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mb-0"><a href="<?= base_url('home') ?>">Home</a> <span class="mx-2 mb-0">/</span> <a href="<?= base_url('home/product') ?>">Product</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Ibuprofen Tablets, 200mg</strong></div>
+            <div class="col-md-12 mb-0"><a href="<?= base_url('home') ?>">Home</a> <span class="mx-2 mb-0">/</span> <a href="<?= base_url('home/product') ?>">Product</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><?= $item->name ?></strong></div>
         </div>
     </div>
 </div>
@@ -32,7 +32,18 @@
                                 <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                             </div>
                         </div>
-                        <p><button type="submit" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</button></p>
+                        <!-- Check if customer is logged in -->
+                        <?php if ($this->session->userdata('id_customer')) : ?>
+                        <!-- If logged in, show the Add To Cart button -->
+                        <p>
+                            <button type="submit" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</button>
+                        </p>
+                        <?php else : ?>
+                        <!-- If not logged in, show the Login First message -->
+                        <p>
+                            <a href="<?= base_url('customerauth/login') ?>" class="btn btn-sm height-auto px-4 py-3 btn-primary">Login First to Continue</a>
+                        </p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -43,19 +54,19 @@
         <div class="container">
             <div class="row align-items-stretch">
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_1.jpg');">
+                    <a href="<?= base_url('home/product') ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_1.jpg');">
                         <div class="banner-1-inner align-self-center">
                             <h2>Pharma Products</h2>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                            <p>Pharma product is manufacturer of liquid pharmaceutical forms. In the world of pharmacy
                             </p>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_2.jpg');">
+                    <a href="<?= base_url('home/contact') ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_2.jpg');">
                         <div class="banner-1-inner ml-auto  align-self-center">
-                            <h2>Rated by Experts</h2>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                            <h2>We Serve <br> You Better</h2>
+                            <p>We are here to serve you better. Let us know if there's anything we can do to help.
                             </p>
                         </div>
                     </a>

@@ -16,13 +16,15 @@ class m_customer extends CI_Model
     {
         $params = [
             'username' => $post['username'],
-            'password' => sha1($post['password']), // Hashing the password using SHA1
+            'password' => sha1($post['password']),
             'name' => $post['customer_name'],
             'gender' => $post['gender'],
             'phone' => $post['phone'],
             'address' => $post['address'],
             'pos_code' => $post['pos_code'],
         ];
+        // print_r($params);
+        // die;
         $this->db->insert('customer', $params);
     }
 
@@ -86,5 +88,13 @@ class m_customer extends CI_Model
     {
         $this->db->where('id_customer', $id);
         $this->db->delete('customer');
+    }
+
+    public function check_username($username)
+    {
+        $this->db->where('username', $username);
+        $query = $this->db->get('customer');
+
+        return $query->row();
     }
 }

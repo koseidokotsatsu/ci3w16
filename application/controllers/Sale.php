@@ -174,14 +174,17 @@ class Sale extends CI_Controller
             'date' => $cek[0]->date_tf,
             'hour' => $cek[0]->hour_tf,
             'invoice' => $cek[0]->invoice,
-            'deliver' => $cek[0]->delivery,
             'customer' => $cek[0]->customer_name,
+            'deliver' => $cek[0]->delivery,
+            'acc' => $cek[0]->accepted,
+            'expedition' => $cek[0]->expedition,
+            'resi' => $cek[0]->no_resi,
             'total_early' => $cek[0]->total_early,
             'discount' => $cek[0]->discount,
             'total_final' => $cek[0]->total_final,
             'result' => $cek,
             'cash' => $cek[0]->cash,
-            'remain' => $cek[0]->remain,
+            'remain' => $cek[0]->remain
         );
         $this->template->load('template', 'transaction/receipt/receipt_detail', $data);
     }

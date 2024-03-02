@@ -59,10 +59,12 @@
     <?= form_close(); ?>
 </div>
 <div class="container">
-    <!-- Profile Information Form (Existing) -->
-
+    <?php
+    // Reverse the $sales array to display the newest data first
+    $sales = array_reverse($sales);
+    ?>
     <!-- Delivery History Section -->
-    <h2 class="mt-5 mb-4">Delivery History</h2>
+    <h2 class="mt-5 mb-4">Order History</h2>
     <div class="row">
         <div class="col-md-12">
             <table id="deliveryTable" class="table table-bordered">
@@ -71,6 +73,8 @@
                         <th>Invoice</th>
                         <th>Receiver</th>
                         <th>Status</th>
+                        <th>Resi</th>
+                        <th>Accepted</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -81,20 +85,36 @@
                     <tr>
                         <td><?= $data->invoice ?></td>
                         <td><?= $data->receiver ?></td>
-                        <td><?= $data->accepted ?></td>
+                        <td>
+                            <?php if ($data->accepted == 'no') { ?>
+                            <?= empty($data->expedition) ? 'On Process' : 'On Delivery' ?>
+                            <?php } else {
+                                        echo "Done";
+                                    } ?>
+                        </td>
+                        <td><?= $data->no_resi ?></td>
+                        <td><?= $data->accepted == 'yes' ? 'Accepted' : 'Pending' ?></td>
                         <td>
                             <!-- Detail Action Button -->
-                            <button class="btn btn-info btn-sm detail-btn" data-invoice="<?= $data->id_sale ?>">Detail</button>
+                            <a href="<?= base_url('home/detail_receipt/' . $data->id_sale) ?>" class="btn btn-info btn-sm detail-btn">Detail</a>
                         </td>
                     </tr>
                     <?php } else { ?>
                     <tr class="additional-row" style="display: none;">
                         <td><?= $data->invoice ?></td>
                         <td><?= $data->receiver ?></td>
-                        <td><?= $data->accepted ?></td>
+                        <td>
+                            <?php if ($data->accepted == 'no') { ?>
+                            <?= empty($data->expedition) ? 'On Process' : 'On Delivery' ?>
+                            <?php } else {
+                                        echo "Done";
+                                    } ?>
+                        </td>
+                        <td><?= $data->no_resi ?></td>
+                        <td><?= $data->accepted == 'yes' ? 'Accepted' : 'Pending' ?></td>
                         <td>
                             <!-- Detail Action Button for Additional Rows -->
-                            <button class="btn btn-info btn-sm detail-btn" data-invoice="<?= $data->id_sale ?>">Detail</button>
+                            <a href="<?= base_url('home/detail_receipt/' . $data->id_sale) ?>" class="btn btn-info btn-sm detail-btn">Detail</a>
                         </td>
                     </tr>
                     <?php } ?>
@@ -115,12 +135,5 @@
             row.style.display = 'table-row';
         });
         document.getElementById('showMoreBtn').style.display = 'none';
-    });
-    document.querySelectorAll('.detail-btn').forEach(function(button) {
-        button.addEventListener('click', function() {
-            var invoice = this.getAttribute('data-invoice');
-            // Redirect to the detail page with the invoice parameter
-            window.location.href = '<?= base_url('home/detail_receipt/') ?>' + invoice;
-        });
     });
 </script>

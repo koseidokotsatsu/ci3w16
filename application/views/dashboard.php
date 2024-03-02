@@ -83,13 +83,9 @@ $login = $this->session->flashdata('login');
       <div class="box box-info">
         <div class="box-header with-border">
           <h3 class="box-title">Latest Orders</h3>
-
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse">
               <i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove">
-              <i class="fa fa-times"></i>
             </button>
           </div>
         </div>
@@ -100,36 +96,49 @@ $login = $this->session->flashdata('login');
               <thead>
                 <tr>
                   <th>Order ID</th>
-                  <th>Item</th>
-                  <th>Status</th>
-                  <th>Popularity</th>
+                  <th>Customer</th>
+                  <th>Delivery Status</th>
                 </tr>
               </thead>
               <tbody>
+                <?php
+                $no = 1;
+                $receipt_count = count($receipt);
+                $start_index = max(0, $receipt_count - 5); // Ensure start index doesn't go below 0
+
+                // Get the last 10 elements of the $receipt array
+                $recent_receipts = array_slice($receipt, $start_index, 5);
+
+                foreach ($recent_receipts as $data) { ?>
                 <tr>
                   <td>
-                    <a href="pages/examples/invoice.html">OR9842</a>
+                    <a href="<?= base_url('sale/receipt/') ?>"><?= $data->invoice ?></a>
                   </td>
-                  <td>Call of Duty IV</td>
+                  <td><?= $data->customer_name ?></td>
                   <td>
-                    <span class="label label-success">Shipped</span>
-                  </td>
-                  <td>
-                    <div class="sparkbar" data-color="#00a65a" data-height="20">
-                      90,80,90,-70,61,-83,63
-                    </div>
+                    <?php if ($data->delivery == 'yes') { ?>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#deliveryModal<?= $data->id_sale ?>">Yes</button>
+                    <?php if ($data->accepted != 'yes') { ?>
+                    <i class="fa fa-info-circle" style="color: #EC3939;" data-toggle="tooltip" title="Not Done"></i>
+                    <?php } ?>
+                    <?php } else { ?>
+                    <button type="button" class="btn btn-danger btn-sm" disabled>No</button>
+                    <?php } ?>
                   </td>
                 </tr>
+                <?php } ?>
               </tbody>
+
             </table>
           </div>
           <!-- /.table-responsive -->
         </div>
         <!-- /.box-body -->
+
         <div class="box-footer clearfix">
-          <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
-          <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+          <a href="<?= base_url('receipt') ?>" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
         </div>
+
         <!-- /.box-footer -->
       </div>
     </div>
@@ -139,33 +148,57 @@ $login = $this->session->flashdata('login');
       <!-- USERS LIST -->
       <div class="box box-danger">
         <div class="box-header with-border">
-          <h3 class="box-title">Latest Members</h3>
-
+          <h3 class="box-title">Admin & Cashier</h3>
           <div class="box-tools pull-right">
-            <span class="label label-danger">8 New Members</span>
             <button type="button" class="btn btn-box-tool" data-widget="collapse">
               <i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove">
-              <i class="fa fa-times"></i>
             </button>
           </div>
         </div>
         <!-- /.box-header -->
         <div class="box-body no-padding">
           <ul class="users-list clearfix">
+            <?php
+            $counter = 0; // Initialize counter variable
+            foreach ($user as $data) {
+              // Skip the admin user
+              if ($data->username == 'admin') {
+                continue;
+              }
+
+              // Check if the logged-in user is not level 1
+              if ($this->session->userdata('level') != 1) {
+                // Only display users with level 2
+                if ($data->level != 2) {
+                  continue;
+                }
+              }
+
+              // Increment the counter
+              $counter++;
+
+              // Break the loop if counter reaches 4
+              if ($counter > 4) {
+                break;
+              }
+              ?>
             <li>
-              <img src="<?= base_url('assets/') ?>dist/img/user1-128x128.jpg" alt="User Image" />
-              <a class="users-list-name" href="#">Alexander Pierce</a>
-              <span class="users-list-date">Today</span>
+              <img src="<?= base_url('assets/img/' . $data->img) ?>" style="width: 150px; height: 150px;" />
+              <a class="users-list-name"><?= $data->name ?></a>
+              <span class="users-list-date">
+                <?= ($data->level == 1) ? 'Admin' : 'Cashier' ?>
+              </span>
             </li>
+            <?php } ?>
           </ul>
           <!-- /.users-list -->
         </div>
         <!-- /.box-body -->
+        <?php if ($this->fuct->user_login()->level == 1) { ?>
         <div class="box-footer text-center">
-          <a href="javascript:void(0)" class="uppercase">View All Users</a>
+          <a href="<?= base_url('user') ?>" class="uppercase">View All Users</a>
         </div>
+        <?php } ?>
         <!-- /.box-footer -->
       </div>
       <!--/.box -->

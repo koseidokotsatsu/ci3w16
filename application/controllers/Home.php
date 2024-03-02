@@ -6,7 +6,6 @@ class home extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
         $this->load->model('m_item');
         $this->load->library('session');
     }
@@ -74,7 +73,11 @@ class home extends CI_Controller
 
     public function about()
     {
-        $this->templatefront->load('frontend/templatefront', 'frontend/about');
+        $this->load->model('m_aboutc');
+        $data['row'] = $this->m_aboutc->get();
+        // print_r($data);
+        // die;
+        $this->templatefront->load('frontend/templatefront', 'frontend/about', $data);
     }
     public function contact()
     {
@@ -82,6 +85,8 @@ class home extends CI_Controller
     }
     public function user()
     {
+        check_frontend_not_login();
+
         // Load necessary models and libraries
         $this->load->model('m_sale');
         $this->load->model('m_customer');
@@ -102,8 +107,10 @@ class home extends CI_Controller
         $this->templatefront->load('frontend/templatefront', 'frontend/user', $data);
     }
 
-    public function message1()
+    public function custedit()
     {
+        check_frontend_not_login();
+
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('customer_name', 'Customer Name', 'required');
@@ -147,8 +154,6 @@ class home extends CI_Controller
 
     public function add_cart()
     {
-        check_frontend_not_login();
-
         $this->load->library('cart');
         $this->load->model('m_cart');
 
@@ -158,7 +163,7 @@ class home extends CI_Controller
         $item = $this->m_cart->lihat_barang($this->input->post('iditem'));
         if ($item->total > 100) {
             $this->session->set_flashdata('message1', '<div class="alert alert-dismissible fade show alert-success" role="alert">Stok Barang melebihi kapasitas</div>');
-            redirect(base_url('product'));
+            redirect(base_url('home/product'));
             return;
         } else {
             $result = $this->m_cart->cart($id);
@@ -171,9 +176,12 @@ class home extends CI_Controller
                 'barcode' => $result->barcode,
                 'stock'   => $result->stock,
             );
-            echo "Data to be inserted into cart:";
-            echo "<pre>";
-            print_r($data);
+
+            // echo "Data to be inserted into cart:";
+            // echo "<pre>";
+            // print_r($data);
+            // echo "<pre>";
+            // die;
 
             $this->cart->insert($data);
 
@@ -248,6 +256,7 @@ class home extends CI_Controller
             'total_final' => $this->input->post('total_final'),
             'discount' => 0,
             'cash' => $this->input->post('total_final'),
+            'ongkos' => 0,
             'remain' => 0,
             'note' => $this->input->post('note'),
             'accepted' => 'no',
@@ -318,23 +327,47 @@ class home extends CI_Controller
 
     public function detail_receipt()
     {
+        check_frontend_not_login();
+
+        // Load necessary models and libraries
         $this->load->model('m_sale');
-        $cek = $this->m_sale->cek_transaksi($this->uri->segment(3));
-        $data = array(
-            //iPhone edit
-            'deliver' = $cek[0]->deliver,
-            //end iPhone edit
-            'date' => $cek[0]->date_tf,
-            'hour' => $cek[0]->hour_tf,
-            'invoice' => $cek[0]->invoice,
-            'customer' => $cek[0]->customer_name,
-            'total_early' => $cek[0]->total_early,
-            'discount' => $cek[0]->discount,
-            'total_final' => $cek[0]->total_final,
-            'result' => $cek,
-            'cash' => $cek[0]->cash,
-            'remain' => $cek[0]->remain
-        );
-        $this->templatefront->load('frontend/templatefront', 'frontend/receipt_detail', $data);
+
+        // Retrieve the ID of the currently logged-in customer from the session
+        $logged_in_customer_id = $this->session->userdata('id_customer');
+
+        // print_r('login user id :' . $logged_in_customer_id);
+        // die;
+
+        // Retrieve the transaction details using the URI segment
+        $transaction_id = $this->uri->segment(3);
+        $transaction_details = $this->m_sale->cek_transaksi($transaction_id);
+
+        // Check if the transaction exists and the logged-in customer matches the customer associated with the transaction
+        if (!empty($transaction_details) && $transaction_details[0]->customer_id == $logged_in_customer_id) {
+            // If the conditions are met, prepare the data for the view
+            $data = array(
+                'id_cust' => $transaction_details[0]->customer_id,
+                'date' => $transaction_details[0]->date_tf,
+                'hour' => $transaction_details[0]->hour_tf,
+                'invoice' => $transaction_details[0]->invoice,
+                'customer' => $transaction_details[0]->customer_name,
+                'acc' => $transaction_details[0]->accepted,
+                'expedition' => $transaction_details[0]->expedition,
+                'receiver' => $transaction_details[0]->receiver,
+                'resi' => $transaction_details[0]->no_resi,
+                'total_early' => $transaction_details[0]->total_early,
+                'discount' => $transaction_details[0]->discount,
+                'total_final' => $transaction_details[0]->total_final,
+                'result' => $transaction_details,
+                'cash' => $transaction_details[0]->cash,
+                'remain' => $transaction_details[0]->remain
+            );
+            // Load the view with the prepared data
+            $this->templatefront->load('frontend/templatefront', 'frontend/receipt_detail', $data);
+        } else {
+            // If the transaction doesn't exist or the logged-in customer doesn't match, redirect or show an error message
+            // Redirect or show error message as per your application's logic
+            redirect('home'); // Redirect to home page for example
+        }
     }
 }

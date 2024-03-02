@@ -54,6 +54,7 @@ class m_receipt extends CI_Model
     {
         $params = [
             'expedition' => $post['expedition'],
+            'no_resi' => $post['no_resi'],
             'ongkos' => $post['ongkos'],
             'accepted' => $post['accepted'],
             'updated_at' => date('Y-m-d H:i:s')

@@ -39,7 +39,7 @@ if (!isset($login)) {
 </head>
 
 <body class="hold-transition login-page" style="
-			background: url(../assets/img/bg.jpg) no-repeat;
+			background: url(../assets/img/bg_f.jpg) no-repeat;
 			width: 100%;
 			height: auto;
 			background-size: cover;
@@ -53,7 +53,7 @@ if (!isset($login)) {
         <div class="login-box-body">
             <!-- Flash message for login -->
             <?php if ($login) { ?>
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-warning" role="alert">
                 <?= $login ?>
             </div>
             <?php } else { ?>
@@ -65,12 +65,13 @@ if (!isset($login)) {
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" name="password" class="form-control" placeholder="Password" />
+                    <input type="password" name="password" class="form-control" placeholder="Password" required />
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
-                    <div class="col-xs-8"></div>
-                    <!-- /.col -->
+                    <div class="col-xs-8">
+                        <a href="<?= base_url('customerauth/register') ?>" class="text-center"><i>Don't Have an Account?</i></a>
+                    </div>
                     <div class="col-xs-4">
                         <button type="submit" name="login" class="btn btn-primary btn-block btn-flat">
                             Sign In

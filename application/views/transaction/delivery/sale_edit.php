@@ -49,7 +49,7 @@
                         </div>
                         <div class="form-group">
                             <label>Expedition</label>
-                            <select name="expedition" class="form-control">
+                            <select name="expedition" id="expedition" class="form-control">
                                 <?php if (empty($row->expedition)) : ?>
                                 <option value="" selected disabled>- Select Expedition -</option>
                                 <?php endif; ?>
@@ -59,6 +59,10 @@
                                 <option value="AnterAja" <?= ($row->expedition == 'AnterAja') ? 'selected' : ''; ?>>AnterAja</option>
                                 <!-- Add more options if needed -->
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Resi</label>
+                            <input type="text" name="no_resi" id="no_resi" class="form-control" value="<?= $row->no_resi; ?>" <?= empty($row->expedition) ? 'disabled' : ''; ?>>
                         </div>
                         <div class="form-group">
                             <label>Ongkos</label>
@@ -123,3 +127,19 @@
         </div>
     </div>
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var expeditionSelect = document.getElementById('expedition');
+        var noResiInput = document.getElementById('no_resi');
+
+        expeditionSelect.addEventListener('change', function() {
+            if (expeditionSelect.value !== '') {
+                noResiInput.removeAttribute('disabled');
+                noResiInput.focus();
+            } else {
+                noResiInput.value = '';
+                noResiInput.setAttribute('disabled', 'disabled');
+            }
+        });
+    });
+</script>

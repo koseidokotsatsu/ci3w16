@@ -96,11 +96,11 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <?php if (!empty($this->cart->contents())) { ?>
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-lg btn-block" type="submit">Place Order</button>
                                 </div>
-
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
