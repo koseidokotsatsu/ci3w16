@@ -171,19 +171,23 @@ class Sale extends CI_Controller
     {
         $cek = $this->m_sale->cek_transaksi($this->uri->segment(3));
         $data = array(
+            'id_cust' => $cek[0]->customer_id,
             'date' => $cek[0]->date_tf,
             'hour' => $cek[0]->hour_tf,
             'invoice' => $cek[0]->invoice,
             'customer' => $cek[0]->customer_name,
-            'deliver' => $cek[0]->delivery,
             'acc' => $cek[0]->accepted,
             'expedition' => $cek[0]->expedition,
+            'receiver' => $cek[0]->receiver,
             'resi' => $cek[0]->no_resi,
             'total_early' => $cek[0]->total_early,
             'discount' => $cek[0]->discount,
+            'ongkos' => $cek[0]->ongkos,
             'total_final' => $cek[0]->total_final,
             'result' => $cek,
             'cash' => $cek[0]->cash,
+            'note' => $cek[0]->note,
+            'deliver' => $cek[0]->delivery,
             'remain' => $cek[0]->remain
         );
         $this->template->load('template', 'transaction/receipt/receipt_detail', $data);

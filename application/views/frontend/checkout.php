@@ -73,16 +73,16 @@
                                         </tr>
                                         <?php } ?>
                                         <?php
-                                        $total_final = 0;
+                                        $total_early = 0;
                                         foreach ($this->cart->contents() as $items) {
                                             $subTotal = $items['qty'] * $items['price'];
-                                            $total_final += $subTotal;
+                                            $total_early += $subTotal;
                                             ?>
                                         <?php } ?>
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                                            <td class="text-black font-weight-bold"><strong><?= indo_currency($total_final) ?></strong></td>
-                                            <input type="hidden" name="total_final" value="<?= $total_final ?>">
+                                            <td class="text-black font-weight-bold"><strong><?= indo_currency($total_early) ?></strong></td>
+                                            <input type="hidden" name="total_early" value="<?= $total_early ?>">
                                         </tr>
                                     </tbody>
                                 </table>
@@ -91,8 +91,7 @@
                                     <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Cash On Delivery</a></h3>
                                     <div class="collapse" id="collapsecheque">
                                         <div class="py-2 px-4">
-                                            <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the
-                                                payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                            <p class="mb-0">Cash on delivery or pay on delivery are cash payment methods when receiving a package delivered by post. If goods are not paid for, they will be returned to the retailer.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -112,23 +111,23 @@
 </div>
 
 
-<div class="site-section bg-secondary bg-image" style="background-image: url('images/bg_2.jpg');">
+<div class="site-section bg-secondary bg-image" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_2.jpg');">
     <div class="container">
         <div class="row align-items-stretch">
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_1.jpg');">
+                <a href="<?= base_url('home/product/' . 1) ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_1.jpg');">
                     <div class="banner-1-inner align-self-center">
                         <h2>Pharma Products</h2>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                        <p>Pharma product is manufacturer of liquid pharmaceutical forms. In the world of pharmacy
                         </p>
                     </div>
                 </a>
             </div>
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_2.jpg');">
+                <a href="<?= base_url('home/contact') ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_2.jpg');">
                     <div class="banner-1-inner ml-auto  align-self-center">
-                        <h2>Rated by Experts</h2>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                        <h2>We Serve <br> You Better</h2>
+                        <p>We are here to serve you better. Let us know if there's anything we can do to help.
                         </p>
                     </div>
                 </a>

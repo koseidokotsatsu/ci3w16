@@ -54,6 +54,8 @@ class m_receipt extends CI_Model
     {
         $params = [
             'expedition' => $post['expedition'],
+            'total_final' => $post['total_final'],
+            'cash' => $post['cash'],
             'no_resi' => $post['no_resi'],
             'ongkos' => $post['ongkos'],
             'accepted' => $post['accepted'],

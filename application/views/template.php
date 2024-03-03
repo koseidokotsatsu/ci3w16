@@ -176,7 +176,10 @@
                                             $this->uri->segment(1) == 'sale' ? 'active' : '' ?>">
                         <a href="#">
                             <i class="fa fa-cart-arrow-down"></i>
-                            <span>Transaction</span>
+                            <span>Transaction&nbsp;&nbsp;<?php if ($pending_deliveries) { ?>
+                                <span class="label bg-red">!</span>
+                                <?php } ?>
+                            </span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -187,10 +190,12 @@
                             </li>
                             <li <?= $this->uri->segment(1) == 'receipt'  ? 'class="active"' : '' ?>>
                                 <a href="<?= site_url('receipt'); ?>">
-                                    <i class="fa fa-circle-o"></i> Data Sale
-                                    <?php if ($pending_deliveries) : ?>
+                                    <?php if ($pending_deliveries) { ?>
+                                    <i class="fa fa-circle-o text-red"></i> Data Sale
                                     <span class="label pull-right bg-red">!</span>
-                                    <?php endif; ?>
+                                    <?php } else { ?>
+                                    <i class="fa fa-circle-o"></i> Data Sale
+                                    <?php } ?>
                                 </a>
                             </li>
                             <?php if ($this->fuct->user_login()->level == 1) { ?>
@@ -215,12 +220,12 @@
                     </li>
                     <li <?= $this->uri->segment(1) == 'contact' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
                         <a href="<?= site_url('contact'); ?>">
-                            <i class="fa fa-dot-circle-o"></i>
-                            <span>Contact
-                                <?php if ($unreadmessage) : ?>
-                                <span class="label pull-right bg-blue">new</span>
-                                <?php endif; ?>
-                            </span>
+                            <?php if ($unreadmessage) { ?>
+                            <i class="fa fa-dot-circle-o text-info"></i>Contact
+                            <span class="label pull-right bg-blue">new</span>
+                            <?php } else { ?>
+                            <i class="fa fa-dot-circle-o"></i>Contact
+                            <?php } ?>
                         </a>
                     </li>
                     <?php } ?>

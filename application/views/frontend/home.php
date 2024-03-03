@@ -6,7 +6,7 @@
                     <h2 class="sub-title">You choose your own health</h2>
                     <h1>Welcome To OurPharmacy</h1>
                     <p>
-                        <a href="<?= base_url('home/product') ?>" class="btn btn-primary px-5 py-3">Shop Now</a>
+                        <a href="<?= base_url('home/product/' . 1) ?>" class="btn btn-primary px-5 py-3">Shop Now</a>
                     </p>
                 </div>
             </div>
@@ -43,7 +43,7 @@
         </div>
         <div class="row mt-5">
             <div class="col-12 text-center">
-                <a href="<?= base_url('home/product') ?>" class="btn btn-primary px-4 py-3">View All Products</a>
+                <a href="<?= base_url('home/product/' . 1) ?>" class="btn btn-primary px-4 py-3">View All Products</a>
             </div>
         </div>
     </div>
@@ -86,7 +86,7 @@
     <div class="container">
         <div class="row align-items-stretch">
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <a href="<?= base_url('home/product') ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_1.jpg');">
+                <a href="<?= base_url('home/product/' . 1) ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_1.jpg');">
                     <div class="banner-1-inner align-self-center">
                         <h2>Pharma Products</h2>
                         <p>Pharma product is manufacturer of liquid pharmaceutical forms. In the world of pharmacy

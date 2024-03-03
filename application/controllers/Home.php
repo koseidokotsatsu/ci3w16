@@ -25,12 +25,16 @@ class home extends CI_Controller
 
         // Configuration for pagination
         $config = array();
-        $config["base_url"] = base_url() . "home/product";
+        $config["base_url"] = base_url() . "home/product/1";
         $config["total_rows"] = $this->m_product->get_total_items(); // Implement this method in your model
         $config["per_page"] = 9;
         $config["uri_segment"] = 3;
 
         $this->pagination->initialize($config);
+
+        if (!is_numeric($page) || $page < 1) {
+            $page = 1;
+        }
 
         $data["items"] = $this->m_product->get_items($config["per_page"], $page); // Implement this method in your model
         $data["links"] = $this->pagination->create_links();
@@ -252,10 +256,10 @@ class home extends CI_Controller
             'invoice' => $invoice,
             'customer_id' => $this->input->post('customer_id'),
             'customer_name' => $this->input->post('customer_name'),
-            'total_early' => $this->input->post('total_final'),
-            'total_final' => $this->input->post('total_final'),
+            'total_early' => $this->input->post('total_early'),
+            'total_final' => 0,
             'discount' => 0,
-            'cash' => $this->input->post('total_final'),
+            'cash' => 0,
             'ongkos' => 0,
             'remain' => 0,
             'note' => $this->input->post('note'),
@@ -357,9 +361,11 @@ class home extends CI_Controller
                 'resi' => $transaction_details[0]->no_resi,
                 'total_early' => $transaction_details[0]->total_early,
                 'discount' => $transaction_details[0]->discount,
+                'ongkos' => $transaction_details[0]->ongkos,
                 'total_final' => $transaction_details[0]->total_final,
                 'result' => $transaction_details,
                 'cash' => $transaction_details[0]->cash,
+                'note' => $transaction_details[0]->note,
                 'remain' => $transaction_details[0]->remain
             );
             // Load the view with the prepared data

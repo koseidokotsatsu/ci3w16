@@ -28,7 +28,6 @@
                             <label>Data</label>
                             <input type="text" name="id_sale" class="form-control" value="<?= $row->id_sale; ?>" readonly>
                             <input type="text" name="total_early" class="form-control" value="<?= $row->total_early; ?>" readonly>
-                            <input type="text" name="total_final" class="form-control" value="<?= $row->total_final; ?>" readonly>
                             <input type="text" name="discount" class="form-control" value="<?= $row->discount; ?>" readonly>
                             <input type="text" name="cash" class="form-control" value="<?= $row->cash; ?>" readonly>
                             <input type="text" name="remain" class="form-control" value="<?= $row->remain; ?>" readonly>
@@ -66,13 +65,17 @@
                         </div>
                         <div class="form-group">
                             <label>Ongkos</label>
-                            <input type="text" name="ongkos" class="form-control" value="<?= $row->ongkos; ?>">
+                            <input type="text" name="ongkos" id="ongkos" class="form-control" value="<?= $row->ongkos; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Final</label>
+                            <input type="text" name="total_final" id="total_final" class="form-control" readonly>
                         </div>
                         <div class="form-group">
                             <label>Accepted<span style="color: #BA3131;">*</span></label>
                             <select name="accepted" class="form-control" required>
                                 <?php if (empty($row->accepted)) : ?>
-                                <option value="" selected disabled>- Accepted -</option>
+                                <option value="" selected disabled>- Choose -</option>
                                 <?php endif; ?>
                                 <option value="yes" <?= ($row->accepted == 'yes') ? 'selected' : ''; ?>>Yes</option>
                                 <option value="no" <?= ($row->accepted == 'no') ? 'selected' : ''; ?>>No</option>
@@ -131,15 +134,61 @@
     document.addEventListener('DOMContentLoaded', function() {
         var expeditionSelect = document.getElementById('expedition');
         var noResiInput = document.getElementById('no_resi');
+        var ongkosInput = document.getElementById('ongkos');
+        var acceptedSelect = document.querySelector('select[name="accepted"]');
+        var cashInput = document.querySelector('input[name="cash"]');
+        var totalFinalInput = document.getElementById('total_final');
 
         expeditionSelect.addEventListener('change', function() {
             if (expeditionSelect.value !== '') {
                 noResiInput.removeAttribute('disabled');
                 noResiInput.focus();
+                ongkosInput.removeAttribute('disabled');
+                acceptedSelect.removeAttribute('disabled');
             } else {
                 noResiInput.value = '';
                 noResiInput.setAttribute('disabled', 'disabled');
+                ongkosInput.value = '';
+                ongkosInput.setAttribute('disabled', 'disabled');
+                acceptedSelect.value = '';
+                acceptedSelect.setAttribute('disabled', 'disabled');
             }
         });
+
+        // Initialize on page load
+        if (expeditionSelect.value === '') {
+            noResiInput.setAttribute('disabled', 'disabled');
+            ongkosInput.setAttribute('disabled', 'disabled');
+            acceptedSelect.setAttribute('disabled', 'disabled');
+        }
+
+        // Fill cash input with total_final when 'Yes' is selected in accepted
+        acceptedSelect.addEventListener('change', function() {
+            if (acceptedSelect.value === 'yes') {
+                cashInput.value = totalFinalInput.value;
+            } else {
+                cashInput.value = ''; // Reset cash input when 'No' or nothing is selected
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var ongkosInput = document.getElementById('ongkos');
+        var totalEarlyInput = document.querySelector('input[name="total_early"]');
+        var totalFinalInput = document.getElementById('total_final');
+
+        // Calculate total_final when ongkos or total_early changes
+        function calculateTotalFinal() {
+            var ongkos = parseFloat(ongkosInput.value) || 0;
+            var totalEarly = parseFloat(totalEarlyInput.value) || 0;
+            var totalFinal = ongkos + totalEarly;
+            totalFinalInput.value = totalFinal; // Display without currency format
+        }
+
+        ongkosInput.addEventListener('input', calculateTotalFinal);
+        totalEarlyInput.addEventListener('input', calculateTotalFinal);
+
+        // Initial calculation
+        calculateTotalFinal();
     });
 </script>

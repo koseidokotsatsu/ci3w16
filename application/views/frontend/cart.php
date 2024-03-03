@@ -56,7 +56,7 @@
                 <div class="col-md-6">
                     <div class="row mb-5">
                         <div class="col-md-6">
-                            <a href="<?= base_url('home/product') ?>" class="btn btn-outline-primary btn-md btn-block">Continue Shopping</a>
+                            <a href="<?= base_url('home/product/' . 1) ?>" class="btn btn-outline-primary btn-md btn-block">Continue Shopping</a>
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
     <div class="container">
         <div class="row align-items-stretch">
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <a href="<?= base_url('home/product') ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_1.jpg');">
+                <a href="<?= base_url('home/product/' . 1) ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_1.jpg');">
                     <div class="banner-1-inner align-self-center">
                         <h2>Pharma Products</h2>
                         <p>Pharma product is manufacturer of liquid pharmaceutical forms. In the world of pharmacy

@@ -74,6 +74,7 @@
                         <th>Receiver</th>
                         <th>Status</th>
                         <th>Resi</th>
+                        <th>Cash</th>
                         <th>Accepted</th>
                         <th>Action</th>
                     </tr>
@@ -92,7 +93,19 @@
                                         echo "Done";
                                     } ?>
                         </td>
-                        <td><?= $data->no_resi ?></td>
+                        <td><?php if ($data->no_resi) { ?>
+                            <?= $data->no_resi ?>
+                            <?php } else {
+                                        echo 'Belum Dikirim';
+                                    } ?>
+                        </td>
+                        <td>
+                            <?php if ($data->total_final != '0') { ?>
+                            Rp.<?= number_format($data->total_final) ?>
+                            <?php } else {
+                                        echo 'Belum Dikirim';
+                                    } ?>
+                        </td>
                         <td><?= $data->accepted == 'yes' ? 'Accepted' : 'Pending' ?></td>
                         <td>
                             <!-- Detail Action Button -->
@@ -110,7 +123,19 @@
                                         echo "Done";
                                     } ?>
                         </td>
-                        <td><?= $data->no_resi ?></td>
+                        <td><?php if ($data->no_resi) { ?>
+                            <?= $data->no_resi ?>
+                            <?php } else {
+                                        echo 'Belum Dikirim';
+                                    } ?>
+                        </td>
+                        <td>
+                            <?php if ($data->total_final != '0') { ?>
+                            Rp.<?= number_format($data->total_final) ?>
+                            <?php } else {
+                                        echo 'Belum Dikirim';
+                                    } ?>
+                        </td>
                         <td><?= $data->accepted == 'yes' ? 'Accepted' : 'Pending' ?></td>
                         <td>
                             <!-- Detail Action Button for Additional Rows -->

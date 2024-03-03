@@ -1,11 +1,22 @@
+<style>
+    @media print {
+        .dontprint {
+            display: none;
+        }
+
+        #wrapper {
+            max-width: 480px;
+            width: 100%;
+            min-width: 250px;
+            margin: 0 auto;
+        }
+    }
+</style>
 <section class="content">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Receipt</h3>
-                    </div>
                     <div id="print-area" class="box-body">
                         <div id="wrapper">
                             <div id="receiptData" style="width: auto; max-width: 580px; min-width: 250px; margin: 0 auto;">
@@ -17,12 +28,20 @@
                                             <p></p>
                                         </div>
                                         <p>
-                                            Tanggal : <?= $date . ' ' . $hour; ?><br>
-                                            Nomor Transaksi : <?= $invoice; ?><br>
-                                            Nama Penerima : <?= $receiver; ?> <br>
-                                            Diterima : <?= $acc; ?> <br>
-                                            Pengiriman : <?= $expedition; ?> <br>
-                                            Nomor Resi : <?= $resi; ?> <br>
+                                            <span style="float: left; width: 50%;">
+                                                Tanggal/Jam: <?= $date . '/' . $hour; ?><br>
+                                                Nomor Transaksi: <?= $invoice; ?><br>
+                                                Nama Penerima: <?= $receiver; ?> <br>
+                                                Note: <?= $note; ?> <br><br>
+                                            </span>
+                                            <span style="float: right; width: 50%;">
+                                                <?php
+                                                $accs = ($acc == 'yes') ? 'Sudah' : 'Belum';
+                                                ?>
+                                                Diterima: <?= $accs; ?> <br>
+                                                Pengiriman: <?= $expedition; ?> <br>
+                                                Nomor Resi: <?= $resi; ?> <br>
+                                            </span>
                                         </p>
                                         <p hidden>
                                             <?= $id_cust; ?> <br>
@@ -31,9 +50,9 @@
                                         <table class="table table-striped table-condensed">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center" style="width: 50%; border-bottom: 2px solid #ddd;">Item name</th>
-                                                    <th class="text-center" style="width: 12%; border-bottom: 2px solid #ddd;">QTY</th>
-                                                    <th class="text-center" style="width: 24%; border-bottom: 2px solid #ddd;">Price</th>
+                                                    <th class="text-center" style="width: 50%; border-bottom: 2px solid #ddd;">Nama Barang</th>
+                                                    <th class="text-center" style="width: 12%; border-bottom: 2px solid #ddd;">Jumlah</th>
+                                                    <th class="text-center" style="width: 24%; border-bottom: 2px solid #ddd;">Harga</th>
                                                     <th class="text-center" style="width: 26%; border-bottom: 2px solid #ddd;">Subtotal</th>
                                                 </tr>
                                             </thead>
@@ -53,8 +72,8 @@
                                                     <th colspan="2" class="text-right">Rp.<?= number_format($total_early); ?></th>
                                                 </tr>
                                                 <tr>
-                                                    <th colspan="2">Discount</th>
-                                                    <th colspan="2" class="text-right">Rp.<?= number_format($discount); ?></th>
+                                                    <th colspan="2">Ongkos</th>
+                                                    <th colspan="2" class="text-right">Rp.<?= number_format($ongkos); ?></th>
                                                 </tr>
                                                 <tr>
                                                     <th colspan="2">Total</th>
@@ -65,26 +84,26 @@
                                         <table class="table table-striped table-condensed" style="margin-top:10px;">
                                             <tbody>
                                                 <tr>
-                                                    <td class="text-right">Cash :</td>
+                                                    <td class="text-right">Diterima :</td>
+                                                    <td><?= $accs; ?></td>
+                                                    <td class="text-right">Uang yang diberikan :</td>
                                                     <td>Rp.<?= number_format($cash); ?></td>
-                                                    <td class="text-right">Remain :</td>
-                                                    <td>Rp.<?= number_format($remain); ?></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <div class="well well-sm" style="margin-top:10px;">
-                                            <div style="text-align: center;">Terimakasih Sudah Belanja :)</div>
+                                            <div style="text-align: center;">Terimakasih Sudah Belanja :<?= ')' ?></div>
                                         </div>
                                     </div>
                                     <div style="clear:both;"></div>
                                 </div>
                             </div>
-                            <div id="buttons" style="padding-top:10px; text-transform:uppercase;" class="no-print">
+                            <div id="buttons" style="padding-top:10px; text-transform:uppercase;" class="dontprint">
                                 <span class="pull-right col-xs-12">
                                     <button onclick="printDiv('print-area')" class="btn btn-block btn-primary">Print</button>
                                 </span>
                                 <span class="col-xs-12">
-                                    <a class="btn btn-block btn-info" href="<?= base_url('home/user') ?>">Kembali ke Penjualan</a>
+                                    <a class="btn btn-block btn-info" href="<?= base_url('home/user') ?>">Kembali</a>
                                 </span>
                                 <div style="clear:both;"></div>
                             </div>

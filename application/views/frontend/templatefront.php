@@ -47,7 +47,7 @@
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
                                 <li><a href="<?= base_url('home') ?>">Home</a></li>
-                                <li><a href="<?= base_url('home/product') ?>">Product</a></li>
+                                <li><a href="<?= base_url('home/product/') . 1 ?>">Product</a></li>
                                 <li><a href="<?= base_url('home/about') ?>">About</a></li>
                                 <li><a href="<?= base_url('home/contact') ?>">Contact</a></li>
                             </ul>
@@ -92,7 +92,7 @@
                     <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
                         <h3 class="footer-heading mb-4">Quick Links</h3>
                         <ul class="list-unstyled">
-                            <li><a href="<?= base_url('home/product') ?>">Product</a></li>
+                            <li><a href="<?= base_url('home/product/') . 1 ?>">Product</a></li>
                             <li><a href="<?= base_url('home/about') ?>">About</a></li>
                             <li><a href="<?= base_url('home/contact') ?>">Contact</a></li>
                         </ul>

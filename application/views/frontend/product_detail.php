@@ -1,7 +1,7 @@
 <div class="bg-light py-3">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mb-0"><a href="<?= base_url('home') ?>">Home</a> <span class="mx-2 mb-0">/</span> <a href="<?= base_url('home/product') ?>">Product</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><?= $item->name ?></strong></div>
+            <div class="col-md-12 mb-0"><a href="<?= base_url('home') ?>">Home</a> <span class="mx-2 mb-0">/</span> <a href="<?= base_url('home/product/' . 1) ?>">Product</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><?= $item->name ?></strong></div>
         </div>
     </div>
 </div>
@@ -49,28 +49,29 @@
             </div>
         </form>
     </div>
+</div>
 
-    <div class="site-section bg-secondary bg-image" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_2.jpg');">
-        <div class="container">
-            <div class="row align-items-stretch">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <a href="<?= base_url('home/product') ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_1.jpg');">
-                        <div class="banner-1-inner align-self-center">
-                            <h2>Pharma Products</h2>
-                            <p>Pharma product is manufacturer of liquid pharmaceutical forms. In the world of pharmacy
-                            </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <a href="<?= base_url('home/contact') ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_2.jpg');">
-                        <div class="banner-1-inner ml-auto  align-self-center">
-                            <h2>We Serve <br> You Better</h2>
-                            <p>We are here to serve you better. Let us know if there's anything we can do to help.
-                            </p>
-                        </div>
-                    </a>
-                </div>
+<div class="site-section bg-secondary bg-image" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_2.jpg');">
+    <div class="container">
+        <div class="row align-items-stretch">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <a href="<?= base_url('home/product/' . 1) ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_1.jpg');">
+                    <div class="banner-1-inner align-self-center">
+                        <h2>Pharma Products</h2>
+                        <p>Pharma product is manufacturer of liquid pharmaceutical forms. In the world of pharmacy
+                        </p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <a href="<?= base_url('home/contact') ?>" class="banner-1 h-100 d-flex" style="background-image: url('<?= base_url('') ?>assets/frontend/images/bg_2.jpg');">
+                    <div class="banner-1-inner ml-auto  align-self-center">
+                        <h2>We Serve <br> You Better</h2>
+                        <p>We are here to serve you better. Let us know if there's anything we can do to help.
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
+</div>

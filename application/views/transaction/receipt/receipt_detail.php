@@ -55,21 +55,20 @@
 </style>
 
 <section class='content'>
-
     <?php if ($this->session->flashdata('message')) { ?>
     <div class="col-lg-12 alerts">
         <div class="alert alert-dismissible alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4> <i class="icon fa fa-check"></i> Success</h4>
+            <h4><i class="icon fa fa-check"></i> Success</h4>
             <p><?= $this->session->flashdata('message'); ?></p>
         </div>
     </div>
-    <?php } else { } ?>
+    <?php } ?>
 
     <div class='row'>
         <div class='col-xs-12'>
             <div class='box box-primary'>
-                <div class='box-header  with-border'>
+                <div class='box-header with-border'>
                     <h3 class='box-title'>Receipt</h3>
                 </div>
                 <div id="print-area">
@@ -84,13 +83,24 @@
                                             <p></p>
                                         </div>
                                         <p>
-                                            Tanggal : <?= $date . ' ' . $hour; ?> <br>
-                                            Nomor Transaksi : <?= $invoice; ?><br>
-                                            Nama Pelanggan : <?= $customer; ?> <br>
-                                            Dikirim : <?= $deliver; ?> <br>
-                                            Diterima : <?= $acc; ?> <br>
-                                            Pengiriman : <?= $expedition; ?> <br>
-                                            Nomor Resi : <?= $resi; ?> <br>
+                                            <?php
+                                            $accs = ($acc == 'yes') ? 'Yes' : 'No';
+                                            $dev = ($deliver == 'yes') ? 'Yes' : 'No';
+                                            ?>
+                                            <span style="float: left; width: 50%;">Date/Hour: <?= $date . '/' . $hour; ?><br>
+                                                Invoice Number: <?= $invoice; ?><br>
+                                                Customer Name: <?= $customer; ?> <br>
+                                                Delivery: <?= $dev; ?> <br>
+                                                Note: <?= $note; ?> <br><br><br>
+                                            </span>
+                                            <span style="float: right; width: 50%;">
+                                                <?php if ($deliver == 'yes') { ?>
+                                                Receiver Name: <?= $receiver; ?> <br>
+                                                Accepted: <?= $accs; ?> <br>
+                                                Expedition: <?= $expedition; ?> <br>
+                                                Resi Number: <?= $resi; ?>
+                                                <?php } ?>
+                                            </span>
                                         </p>
                                         <div style="clear:both;"></div>
                                         <table class="table table-striped table-condensed">
@@ -103,23 +113,26 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php
-
-                                                foreach ($result as $row) { ?>
+                                                <?php foreach ($result as $row) { ?>
                                                 <tr>
                                                     <td><?= $row->name; ?></td>
                                                     <td style="text-align:center;"><?= $row->qty; ?></td>
                                                     <td class="text-center">Rp.<?= number_format($row->price); ?></td>
                                                     <td class="text-right">Rp.<?= number_format($row->sub_total); ?></td>
                                                 </tr>
-                                                <?php }
-                                                ?>
+                                                <?php } ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="2">Subtotal</th>
                                                     <th colspan="2" class="text-right">Rp.<?= number_format($total_early); ?></th>
                                                 </tr>
+                                                <?php if ($deliver == 'yes') { ?>
+                                                <tr>
+                                                    <th colspan="2">Ongkos</th>
+                                                    <th colspan="2" class="text-right">Rp.<?= number_format($ongkos); ?></th>
+                                                </tr>
+                                                <?php } ?>
                                                 <tr>
                                                     <th colspan="2">Discount</th>
                                                     <th colspan="2" class="text-right">Rp.<?= number_format($discount); ?></th>
@@ -133,6 +146,10 @@
                                         <table class="table table-striped table-condensed" style="margin-top:10px;">
                                             <tbody>
                                                 <tr>
+                                                    <?php if ($deliver == 'yes') { ?>
+                                                    <td class="text-right">Accepted :</td>
+                                                    <td><?= $accs; ?></td>
+                                                    <?php } ?>
                                                     <td class="text-right">Cash :</td>
                                                     <td>Rp.<?= number_format($cash); ?></td>
                                                     <td class="text-right">Remain :</td>
@@ -141,7 +158,7 @@
                                             </tbody>
                                         </table>
                                         <div class="well well-sm" style="margin-top:10px;">
-                                            <div style="text-align: center;">Terimakasih Sudah Belanja :)</div>
+                                            <div style="text-align: center;">Terimakasih Sudah Belanja :<?= ')' ?></div>
                                         </div>
                                     </div>
                                     <div style="clear:both;"></div>
@@ -149,7 +166,8 @@
                             </div>
                             <div id="buttons" style="padding-top:10px; text-transform:uppercase;" class="no-print">
                                 <span class="pull-right col-xs-12">
-                                    <button onclick="printDiv('print-area')" class="btn btn-block btn-primary">Print</button> </span>
+                                    <button onclick="printDiv('print-area')" class="btn btn-block btn-primary">Print</button>
+                                </span>
                                 <span class="col-xs-12">
                                     <a class="btn btn-block btn-warning" href="<?= base_url('sale') ?>">Kembali ke Penjualan</a>
                                 </span>
