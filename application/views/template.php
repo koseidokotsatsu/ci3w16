@@ -221,10 +221,11 @@
                     <li <?= $this->uri->segment(1) == 'contact' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?>>
                         <a href="<?= site_url('contact'); ?>">
                             <?php if ($unreadmessage) { ?>
-                            <i class="fa fa-dot-circle-o text-info"></i>Contact
+                            <i class="fa fa-dot-circle-o text-info"></i><span>Contact </span>
                             <span class="label pull-right bg-blue">new</span>
                             <?php } else { ?>
-                            <i class="fa fa-dot-circle-o"></i>Contact
+                            <i class="fa fa-dot-circle-o"></i>
+                            <span>Contact </span>
                             <?php } ?>
                         </a>
                     </li>

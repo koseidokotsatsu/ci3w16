@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Struk
+        Sale
         <small>Data Sale</small>
     </h1>
     <ol class="breadcrumb">
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2" style="padding-top:25px;">
+                <div class="col-md-2" style="padding-top:25px; padding-bottom:25px;">
                     <button type="submit" name="search" id="search" value="Search" class="btn btn-info"> Search</button>
                 </div>
                 </form>
@@ -93,7 +93,10 @@
                         <?php
                             echo anchor(site_url('sale/receipt_detail/' . $data->id_sale), '<i class="fa fa-eye"></i>&nbsp;&nbsp;Detail', array('title' => 'edit', 'class' => 'btn btn-primary btn-xs'));
                             echo '&nbsp';
-                            echo anchor(site_url('receipt/hapus/' . $data->id_sale), '<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;Hapus', 'title="delete" class="btn btn-danger btn-xs "');
+                            if ($this->session->userdata('level') == 1) {
+                                // Display the delete button
+                                echo anchor(site_url('receipt/hapus/' . $data->id_sale), '<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;Hapus', 'title="delete" class="btn btn-danger btn-xs "');
+                            }
                             ?>
                     </td>
                 </tr>

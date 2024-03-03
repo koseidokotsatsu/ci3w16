@@ -6,7 +6,7 @@
 </section>
 
 <!-- Main content -->
-<section class="content">
+<section class="content col-lg-6">
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">Data Users</h3>

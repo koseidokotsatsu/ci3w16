@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Mar 2024 pada 12.09
+-- Waktu pembuatan: 04 Mar 2024 pada 00.45
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -188,9 +188,9 @@ CREATE TABLE `p_item` (
 INSERT INTO `p_item` (`id_item`, `barcode`, `id_general_name`, `name`, `description`, `id_category`, `id_type`, `id_unit`, `price`, `stock`, `image`, `created_at`, `updated_at`) VALUES
 (29, 'P002', '2,9', 'Ponstan 500mg 10 Per Tablet', 'Ponstan adalah obat yang mengandung Asam Mefenamat digunakan sebagai pereda nyeri, dismenore, nyeri ringan khususnya ketika pasien juga mengalami peradangan, dan mengurangi gangguan inflamasi (peradangan) secara umum.', 14, 2, 13, 38000, 136, 'item-231219-5d3466bfe1.jpg', '2023-12-19 21:54:20', '2024-03-02 09:23:23'),
 (32, 'A011', '1,9', 'Panadol Extra', 'Panadol meredakan sakit kepala, sakit gigi, sakit pada otot, nyeri yang mengganggu dan menurunkan demam secara cepat dan efektif. Baca aturan pakai, jika sakit berlanjut hubungi dokter.', 13, 2, 11, 1200, 50, 'item-240227-4d2107119f.png', '2024-02-27 23:53:39', '2024-03-02 09:21:22'),
-(33, 'A012', '7', 'Ranitidine HCl', 'RANITIDINE  obat yang di gunakan untuk mengobati penyakit-penyakit yang di sebabkan oleh kelebihan produksi asam lambung, seperti sakit maag dan tukak lambung. Ranitidine termasuk golongan antagonis reseptor histamin H2 yang bekerja dengan cara menghambat secara kompetitif kerja reseptor histamin H2, yang sangat berperan dalam sekresi asam lambung. ', 14, 2, 11, 12000, 97, 'item-240302-53dd41be11.png', '2024-02-29 06:23:48', '2024-03-02 09:20:41'),
+(33, 'A012', '7', 'Ranitidine HCl', 'RANITIDINE  obat yang di gunakan untuk mengobati penyakit-penyakit yang di sebabkan oleh kelebihan produksi asam lambung, seperti sakit maag dan tukak lambung. Ranitidine termasuk golongan antagonis reseptor histamin H2 yang bekerja dengan cara menghambat secara kompetitif kerja reseptor histamin H2, yang sangat berperan dalam sekresi asam lambung. ', 14, 2, 11, 12000, 95, 'item-240302-53dd41be11.png', '2024-02-29 06:23:48', '2024-03-02 09:20:41'),
 (34, 'S001', '8', 'Salbutamol Yarindo 2mg Tablet', 'Salbutamol Yarindo diproduksi oleh PT. Yarindo Farmatama- Indonesia dengan no.registrasi GKL9832707710A1 yang mengandung Salbutamol 2mg. Salbutamol merupakan obat saluran nafas yang digunakan untuk mencegah bronkospasme pada semua jenis asma bronkial. Salbutamol obat golongan bronkodilator yang dapat meredakan batuk, mengi, sesak napas, dan pernapasan yang terganggu dengan meningkatkan aliran udara melalui saluran bronkial. Salbutamol hanya dapat diperoleh dengan resep dokter.', 14, 2, 11, 213, 88, 'item-240229-1e82182cde.jpg', '2024-02-29 12:43:28', '2024-03-01 00:41:39'),
-(35, 'G002', '1001', 'Avamys Nasal Spray 120ml', 'Avamys merupakan obat semprot hidung yang digunakan untuk melembabkan membran nasal (hidung) yang kering dan meradang karena pilek dan melegakan hidung tersumbat.', 14, 34, 11, 310000, 98, 'item-240302-c9e6942e31.png', '2024-03-02 16:03:55', NULL);
+(35, 'G002', '1001', 'Avamys Nasal Spray 120ml', 'Avamys merupakan obat semprot hidung yang digunakan untuk melembabkan membran nasal (hidung) yang kering dan meradang karena pilek dan melegakan hidung tersumbat.', 14, 34, 11, 310000, 96, 'item-240302-c9e6942e31.png', '2024-03-02 16:03:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -313,24 +313,9 @@ CREATE TABLE `t_payment` (
 --
 
 INSERT INTO `t_payment` (`id_transaction`, `id_sale`, `id_item`, `qty`, `price`, `sub_total`) VALUES
-(3, 50, 16, 3, 4500, 13500),
-(4, 51, 27, 96, 12240, 12240),
-(5, 52, 27, 96, 12240, 12240),
-(6, 53, 27, 96, 12240, 12240),
-(7, 54, 27, 96, 12240, 12240),
-(8, 57, 27, 96, 12240, 24480),
-(9, 59, 27, 96, 12240, 12240),
-(10, 60, 27, 96, 12240, 12240),
-(11, 61, 27, 96, 12240, 36720),
-(12, 62, 27, 4, 12240, 48960),
-(13, 64, 27, 4, 12240, 48960),
-(14, 65, 27, 3, 12500, 37500),
-(15, 66, 29, 12, 38000, 456000),
-(45, 97, 32, 1, 1200, 1200),
-(46, 97, 29, 1, 38000, 38000),
-(47, 98, 34, 10, 213, 2130),
-(48, 99, 32, 5, 1200, 6000),
-(49, 100, 32, 3, 1200, 3600);
+(50, 104, 35, 1, 310000, 310000),
+(51, 104, 33, 2, 12000, 24000),
+(52, 105, 35, 1, 310000, 310000);
 
 -- --------------------------------------------------------
 
@@ -368,10 +353,8 @@ CREATE TABLE `t_sale` (
 --
 
 INSERT INTO `t_sale` (`id_sale`, `invoice`, `customer_id`, `customer_name`, `total_early`, `total_final`, `discount`, `cash`, `remain`, `note`, `delivery`, `no_resi`, `expedition`, `receiver`, `receiver_phone`, `address`, `pos_code`, `ongkos`, `accepted`, `date_tf`, `hour_tf`, `updated_at`) VALUES
-(97, 'MP2403030001', NULL, 'Umum', 39200, 35200, 4000, 100000, 64800, '', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-03-03', '10:48:49', NULL),
-(98, 'MP2403030002', NULL, 'Umum', 2130, 2130, 0, 5000, 2870, 'Dipakai teratur, 2x sehari', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-03-03', '10:51:21', NULL),
-(99, 'MP2403030003', 7, 'John Decoy', 6000, 10000, 0, 10000, 0, '', 'yes', 'JT00123231', 'J&T', 'John Decoy', '+62 882 237 784', 'Pajajaran, Bandung', '40173', 4000, 'yes', '2024-03-03', '11:15:41', '2024-03-03 11:19:31'),
-(100, 'MP2403030004', 7, 'John Decoy', 3600, 13600, 0, 13600, 0, 'Go fast pls', 'yes', '43423423423423', 'J&T', 'Brian May', '+62 882 237 784', 'Pajajaran, Bandung', '40173', 10000, 'yes', '2024-03-03', '11:20:24', '2024-03-03 12:03:39');
+(104, 'MP2403030001', 8, 'Raditya Abib', 334000, 359000, 0, 359000, 0, '', 'yes', 'JB0033526964', 'J&T', 'Raditya Abib', '+62235468531', 'Jl. Ringroad Selatan, Menayu Lor', '551423', 25000, 'yes', '2024-03-03', '23:32:06', '2024-03-03 23:48:28'),
+(105, 'MP2403040001', NULL, 'Umum', 310000, 300000, 10000, 300000, 0, 'Dipakai secara teratur, pagi dan malam dijam 6-8 pagi atau malam, 2 kali semprot.', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-03-04', '00:14:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -414,6 +397,9 @@ CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `password` varchar(200) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `pos_code` varchar(255) DEFAULT NULL,
+  `gender` enum('L','P') DEFAULT NULL,
   `img` varchar(255) NOT NULL,
   `level` int(11) NOT NULL COMMENT '1:admin,2:staff',
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
@@ -423,12 +409,12 @@ CREATE TABLE `user` (
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id_user`, `username`, `password`, `name`, `img`, `level`, `created_at`) VALUES
-(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin', 'default.jpg', 1, '2023-10-09 09:30:25'),
-(6, 'raesoxee', '8cb2237d0679ca88db6464eac60da96345513964', 'Ranggita Putri Alya', '2_21.gif', 1, '2023-12-18 09:58:05'),
-(7, 'radityaabib', '8cb2237d0679ca88db6464eac60da96345513964', 'Raditya Abib', '1_21.gif', 1, '2023-12-19 13:08:42'),
-(8, 'qoqon', '8cb2237d0679ca88db6464eac60da96345513964', 'Muhammad Furqon ', '9b3329cf0e7a81130a97a9021a4797181.jpg', 2, '2023-12-19 13:10:43'),
-(10, 'tested', '880949479ab16e56ead7c08f91861fc6fc708af0', 'Tested', 'aea72c4777a405dde87b7741b8a8552a1.gif', 2, '2024-01-31 08:06:26');
+INSERT INTO `user` (`id_user`, `username`, `password`, `name`, `address`, `pos_code`, `gender`, `img`, `level`, `created_at`) VALUES
+(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin', NULL, NULL, NULL, 'default.jpg', 1, '2023-10-09 09:30:25'),
+(6, 'raesoxee', '8cb2237d0679ca88db6464eac60da96345513964', 'Ranggita Putri Alya', NULL, NULL, NULL, '2_21.gif', 1, '2023-12-18 09:58:05'),
+(7, 'radityaabib', '8cb2237d0679ca88db6464eac60da96345513964', 'Raditya Abib', NULL, NULL, NULL, '1_21.gif', 1, '2023-12-19 13:08:42'),
+(8, 'qoqon', '8cb2237d0679ca88db6464eac60da96345513964', 'Muhammad Furqon ', 'Kelet, Keling, Jepara', '51123', 'L', '9b3329cf0e7a81130a97a9021a4797181.jpg', 2, '2023-12-19 13:10:43'),
+(10, 'tested', '880949479ab16e56ead7c08f91861fc6fc708af0', 'Tested', 'Tested, Tested, Tested, Tested, Tested, ', '54523', 'P', 'aea72c4777a405dde87b7741b8a8552a1.gif', 2, '2024-01-31 08:06:26');
 
 --
 -- Indexes for dumped tables
@@ -580,13 +566,13 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `t_payment`
 --
 ALTER TABLE `t_payment`
-  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_sale`
 --
 ALTER TABLE `t_sale`
-  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id_sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_stock`

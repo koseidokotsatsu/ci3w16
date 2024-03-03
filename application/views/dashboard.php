@@ -166,14 +166,6 @@ $login = $this->session->flashdata('login');
                 continue;
               }
 
-              // Check if the logged-in user is not level 1
-              if ($this->session->userdata('level') != 1) {
-                // Only display users with level 2
-                if ($data->level != 2) {
-                  continue;
-                }
-              }
-
               // Increment the counter
               $counter++;
 

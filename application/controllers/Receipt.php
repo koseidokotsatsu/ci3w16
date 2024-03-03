@@ -24,6 +24,7 @@ class Receipt extends CI_Controller
 
     function hapus($id)
     {
+        check_level();
         $this->m_receipt->hapus_trf($id);
         $this->m_receipt->hapus_id($id);
         redirect('receipt');
