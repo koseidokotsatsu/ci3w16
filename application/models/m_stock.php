@@ -22,8 +22,9 @@ class m_stock extends CI_Model
 
     public function get_stock_in()
     {
-        $this->db->select('t_stock.id_stock, p_item.barcode, p_item.name as item_name, qty, date, detail, supplier.name as supplier_name, p_item.id_item, p_unit.name as unit_name');
+        $this->db->select('t_stock.id_stock, user.name, user.username, p_item.barcode, p_item.name as item_name, qty, date, detail, supplier.name as supplier_name, p_item.id_item, p_unit.name as unit_name');
         $this->db->from('t_stock');
+        $this->db->join('user', 't_stock.id_user = user.id_user');
         $this->db->join('p_item', 't_stock.id_item = p_item.id_item');
         $this->db->join('p_unit', 'p_item.id_unit = p_unit.id_unit');
         $this->db->join('supplier', 't_stock.id_supplier = supplier.id_supplier', 'left');
@@ -34,8 +35,9 @@ class m_stock extends CI_Model
     }
     public function get_stock_out()
     {
-        $this->db->select('t_stock.id_stock, p_item.barcode, p_item.name as item_name, qty, date, detail, supplier.name as supplier_name, p_item.id_item, p_unit.name as unit_name');
+        $this->db->select('t_stock.id_stock, user.name, user.username, t_stock.id_user, p_item.barcode, p_item.name as item_name, qty, date, detail, supplier.name as supplier_name, p_item.id_item, p_unit.name as unit_name');
         $this->db->from('t_stock');
+        $this->db->join('user', 't_stock.id_user = user.id_user');
         $this->db->join('p_item', 't_stock.id_item = p_item.id_item');
         $this->db->join('p_unit', 'p_item.id_unit = p_unit.id_unit');
         $this->db->join('supplier', 't_stock.id_supplier = supplier.id_supplier', 'left');
