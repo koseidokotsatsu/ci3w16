@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Mar 2024 pada 00.45
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Waktu pembuatan: 14 Mar 2024 pada 15.03
+-- Versi server: 10.4.22-MariaDB
+-- Versi PHP: 8.1.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -38,7 +38,7 @@ CREATE TABLE `customer` (
   `pos_code` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `customer`
@@ -64,14 +64,14 @@ CREATE TABLE `f_about_content` (
   `img` varchar(256) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `f_about_content`
 --
 
 INSERT INTO `f_about_content` (`id_abtent`, `title`, `description`, `link`, `img`, `created_at`, `updated_at`) VALUES
-(2, 'Queen - Bohemian Rhapsody', '\"Bohemian Rhapsody\" adalah sebuah lagu oleh band rock asal Inggris, Queen. Lagu tersebut ditulis oleh Freddie Mercury untuk album A Night at the Opera (1975). Lagu ini berdurasi hampir enam menit,[1] yang terdiri dari beberapa bagian tanpa chorus: intro, segmen ballad, sebagian opera, sebagian rock, dan coda reflektif.[2] Lagu ini lebih sering dicatutkan dalam genre progresif rock ala 1970-an.', 'https://www.youtube.com/watch?v=N0dbGGvsjf8&ab_channel=Vander', 'aboutc-240302-19fb0495ef.jpg', '2024-03-02 10:40:44', '2024-03-02 05:14:14'),
+(2, 'Queen - Bohemian Rhapsody', '\"Bohemian Rhapsody\" adalah sebuah lagu oleh band rock asal Inggris, Queen. Lagu tersebut ditulis oleh Freddie Mercury untuk album A Night at the Opera (1975). Lagu ini berdurasi hampir enam menit,[1] yang terdiri dari beberapa bagian tanpa chorus: intro, segmen ballad, sebagian opera, sebagian rock, dan coda reflektif.[2] Lagu ini lebih sering dicatutkan dalam genre progresif rock ala 1970-an.', 'https://www.youtube.com/watch?v=N0dbGGvsjf8&ab_channel=Vander', 'aboutc-240302-19fb0495ef.jpg', '2024-03-02 10:40:44', '2024-03-04 03:27:09'),
 (3, 'Queen - We Will Rock You', 'Buddy, you\'re a boy, make a big noise\r\nPlaying in the street, gonna be a big man someday\r\nYou got mud on your face, you big disgrace\r\nKicking your can all over the place, singin\'', 'https://www.youtube.com/watch?v=-tJYN-eG1zk&ab_channel=QueenOfficial', 'aboutc-240302-321ac1840e.jpg', '2024-03-02 11:19:13', '2024-03-02 10:12:28');
 
 -- --------------------------------------------------------
@@ -90,7 +90,7 @@ CREATE TABLE `f_contact` (
   `readed` enum('0','1') NOT NULL COMMENT '''1 is yes'',''0 is no''',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `f_contact`
@@ -103,7 +103,8 @@ INSERT INTO `f_contact` (`id_contact`, `firstname`, `lastname`, `email`, `subjec
 (4, 'Raditya', 'Abib', 'abibgamer30@gmail.com', '12313412412', '32131232', '1', '2024-03-01 23:46:21', '2024-03-02 06:37:31'),
 (5, 'Raditya', 'Abib', 'abibgamer30@gmail.com', '12313412412', '123456t7tfced576b6rfvd4b56rd567bcv', '1', '2024-03-02 13:44:33', '2024-03-02 07:44:50'),
 (6, 'Raditya', 'Abib', 'abibgamer30@gmail.com', 'Pengiriman dan saya tertolong', 'saya memesan avamys pukul 2 siang dan pukul 3 pesanan sudah saya terima, saya berterimakasih atas layanannya, saya akan terus memilih OurPharmacy untuk kedepannya, terimakasih.', '1', '2024-03-02 16:16:11', '2024-03-02 10:16:54'),
-(7, 'Raditya', 'Abib', 'abibgamer30@gmail.com', 'test', 'test', '1', '2024-03-03 18:08:37', '2024-03-03 12:08:42');
+(7, 'Raditya', 'Abib', 'abibgamer30@gmail.com', 'test', 'test', '1', '2024-03-03 18:08:37', '2024-03-03 12:08:42'),
+(8, 'Raditya', 'Abib', 'abibgamer30@gmail.com', '123456789', '1234567890', '1', '2024-03-04 11:55:53', '2024-03-04 05:56:08');
 
 -- --------------------------------------------------------
 
@@ -116,7 +117,7 @@ CREATE TABLE `p_category` (
   `name` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `p_category`
@@ -142,7 +143,7 @@ CREATE TABLE `p_general_name` (
   `name` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `p_general_name`
@@ -179,7 +180,7 @@ CREATE TABLE `p_item` (
   `image` varchar(100) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `p_item`
@@ -203,7 +204,7 @@ CREATE TABLE `p_type` (
   `name` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `p_type`
@@ -256,7 +257,7 @@ CREATE TABLE `p_unit` (
   `name` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `p_unit`
@@ -282,7 +283,7 @@ CREATE TABLE `supplier` (
   `description` text DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `supplier`
@@ -306,7 +307,7 @@ CREATE TABLE `t_payment` (
   `qty` int(11) NOT NULL,
   `price` bigint(20) NOT NULL,
   `sub_total` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `t_payment`
@@ -346,7 +347,7 @@ CREATE TABLE `t_sale` (
   `date_tf` date NOT NULL,
   `hour_tf` time NOT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `t_sale`
@@ -372,7 +373,7 @@ CREATE TABLE `t_stock` (
   `date` date NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `id_user` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `t_stock`
@@ -403,7 +404,7 @@ CREATE TABLE `user` (
   `img` varchar(255) NOT NULL,
   `level` int(11) NOT NULL COMMENT '1:admin,2:staff',
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `user`
@@ -414,7 +415,7 @@ INSERT INTO `user` (`id_user`, `username`, `password`, `name`, `address`, `pos_c
 (6, 'raesoxee', '8cb2237d0679ca88db6464eac60da96345513964', 'Ranggita Putri Alya', NULL, NULL, NULL, '2_21.gif', 1, '2023-12-18 09:58:05'),
 (7, 'radityaabib', '8cb2237d0679ca88db6464eac60da96345513964', 'Raditya Abib', NULL, NULL, NULL, '1_21.gif', 1, '2023-12-19 13:08:42'),
 (8, 'qoqon', '8cb2237d0679ca88db6464eac60da96345513964', 'Muhammad Furqon ', 'Kelet, Keling, Jepara', '51123', 'L', '9b3329cf0e7a81130a97a9021a4797181.jpg', 2, '2023-12-19 13:10:43'),
-(10, 'tested', '880949479ab16e56ead7c08f91861fc6fc708af0', 'Tested', 'Tested, Tested, Tested, Tested, Tested, ', '54523', 'P', 'aea72c4777a405dde87b7741b8a8552a1.gif', 2, '2024-01-31 08:06:26');
+(11, 'fredy', '8cb2237d0679ca88db6464eac60da96345513964', 'Frederick Mercury', NULL, NULL, NULL, 'fredikc1.jpg', 1, '2024-03-04 09:20:54');
 
 --
 -- Indexes for dumped tables
@@ -524,7 +525,7 @@ ALTER TABLE `f_about_content`
 -- AUTO_INCREMENT untuk tabel `f_contact`
 --
 ALTER TABLE `f_contact`
-  MODIFY `id_contact` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_contact` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `p_category`
@@ -584,7 +585,7 @@ ALTER TABLE `t_stock`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
